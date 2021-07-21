@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:fontFamily="@font/sf_ui_display_bold"
+        android:gravity="center"
+        android:paddingVertical="15dp"
+        android:text="Проверить пропуск"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivTopCard"
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ic_rectangle_round_10_black_solid"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+    <TextView
+        android:id="@+id/tvTopCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sf_ui_display_bold"
+        android:gravity="center"
+        android:paddingVertical="5dp"
+        android:text="МКАД ТТК СК"
+        android:textColor="#fff"
+        android:textSize="17sp"
+        app:layout_constraintTop_toTopOf="@+id/ivTopCard" />
+
+    <ImageView
+        android:id="@+id/ivTopTruck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:src="@drawable/ic_truck"
+        app:layout_constraintStart_toStartOf="@id/ivTopCard"
+        app:layout_constraintTop_toBottomOf="@id/tvTopCard" />
+
+    <ImageView
+        android:id="@+id/ivTopTruckLong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ic_truck_long"
+        app:layout_constraintStart_toStartOf="@id/ivTopTruck"
+        app:layout_constraintTop_toBottomOf="@id/ivTopTruck" />
+
+    <TextView
+        android:id="@+id/tvTopTruck"
+        android:textSize="14sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sf_ui_display_bold"
+        android:paddingVertical="5dp"
+        android:text="От 3.5 тонн\nдень "
+        android:textColor="#fff"
+        app:layout_constraintEnd_toEndOf="@id/ivTopCard"
+        app:layout_constraintHorizontal_bias="0.60"
+        app:layout_constraintStart_toEndOf="@+id/ivTopTruck"
+        app:layout_constraintTop_toTopOf="@+id/ivTopTruck" />
+
+    <TextView
+        android:id="@+id/tvTopTruckLong"
+        android:textSize="14sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sf_ui_display_bold"
+        android:paddingVertical="5dp"
+        android:text="От 12 тонн\nдень/ночь"
+        android:textColor="#fff"
+        app:layout_constraintStart_toStartOf="@+id/tvTopTruck"
+        app:layout_constraintTop_toTopOf="@+id/ivTopTruckLong" />
+
+    <ImageView
+        android:id="@+id/ivBottomCard"
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ic_rectangle_round_10_black_solid"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivTopCard" />
+
+    <TextView
+        android:id="@+id/tvBottomCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sf_ui_display_bold"
+        android:gravity="center"
+        android:paddingVertical="10dp"
+        android:text="Введите гос номер ТС"
+        android:textColor="#fff"
+        android:textSize="17sp"
+        app:layout_constraintTop_toTopOf="@+id/ivBottomCard" />
+
+    <View
+        android:id="@+id/vNumberHolder"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginHorizontal="28dp"
+        android:background="@drawable/ic_rectangle_round_8_lightgray"
+        app:layout_constraintBottom_toBottomOf="@+id/ivBottomCard"
+        app:layout_constraintEnd_toEndOf="@+id/ivBottomCard"
+        app:layout_constraintStart_toStartOf="@+id/ivBottomCard"
+        app:layout_constraintTop_toBottomOf="@+id/tvBottomCard" />
+
+    <ImageView
+        android:id="@+id/ivCircleStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="9dp"
+        android:src="@drawable/ic_ellipse"
+        app:layout_constraintBottom_toBottomOf="@+id/vNumberHolder"
+        app:layout_constraintStart_toStartOf="@+id/vNumberHolder"
+        app:layout_constraintTop_toTopOf="@+id/vNumberHolder" />
+
+    <ImageView
+        android:id="@+id/ivCircleEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="9dp"
+        android:src="@drawable/ic_ellipse"
+        app:layout_constraintBottom_toBottomOf="@+id/vNumberHolder"
+        app:layout_constraintEnd_toEndOf="@+id/vNumberHolder"
+        app:layout_constraintTop_toTopOf="@+id/vNumberHolder" />
+
+    <View
+        android:id="@+id/vSeperatorNumber"
+        android:layout_width="2dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="110dp"
+        android:background="#fff"
+        app:layout_constraintBottom_toBottomOf="@+id/vNumberHolder"
+        app:layout_constraintEnd_toEndOf="@+id/vNumberHolder"
+        app:layout_constraintTop_toTopOf="@+id/vNumberHolder" />
+
+    <EditText
+        android:inputType="textCapCharacters"
+        android:imeOptions="actionNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/sf_ui_display_light"
+        android:hint="А000АА"
+        android:maxLength="6"
+        android:textColor="#fff"
+        android:textColorHint="#B9B9B9"
+        android:textSize="33sp"
+        app:layout_constraintBottom_toBottomOf="@+id/vNumberHolder"
+        app:layout_constraintEnd_toStartOf="@+id/vSeperatorNumber"
+        app:layout_constraintStart_toEndOf="@+id/ivCircleStart"
+        app:layout_constraintTop_toTopOf="@+id/vNumberHolder" />
+
+    <EditText
+        android:inputType="number"
+        android:imeOptions="actionDone"
+        android:id="@+id/etEndNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/sf_ui_display_light"
+        android:hint="000"
+        android:maxLength="3"
+        android:textColor="#fff"
+        android:textColorHint="#B9B9B9"
+        android:textSize="33sp"
+        app:layout_constraintBottom_toBottomOf="@+id/vNumberHolder"
+        app:layout_constraintEnd_toStartOf="@+id/ivCircleEnd"
+        app:layout_constraintStart_toStartOf="@+id/vSeperatorNumber"
+        app:layout_constraintTop_toTopOf="@+id/vNumberHolder" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/ic_flag_ru"
+        android:drawablePadding="3dp"
+        android:fontFamily="@font/sf_ui_display_light"
+        android:text="RUS"
+        android:textSize="12sp"
+        android:textColor="#fff"
+        app:layout_constraintTop_toBottomOf="@+id/etEndNumber"
+        app:layout_constraintBottom_toBottomOf="@+id/etEndNumber"
+        app:layout_constraintEnd_toEndOf="@+id/etEndNumber"
+        app:layout_constraintStart_toStartOf="@+id/etEndNumber" />
+    <TextView
+        android:layout_marginTop="35dp"
+        android:layout_width="wrap_content"
+        android:paddingVertical="12dp"
+        android:textSize="14sp"
+        android:fontFamily="@font/sf_ui_display_light"
+        android:paddingHorizontal="25dp"
+        android:text="Проверить пропуск"
+        android:textColor="#828282"
+        android:background="@drawable/ic_rectangle_round_4_gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivBottomCard"
+        android:layout_height="wrap_content"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

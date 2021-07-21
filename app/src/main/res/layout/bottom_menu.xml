@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimaryDark"
+    android:orientation="horizontal">
+
+    <TextView
+        android:foreground="?selectableItemBackgroundBorderless"
+        android:id="@+id/btnBottom1"
+        android:paddingTop="15dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:textColor="@color/bottom_menu_color"
+        android:drawableTop="@drawable/ic_search"
+        android:gravity="center"
+        android:text="Проверить\n" />
+    <TextView
+        android:foreground="?selectableItemBackgroundBorderless"
+        android:id="@+id/btnBottom2"
+        android:paddingTop="15dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:textColor="@color/bottom_menu_color"
+        android:drawableTop="@drawable/ic_user"
+        android:gravity="center"
+        android:text="Кабинет\n" />
+    <TextView
+        android:foreground="?selectableItemBackgroundBorderless"
+        android:id="@+id/btnBottom3"
+        android:paddingTop="15dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:drawableTop="@drawable/ic_pen_tool"
+        android:gravity="center"
+        android:textColor="@color/bottom_menu_color"
+        android:text="Оформить\n" />
+
+
+</LinearLayout>
