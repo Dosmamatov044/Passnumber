@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 30
@@ -27,6 +29,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
     applicationVariants.all { variant ->
         variant.outputs.all { output ->
             outputFileName = "PassNumber" + time_apk() + ".apk"
@@ -43,5 +49,41 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+
+    /**
+     * Hilt dependencies
+     */
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+    /**
+     * Hilt with ViewModel
+     */
+    def hilt_jetpack_version = "1.0.0-alpha02"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_jetpack_version"
+    kapt "androidx.hilt:hilt-compiler:$hilt_jetpack_version"
+
+    /**
+     * Navigation dependencies contains viewmodel dependencies
+     */
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
+
+    /**
+     * Retrofit with Moshi Converter
+     */
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
+
+    /**
+     * Moshi
+     */
+    implementation "com.squareup.moshi:moshi-kotlin:1.9.3"
+
+    /**
+     * MASK EditeText
+     */
+    implementation 'io.github.vicmikhailau:MaskedEditText:4.0.5'
 
 }

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:animateLayoutChanges="true"
+    android:background="#000">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:fontFamily="@font/sf_ui_display_bold"
+        android:gravity="center"
+        android:paddingVertical="15dp"
+        android:text="Проверка пропуска"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivTopCard"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ic_rectangle_round_10_black_solid"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+
+    <ImageView
+        android:id="@+id/ivTopTruck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:src="@drawable/ic_toggle"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/ivTopCard"
+        app:layout_constraintStart_toStartOf="@id/ivTopCard"
+        app:layout_constraintTop_toTopOf="@id/ivTopCard" />
+
+    <ImageView
+        android:id="@+id/ivTopTruck1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:src="@drawable/img_toggle"
+        app:layout_constraintBottom_toBottomOf="@+id/ivTopCard"
+        app:layout_constraintStart_toStartOf="@id/ivTopCard"
+        app:layout_constraintTop_toTopOf="@id/ivTopCard" />
+
+
+    <TextView
+        android:id="@+id/tvTopTruck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/sf_ui_display_light"
+        android:gravity="end"
+        android:paddingVertical="5dp"
+        android:text="Подписаться на уведомления\nоб изменениях, ануляции и\nокончании срока дейсвия\nпропуска"
+        android:textColor="#fff"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivTopCard"
+        app:layout_constraintEnd_toEndOf="@id/ivTopCard"
+        app:layout_constraintTop_toTopOf="@id/ivTopCard" />
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/llSubscribe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="2dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivTopCard">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_ui_display_light"
+            android:text="Имя"
+            android:textColor="#fff"
+            android:textSize="17sp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#C8C7CC"
+            android:fontFamily="@font/sf_ui_display_light"
+            android:hint="Петр"
+            android:imeOptions="actionNext"
+            android:inputType="textPersonName"
+            android:textColor="#fff"
+            android:textColorHint="#B9B9B9"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_ui_display_light"
+            android:text="Телефон"
+            android:textColor="#fff"
+            android:textSize="17sp" />
+        <com.vicmikhailau.maskededittext.MaskedEditText
+            android:id="@+id/phone_input"
+            android:imeOptions="actionDone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#C8C7CC"
+            android:fontFamily="@font/sf_ui_display_light"
+            android:hint="+7 901 234 56 78"
+            android:inputType="number"
+            android:maxLength="17"
+            android:textColor="#fff"
+            android:textColorHint="#B9B9B9"
+            android:textSize="15sp"
+            app:mask="+7 ### ### ## ##" />
+
+<!--        <EditText-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:backgroundTint="#C8C7CC"-->
+<!--            android:fontFamily="@font/sf_ui_display_light"-->
+<!--            android:hint="+7 901 234 56 78"-->
+<!--            android:textColor="#fff"-->
+<!--            android:textColorHint="#B9B9B9"-->
+<!--            android:textSize="15sp" />-->
+
+        <TextView
+            android:id="@+id/btnCheckPassNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/ic_rectangle_round_4_blue"
+            android:fontFamily="@font/sf_ui_display_light"
+            android:gravity="center"
+            android:foreground="?selectableItemBackgroundBorderless"
+            android:paddingVertical="13dp"
+            android:text="Подписаться"
+            android:textColor="#1FA6F1"
+            android:textSize="14sp"/>
+
+    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvPassNumbers"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/llSubscribe"
+        android:layout_width="match_parent"
+        android:background="#EDEEEF"
+        tools:listitem="@layout/item_pass_numbers"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="0dp"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

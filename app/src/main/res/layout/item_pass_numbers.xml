@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/llPassNumber"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginTop="11dp"
+    android:paddingHorizontal="10dp"
+    android:paddingVertical="6dp"
+    android:background="@drawable/ic_rectangle_round_8_gray_solid"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tvTopStart"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_ui_display_bold"
+            tools:text="а863кр777"
+            android:textColor="#406D2E"
+            android:textSize="17sp" />
+        <TextView
+            android:id="@+id/tvTopEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_ui_display_bold"
+            android:gravity="end"
+            tools:text="МКАД"
+            android:textColor="#3F662D"
+            android:textSize="18sp" />
+    </LinearLayout>
+    <View
+        android:id="@+id/viewTop"
+        android:layout_marginTop="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#CADAC0"/>
+    <LinearLayout
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tvSecondStart"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_ui_display_light"
+            tools:text="Осталось 310 дней"
+            android:textColor="#406D2E"
+            android:textSize="17sp" />
+        <TextView
+            android:id="@+id/tvSecondEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_ui_display_light"
+            android:gravity="end"
+            tools:text="БА 0624852"
+            android:textColor="#408E9B"
+            android:textSize="15sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/llThirdLine"
+        android:layout_marginTop="9dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tvThirdStart"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_ui_display_light"
+            tools:text="с 15.06.2021 по 18.05.2022"
+            android:textColor="#406D2E"
+            android:textSize="15sp" />
+        <TextView
+            android:id="@+id/tvThirdEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_ui_display_bold"
+            android:gravity="end"
+            tools:text="День"
+            android:textColor="#000000"
+            android:textSize="18sp" />
+    </LinearLayout>
+    <TextView
+        android:foreground="?selectableItemBackgroundBorderless"
+        android:id="@+id/btnHelpRegistration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/ic_rectangle_round_4_blue"
+        android:fontFamily="@font/sf_ui_display_light"
+        android:gravity="center"
+        android:paddingVertical="13dp"
+        android:text="@string/text_help_registration"
+        android:textColor="#1FA6F1"
+        android:textSize="14sp" />
+
+</LinearLayout>

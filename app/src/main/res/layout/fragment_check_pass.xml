@@ -61,13 +61,13 @@
 
     <TextView
         android:id="@+id/tvTopTruck"
-        android:textSize="14sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/sf_ui_display_bold"
         android:paddingVertical="5dp"
         android:text="От 3.5 тонн\nдень "
         android:textColor="#fff"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@id/ivTopCard"
         app:layout_constraintHorizontal_bias="0.60"
         app:layout_constraintStart_toEndOf="@+id/ivTopTruck"
@@ -75,13 +75,13 @@
 
     <TextView
         android:id="@+id/tvTopTruckLong"
-        android:textSize="14sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/sf_ui_display_bold"
         android:paddingVertical="5dp"
         android:text="От 12 тонн\nдень/ночь"
         android:textColor="#fff"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/tvTopTruck"
         app:layout_constraintTop_toTopOf="@+id/ivTopTruckLong" />
 
@@ -150,13 +150,14 @@
         app:layout_constraintTop_toTopOf="@+id/vNumberHolder" />
 
     <EditText
-        android:inputType="textCapCharacters"
-        android:imeOptions="actionNext"
+        android:id="@+id/etStartNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:fontFamily="@font/sf_ui_display_light"
         android:hint="А000АА"
+        android:imeOptions="actionNext"
+        android:inputType="textCapCharacters"
         android:maxLength="6"
         android:textColor="#fff"
         android:textColorHint="#B9B9B9"
@@ -167,14 +168,14 @@
         app:layout_constraintTop_toTopOf="@+id/vNumberHolder" />
 
     <EditText
-        android:inputType="number"
-        android:imeOptions="actionDone"
         android:id="@+id/etEndNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:fontFamily="@font/sf_ui_display_light"
         android:hint="000"
+        android:imeOptions="actionDone"
+        android:inputType="number"
         android:maxLength="3"
         android:textColor="#fff"
         android:textColorHint="#B9B9B9"
@@ -191,26 +192,29 @@
         android:drawablePadding="3dp"
         android:fontFamily="@font/sf_ui_display_light"
         android:text="RUS"
-        android:textSize="12sp"
         android:textColor="#fff"
-        app:layout_constraintTop_toBottomOf="@+id/etEndNumber"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/etEndNumber"
         app:layout_constraintEnd_toEndOf="@+id/etEndNumber"
-        app:layout_constraintStart_toStartOf="@+id/etEndNumber" />
+        app:layout_constraintStart_toStartOf="@+id/etEndNumber"
+        app:layout_constraintTop_toBottomOf="@+id/etEndNumber" />
+
     <TextView
-        android:layout_marginTop="35dp"
+        android:id="@+id/btnCheckPassNumber"
         android:layout_width="wrap_content"
-        android:paddingVertical="12dp"
-        android:textSize="14sp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:background="@drawable/ic_rectangle_round_4_gray"
         android:fontFamily="@font/sf_ui_display_light"
         android:paddingHorizontal="25dp"
+        android:paddingVertical="12dp"
+        android:foreground="?selectableItemBackgroundBorderless"
         android:text="Проверить пропуск"
         android:textColor="#828282"
-        android:background="@drawable/ic_rectangle_round_4_gray"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivBottomCard"
-        android:layout_height="wrap_content"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivBottomCard" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
