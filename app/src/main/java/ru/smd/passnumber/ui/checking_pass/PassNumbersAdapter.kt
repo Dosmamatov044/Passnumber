@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_pass_numbers.view.*
 import ru.smd.passnumber.R
 import ru.smd.passnumber.data.entities.PassesData
-import ru.smd.passnumber.data.utils.boldNumbers
+import ru.smd.passnumber.utils.boldNumbers
 
 
 class PassNumbersAdapter :

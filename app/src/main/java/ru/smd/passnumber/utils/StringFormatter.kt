@@ -1,4 +1,4 @@
-package ru.smd.passnumber.data.utils
+package ru.smd.passnumber.utils
 
 import android.util.Log
 import java.lang.Exception

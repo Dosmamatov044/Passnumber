@@ -1,7 +1,7 @@
 package ru.smd.passnumber.data.entities
 
-import ru.smd.passnumber.data.utils.getDateWithServerTimeStamp
-import ru.smd.passnumber.data.utils.getStringTimeStampWithDate
+import ru.smd.passnumber.utils.getDateWithServerTimeStamp
+import ru.smd.passnumber.utils.getStringTimeStampWithDate
 
 
 /**
