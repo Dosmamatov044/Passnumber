@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isGone
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -23,6 +24,7 @@ import ru.smd.passnumber.utils.boldNumbers
 class PassNumbersAdapter :
     ListAdapter<PassesData, PassNumbersAdapter.PassNumberViewHolder>(DiffCallback()) {
     var regNumber = ""
+    var btnHelpClicked=MutableLiveData<Boolean>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PassNumberViewHolder {
         return PassNumberViewHolder(
             LayoutInflater.from(parent.context)
@@ -90,6 +92,9 @@ class PassNumbersAdapter :
                     }
                 }
                 btnHelpRegistration.isGone = !(item.days_left == null || item.days_left <= 60)
+                btnHelpRegistration.setOnClickListener {
+                    btnHelpClicked.value=true
+                }
 
             }
         }

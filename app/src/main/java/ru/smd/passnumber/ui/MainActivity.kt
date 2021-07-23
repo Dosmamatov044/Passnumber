@@ -2,6 +2,7 @@ package ru.smd.passnumber.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.core.view.isGone
 import androidx.lifecycle.MutableLiveData
@@ -11,6 +12,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.bottom_menu.*
 import ru.smd.passnumber.ui.chek_pass_number.CheckPassFragment
 import ru.smd.passnumber.R
+import ru.smd.passnumber.ui.help_registration.HelpRegistrationFragment
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -36,24 +38,39 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun handleBottomClick() {
-        btnBottom1.isSelected = true
+        btnBottom1.bottomSelelected()
         supportFragmentManager.beginTransaction().replace(R.id.mainContainer, CheckPassFragment())
             .commit()
+
         btnBottom1.setOnClickListener {
-            btnBottom1.isSelected = true
-            btnBottom2.isSelected = false
-            btnBottom3.isSelected = false
+            supportFragmentManager.beginTransaction().replace(R.id.mainContainer, CheckPassFragment())
+                .commit()
+            it.bottomSelelected()
         }
         btnBottom2.setOnClickListener {
-            btnBottom1.isSelected = false
-            btnBottom2.isSelected = true
-            btnBottom3.isSelected = false
+            it.bottomSelelected()
+
         }
         btnBottom3.setOnClickListener {
-            btnBottom1.isSelected = false
-            btnBottom2.isSelected = false
-            btnBottom3.isSelected = true
+            supportFragmentManager.beginTransaction().replace(R.id.mainContainer, HelpRegistrationFragment())
+                .commit()
+            it.bottomSelelected()
         }
+
+    }
+    fun bottomSelected(view: View){
+        view.bottomSelelected()
+
+    }
+    fun View.bottomSelelected(){
+        btnBottom1.isSelected = false
+        btnBottom2.isSelected = false
+        btnBottom3.isSelected = false
+        btnBottom1.isClickable = true
+        btnBottom2.isClickable = true
+        btnBottom3.isClickable = true
+        this.isSelected=true
+        this.isClickable=false
 
     }
 }

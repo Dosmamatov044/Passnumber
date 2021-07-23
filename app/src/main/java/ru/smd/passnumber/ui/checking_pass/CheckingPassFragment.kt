@@ -9,9 +9,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.bottom_menu.*
 import kotlinx.android.synthetic.main.fragment_checking_pass.*
 import ru.smd.passnumber.R
 import ru.smd.passnumber.data.entities.PassData
+import ru.smd.passnumber.data.entities.PassesData
+import ru.smd.passnumber.ui.MainActivity
+import ru.smd.passnumber.ui.help_registration.HelpRegistrationFragment
 
 
 /**
@@ -44,9 +48,18 @@ class CheckingPassFragment : Fragment(R.layout.fragment_checking_pass) {
         }
 
         data.observe(this,passData)
+        adapter.btnHelpClicked.observe(this,btnHelpClicked)
+    }
+    private val btnHelpClicked= Observer<Boolean> {
+       val main= requireActivity() as MainActivity
+        main.bottomSelected(main.btnBottom3)
+        parentFragmentManager.beginTransaction().replace(R.id.mainContainer,HelpRegistrationFragment()).commit()
     }
     private val passData= Observer<PassData> {
         adapter.regNumber=it.reg_number?:""
+        if (it.passes.isNullOrEmpty())
+            adapter.submitList(mutableListOf(PassesData(null,null,null,null,null,null,null,null)))
+        else
        adapter.submitList(it.passes)
     }
 
