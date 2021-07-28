@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.bottom_menu.*
 import ru.smd.passnumber.ui.chek_pass_number.CheckPassFragment
 import ru.smd.passnumber.R
+import ru.smd.passnumber.ui.account.AccountFragment
 import ru.smd.passnumber.ui.help_registration.HelpRegistrationFragment
 
 @AndroidEntryPoint
@@ -48,6 +49,8 @@ class MainActivity : AppCompatActivity() {
             it.bottomSelelected()
         }
         btnBottom2.setOnClickListener {
+            supportFragmentManager.beginTransaction().replace(R.id.mainContainer, AccountFragment())
+                .commit()
             it.bottomSelelected()
 
         }

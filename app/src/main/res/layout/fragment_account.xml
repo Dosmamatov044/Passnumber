@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:background="#000"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:fontFamily="@font/sf_ui_display_bold"
+        android:gravity="center"
+        android:paddingVertical="15dp"
+        android:text="Профиль"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/llSubscribe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/ic_rectangle_round_34_gradient_solid"
+                android:orientation="vertical"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivTopCard">
+
+                <TextView
+                    android:id="@+id/tvTopCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_ui_display_bold"
+                    android:text="Владимир"
+                    android:textColor="#fff"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/sf_ui_display_light"
+                    android:text="+7 901 234 56 78"
+                    android:textColor="#99EBEBF5"
+                     />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_ui_display_light"
+                    android:text="ООО РОГА"
+                    android:textSize="12sp"
+                    android:textColor="#99EBEBF5"
+                     />
+                <View
+                    android:layout_marginTop="2dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#38383A"/>
+                <TextView
+                    android:gravity="center_vertical"
+                    android:drawableStart="@drawable/ic_bell"
+                    android:drawableEnd="@drawable/ic_next_small"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_ui_display_bold"
+                    android:layout_marginTop="14dp"
+                    android:text="Настройка уведомлений"
+                    android:drawablePadding="15dp"
+                    android:textColor="#fff"
+                    android:textSize="13sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/ic_rectangle_round_34_gradient_solid"
+                android:orientation="vertical"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivTopCard">
+
+                <TextView
+                    android:gravity="center_vertical"
+                    android:drawableStart="@drawable/ic_my_docs"
+                    android:drawableEnd="@drawable/ic_next_small"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_ui_display_bold"
+                    android:text="Мои данные"
+                    android:drawablePadding="13dp"
+                    android:textColor="#fff"
+                    android:textSize="13sp" />
+                <View
+                    android:layout_marginTop="21dp"
+                    android:layout_marginBottom="25dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#38383A"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:gravity="center_vertical"
+                        android:drawableStart="@drawable/ic_truck_small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_ui_display_bold"
+                        android:text="Автомобили"
+                        android:layout_weight="1"
+                        android:drawablePadding="13dp"
+                        android:textColor="#fff"
+                        android:textSize="13sp" />
+                    <TextView
+                        android:text="10"
+                        android:gravity="center"
+                        android:textSize="13sp"
+                        android:textColor="#000000"
+                        android:fontFamily="@font/sf_ui_display_bold"
+                        android:background="@drawable/ic_ellipse_text_account"
+                        android:layout_width="wrap_content"
+                        android:layout_marginEnd="26dp"
+                        android:layout_height="wrap_content"/>
+                    <ImageView
+                        android:src="@drawable/ic_next_small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_marginTop="21dp"
+                    android:layout_marginBottom="25dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#38383A"/>
+                <TextView
+                    android:gravity="center_vertical"
+                    android:drawableStart="@drawable/ic_alert_circle"
+                    android:drawableEnd="@drawable/ic_next_small"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_ui_display_bold"
+                    android:text="Уведомления"
+                    android:drawablePadding="13dp"
+                    android:textColor="#fff"
+                    android:textSize="13sp" />
+                <View
+                    android:layout_marginTop="21dp"
+                    android:layout_marginBottom="25dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#38383A"/>
+                <TextView
+                    android:gravity="center_vertical"
+                    android:drawableStart="@drawable/ic_settings"
+                    android:drawableEnd="@drawable/ic_next_small"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_ui_display_bold"
+                    android:text="Настройки"
+                    android:drawablePadding="13dp"
+                    android:textColor="#fff"
+                    android:textSize="13sp" />
+                <View
+                    android:layout_marginTop="21dp"
+                    android:layout_marginBottom="25dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#38383A"/>
+                <TextView
+                    android:gravity="center_vertical"
+                    android:drawableStart="@drawable/ic_message_circle"
+                    android:drawableEnd="@drawable/ic_next_small"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_ui_display_bold"
+                    android:text="Обратная связь"
+                    android:drawablePadding="13dp"
+                    android:textColor="#fff"
+                    android:textSize="13sp" />
+                <View
+                    android:layout_marginTop="21dp"
+                    android:layout_marginBottom="25dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#38383A"/>
+                <TextView
+                    android:gravity="center_vertical"
+                    android:drawableStart="@drawable/ic_like_up"
+                    android:drawableEnd="@drawable/ic_next_small"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_ui_display_bold"
+                    android:text="Рассказать друзьям"
+                    android:drawablePadding="13dp"
+                    android:textColor="#fff"
+                    android:textSize="13sp" />
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>
