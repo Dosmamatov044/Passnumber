@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.fragment_checking_pass.*
 import ru.smd.passnumber.R
 import ru.smd.passnumber.data.entities.PassData
 import ru.smd.passnumber.data.entities.PassesData
-import ru.smd.passnumber.ui.MainActivity
+import ru.smd.passnumber.ui.activities.main.MainActivity
 import ru.smd.passnumber.ui.help_registration.HelpRegistrationFragment
 
 

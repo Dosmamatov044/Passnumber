@@ -1,4 +1,4 @@
-package ru.smd.passnumber.ui
+package ru.smd.passnumber.ui.activities.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,8 +12,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.bottom_menu.*
 import ru.smd.passnumber.ui.chek_pass_number.CheckPassFragment
 import ru.smd.passnumber.R
+import ru.smd.passnumber.data.tools.PreferencesHelper
 import ru.smd.passnumber.ui.account.AccountFragment
+import ru.smd.passnumber.ui.account.registration.RegistrationFragment
 import ru.smd.passnumber.ui.help_registration.HelpRegistrationFragment
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -21,6 +24,9 @@ class MainActivity : AppCompatActivity() {
         val handleLoad = MutableLiveData<Boolean>()
         val handleError = MutableLiveData<String>()
     }
+
+    @Inject
+    lateinit var preferencesHelper: PreferencesHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,10 +55,14 @@ class MainActivity : AppCompatActivity() {
             it.bottomSelelected()
         }
         btnBottom2.setOnClickListener {
-            supportFragmentManager.beginTransaction().replace(R.id.mainContainer, AccountFragment())
-                .commit()
-            it.bottomSelelected()
-
+            if (preferencesHelper.restoreToken()==null){
+                supportFragmentManager.beginTransaction().replace(R.id.mainContainer,RegistrationFragment()).commit()
+                it.bottomSelelected()
+            }else{
+                supportFragmentManager.beginTransaction().replace(R.id.mainContainer, AccountFragment())
+                    .commit()
+                it.bottomSelelected()
+            }
         }
         btnBottom3.setOnClickListener {
             supportFragmentManager.beginTransaction().replace(R.id.mainContainer, HelpRegistrationFragment())

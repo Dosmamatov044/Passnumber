@@ -1,4 +1,19 @@
 <resources>
     <string name="app_name">Passnumber</string>
     <string name="text_help_registration">Помощь в оформление</string>
+    <string name="notifications">Уведомления</string>
+    <string name="registration">Регистрация</string>
+  <string name="to_enter_number_tel"> Введите номер мобильного телефона</string>
+    <string name="send_sms">На указанный вами номер мы отправили&lt;br>
+СМС с кодом активации.&lt;br>
+Введите полученный код в&lt;br>
+соответствующее поле</string>
+    <string name="enter">Войти</string>
+    <string name="didnt_get_sms">Не приходит СМС</string>
+    <string name="send_code_retry">Отрпавить код повторно</string>
+    <string name="retry_send_code">Выслать код повторно через %s секунд</string>
+    <string name="phone">Телефон</string>
+    <string name="hasntInternet">Нет интернет соединения</string>
+    <string name="code_success_send">Код активаци успешно отправлен!</string>
+    <string name="agreement">Я принимаю условия &lt;u>пользовательского соглашения&lt;/u> и даю согласие на обработку персональных данных согласно &lt;u>политике конфиденциальности.&lt;/u></string>
 </resources>

@@ -6,7 +6,7 @@ import kotlinx.coroutines.launch
 import ru.smd.passnumber.data.entities.PassData
 import ru.smd.passnumber.data.service.ApiService
 import ru.smd.passnumber.data.service.enqueue
-import ru.smd.passnumber.ui.MainActivity.Companion.handleLoad
+import ru.smd.passnumber.ui.activities.main.MainActivity.Companion.handleLoad
 
 
 /**

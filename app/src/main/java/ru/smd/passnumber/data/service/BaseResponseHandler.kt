@@ -6,8 +6,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.HttpException
 import retrofit2.Response
-import ru.smd.passnumber.ui.MainActivity.Companion.handleError
-import ru.smd.passnumber.ui.MainActivity.Companion.handleLoad
+import ru.smd.passnumber.ui.activities.main.MainActivity.Companion.handleError
+import ru.smd.passnumber.ui.activities.main.MainActivity.Companion.handleLoad
 import java.lang.Exception
 
 /**
