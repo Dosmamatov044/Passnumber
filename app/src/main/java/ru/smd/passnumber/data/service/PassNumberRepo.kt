@@ -14,6 +14,7 @@ import retrofit2.http.QueryMap
 import ru.smd.passnumber.BuildConfig
 import ru.smd.passnumber.data.core.Constants
 import ru.smd.passnumber.data.entities.ResponseCheckCode
+import ru.smd.passnumber.data.entities.ResponseNotifications
 import ru.smd.passnumber.data.entities.ServerResponseCheckCode
 import ru.smd.passnumber.data.tools.PreferencesHelper
 import javax.inject.Inject
@@ -32,6 +33,9 @@ interface PassNumberRepo {
 
     @GET("user")
     fun getUser():Single<ServerResponseCheckCode<ResponseCheckCode>>
+
+    @GET("notifications")
+    fun getNotifications():Single<ResponseNotifications>
 
     class Factory @Inject constructor(val preferencesHelper: PreferencesHelper) {
         fun create() = Retrofit.Builder().run {
