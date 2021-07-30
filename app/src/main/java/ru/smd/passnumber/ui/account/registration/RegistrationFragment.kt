@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.provider.Settings
 import android.text.Html
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -53,15 +54,26 @@ class RegistrationFragment : Fragment(), RegistrationContract.View {
         super.onViewCreated(view, savedInstanceState)
         binding.run {
             txtAgreement.text= Html.fromHtml(getString(R.string.agreement))
+            txtSendSms.text=Html.fromHtml(getString(R.string.send_sms))
             btnRegistrationEnter.setOnClickListener {
                 if (block2RegistrationCont.visibility==View.GONE){
                     block1RegistrationCont.visibility=View.GONE
                     block2RegistrationCont.visibility=View.VISIBLE
+                    btnRegistrationEnter.isEnabled=false
+                    btnRegistrationEnter.setBackgroundResource(R.drawable.ic_rectangle_round_4_gray)
+                    btnRegistrationEnter.setTextColor(resources.getColor(R.color.gray))
+                    presenter.sendSms(edtRegistrationPhone.text.toString())
                 }else{
                     presenter.onClickEnter(
-                        Settings.Secure.getString(requireActivity().getContentResolver(),
-                        Settings.Secure.ANDROID_ID),edtRegistrationCode.text.toString(),edtRegistrationPhone.text.toString())
+                        Settings.Secure.getString(requireActivity().getContentResolver(), Settings.Secure.ANDROID_ID)
+                        ,edtRegistrationCode.text.toString()
+                        ,edtRegistrationPhone.text.toString())
                 }
+            }
+            edtRegistrationCode.addTextChangedListener{
+                if (edtRegistrationCode.length()==4){
+                    btnRegistrationEnter.isEnabled=true
+                }else btnRegistrationEnter.isEnabled=false
             }
             val mask = MaskImpl.createTerminated(Constants.PHONE_RUS)
             val watcher: FormatWatcher = MaskFormatWatcher(mask)

@@ -7,12 +7,13 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import org.json.JSONObject
 import ru.smd.passnumber.data.service.ApiService
+import ru.smd.passnumber.data.service.PassNumberRepo
 import ru.smd.passnumber.data.tools.PreferencesHelper
 import java.lang.Exception
 import javax.inject.Inject
 
 class RegistrationPresenter @Inject constructor(
-    private val api: ApiService,
+    val repo:PassNumberRepo,
     val preferencesHelper: PreferencesHelper
 ) :
     RegistrationContract.Presenter {
@@ -31,8 +32,9 @@ class RegistrationPresenter @Inject constructor(
         compositeDisposable.dispose()
     }
 
-    override fun onClickEnter(androidId: String, code: String, phone: String) {
-        api.registration(
+    override fun onClickEnter(androidId: String, code: String, text: String) {
+        val phone = text.replace(regex = Regex("\\D"), "")
+        repo.registration(
             mutableMapOf<String, String>().apply {
                 this["phone"] = phone
                 this["code"] = code
@@ -56,6 +58,25 @@ class RegistrationPresenter @Inject constructor(
                 }
             }.also(compositeDisposable::add)
 
+    }
+
+    override fun sendSms(text: String) {
+        val phone = text.replace(regex = Regex("\\D"), "")
+        repo.getCode(phone).compose(applySchedulers())
+            .subscribe { response, error ->
+                when {
+                    error == null -> {
+
+                    }
+                    error is HttpException -> {
+                        handleResponseError(error) {
+                        }
+                    }
+                    else -> {
+                        view?.showErrorInternet()
+                    }
+                }
+            }.also(compositeDisposable::add)
     }
 
     fun <T> applySchedulers(): SingleTransformer<T, T> {

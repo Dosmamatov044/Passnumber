@@ -20,5 +20,7 @@ interface RegistrationContract {
         fun onStop()
 
         fun onClickEnter(androidId:String,code:String,phone:String)
+
+        fun sendSms(phone: String)
     }
 }

@@ -16,6 +16,4 @@ interface ApiService {
     @POST("vehicle/check")
     fun checkPassNumber(@Query("reg_number") reg_number: String): Call<ResponseData<PassData>>
 
-    @POST("/auth/check_code")
-    fun registration(@QueryMap params: MutableMap<String, String>): Single<ResponseData<Token>>
 }

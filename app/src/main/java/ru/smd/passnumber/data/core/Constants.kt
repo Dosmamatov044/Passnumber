@@ -21,4 +21,7 @@ object Constants {
         PredefinedSlots.hardcodedSlot(' ').withTags(Slot.TAG_DECORATION),
         PredefinedSlots.digit(),
         PredefinedSlots.digit())
+
+
+    const val BASE_URL = "https://pass.su/api/"
 }
