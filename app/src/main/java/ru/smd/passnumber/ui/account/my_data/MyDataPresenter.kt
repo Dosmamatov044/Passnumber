@@ -23,7 +23,7 @@ class MyDataPresenter @Inject constructor(
     override fun onStart(view: MyDataContract.View) {
         this.view = view
         compositeDisposable = CompositeDisposable()
-        getData()
+        restoreData()
     }
 
     override fun onStop() {
@@ -33,6 +33,28 @@ class MyDataPresenter @Inject constructor(
 
     override fun onClickBack() {
         view?.toBack()
+    }
+
+    fun restoreData(){
+        repo.getUser().compose(applySchedulers())
+            .subscribe { response, error ->
+                when {
+                    error == null -> {
+                        preferencesHelper.storePhone(response.data.phone)
+                        preferencesHelper.storeFio(response.data.name)
+                        preferencesHelper.storeEmail(response.data.email)
+                        preferencesHelper.storeCompany(response.data.client.name)
+                        getData()
+                    }
+                    error is HttpException -> {
+                        handleResponseError(error) {
+                        }
+                    }
+                    else -> {
+                        view?.showErrorInternet()
+                    }
+                }
+            }.also(compositeDisposable::add)
     }
 
     fun getData(){

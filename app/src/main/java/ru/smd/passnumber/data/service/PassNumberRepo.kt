@@ -7,6 +7,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
 import retrofit2.http.QueryMap
@@ -29,6 +30,8 @@ interface PassNumberRepo {
     @POST("user")
     fun saveDataUser(@QueryMap params: MutableMap<String, String>): Single<ResponseData<Any>>
 
+    @GET("user")
+    fun getUser():Single<ServerResponseCheckCode<ResponseCheckCode>>
 
     class Factory @Inject constructor(val preferencesHelper: PreferencesHelper) {
         fun create() = Retrofit.Builder().run {
