@@ -12,6 +12,8 @@ interface MyDataContract {
         fun showAcountFragment()
 
         fun exit()
+
+        fun showMyData(fio: String?,phone: String?,email: String?,company: String?)
     }
 
     interface Presenter{

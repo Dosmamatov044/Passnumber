@@ -75,6 +75,15 @@ class MyDataFragment:Fragment(),MyDataContract.View {
         activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
     }
 
+    override fun showMyData(fio: String?, phone: String?, email: String?, company: String?) {
+        binding.run {
+            if (fio!=null)edtMyDataFio.setText(fio)
+            if (phone!=null)edtMyDataPhone.setText(phone)
+            if (email!=null)edtMyDataEmail.setText(email)
+            if (company!=null)edtMyDataCompany.setText(company)
+        }
+    }
+
     override fun showAcountFragment() {
         parentFragmentManager.beginTransaction().replace(R.id.mainContainer, AccountFragment())
             .commit()

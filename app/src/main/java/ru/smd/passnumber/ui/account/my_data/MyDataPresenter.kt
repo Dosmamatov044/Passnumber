@@ -23,6 +23,7 @@ class MyDataPresenter @Inject constructor(
     override fun onStart(view: MyDataContract.View) {
         this.view = view
         compositeDisposable = CompositeDisposable()
+        getData()
     }
 
     override fun onStop() {
@@ -32,6 +33,10 @@ class MyDataPresenter @Inject constructor(
 
     override fun onClickBack() {
         view?.toBack()
+    }
+
+    fun getData(){
+        view?.showMyData(preferencesHelper.restoreFio(),preferencesHelper.restorePhone(),preferencesHelper.restoreEmail(),preferencesHelper.restoreCompany())
     }
 
     override fun onClickSave(fio: String, text: String, email: String, company: String) {
