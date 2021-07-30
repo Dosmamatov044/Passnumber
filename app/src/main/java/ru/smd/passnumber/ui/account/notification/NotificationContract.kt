@@ -1,4 +1,4 @@
-package ru.smd.passnumber.ui.notification
+package ru.smd.passnumber.ui.account.notification
 
 interface NotificationContract {
     interface View{

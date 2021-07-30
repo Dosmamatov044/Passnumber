@@ -14,6 +14,11 @@
     <string name="retry_send_code">Выслать код повторно через %s секунд</string>
     <string name="phone">Телефон</string>
     <string name="hasntInternet">Нет интернет соединения</string>
+    <string name="fio">ФИО</string>
+    <string name="email">E-Mail</string>
+    <string name="company">Компания</string>
+    <string name="my_data">Мои данные</string>
+    <string name="save">Сохранить</string>
     <string name="code_success_send">Код активаци успешно отправлен!</string>
     <string name="agreement">Я принимаю условия &lt;u>пользовательского соглашения&lt;/u> и даю согласие на обработку персональных данных согласно &lt;u>политике конфиденциальности.&lt;/u></string>
 </resources>

@@ -1,4 +1,4 @@
-package ru.smd.passnumber.ui.notification
+package ru.smd.passnumber.ui.account.notification
 
 import javax.inject.Inject
 
@@ -8,6 +8,7 @@ class NotificationPresenter @Inject constructor():NotificationContract.Presenter
 
     override fun onStart(view: NotificationContract.View) {
       this.view=view
+
     }
 
     override fun onStop() {

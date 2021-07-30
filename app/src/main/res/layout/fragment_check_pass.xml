@@ -30,7 +30,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
     <TextView
-        android:id="@+id/tvTopCard"
+        android:id="@+id/tvFio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/sf_ui_display_bold"
@@ -48,7 +48,7 @@
         android:layout_marginStart="22dp"
         android:src="@drawable/ic_truck"
         app:layout_constraintStart_toStartOf="@id/ivTopCard"
-        app:layout_constraintTop_toBottomOf="@id/tvTopCard" />
+        app:layout_constraintTop_toBottomOf="@id/tvFio" />
 
     <ImageView
         android:id="@+id/ivTopTruckLong"

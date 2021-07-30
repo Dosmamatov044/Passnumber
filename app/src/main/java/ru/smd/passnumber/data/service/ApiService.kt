@@ -1,14 +1,11 @@
 package ru.smd.passnumber.data.service
 
-import io.reactivex.Single
-import retrofit2.Call
-import retrofit2.http.Body
 
+import retrofit2.Call
 import retrofit2.http.POST
 import retrofit2.http.Query
-import retrofit2.http.QueryMap
 import ru.smd.passnumber.data.entities.PassData
-import ru.smd.passnumber.data.entities.Token
+
 
 
 interface ApiService {

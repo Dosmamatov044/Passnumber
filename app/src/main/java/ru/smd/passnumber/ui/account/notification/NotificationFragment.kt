@@ -1,4 +1,4 @@
-package ru.smd.passnumber.ui.notification
+package ru.smd.passnumber.ui.account.notification
 
 
 import android.os.Bundle
@@ -31,7 +31,7 @@ class NotificationFragment : Fragment(), NotificationContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.run {
-            btnBackNotification.setOnClickListener { presenter.onClickBack() }
+            btnBackMyNotification.setOnClickListener { presenter.onClickBack() }
         }
     }
 

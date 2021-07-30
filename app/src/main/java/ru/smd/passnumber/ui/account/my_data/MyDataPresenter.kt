@@ -1,4 +1,4 @@
-package ru.smd.passnumber.ui.account.registration
+package ru.smd.passnumber.ui.account.my_data
 
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException
 import io.reactivex.SingleTransformer
@@ -6,23 +6,21 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import org.json.JSONObject
-import ru.smd.passnumber.data.service.ApiService
 import ru.smd.passnumber.data.service.PassNumberRepo
 import ru.smd.passnumber.data.tools.PreferencesHelper
 import java.lang.Exception
 import javax.inject.Inject
 
-class RegistrationPresenter @Inject constructor(
-    val repo:PassNumberRepo,
+class MyDataPresenter @Inject constructor(
+    val repo: PassNumberRepo,
     val preferencesHelper: PreferencesHelper
-) :
-    RegistrationContract.Presenter {
+) : MyDataContract.Presenter {
 
-    private var view: RegistrationContract.View? = null
+    private var view: MyDataContract.View? = null
 
     lateinit var compositeDisposable: CompositeDisposable
 
-    override fun onStart(view: RegistrationContract.View) {
+    override fun onStart(view: MyDataContract.View) {
         this.view = view
         compositeDisposable = CompositeDisposable()
     }
@@ -32,45 +30,29 @@ class RegistrationPresenter @Inject constructor(
         compositeDisposable.dispose()
     }
 
-    override fun onClickEnter(androidId: String, code: String, text: String) {
+    override fun onClickBack() {
+        view?.toBack()
+    }
+
+    override fun onClickSave(fio: String, text: String, email: String, company: String) {
         val phone = text.replace(regex = Regex("\\D"), "")
-        repo.registration(
+        repo.saveDataUser(
             mutableMapOf<String, String>().apply {
+                this["name"] = fio
                 this["phone"] = phone
-                this["code"] = code
-                this["device_name"] = androidId
+                this["email"] = email
+                this["client_name"] = company
             }
         ).compose(applySchedulers())
             .subscribe { response, error ->
                 when {
                     error == null -> {
-                        preferencesHelper.storeToken(response.api_token)
-                        preferencesHelper.storePhone(response.data.phone)
-                        preferencesHelper.storeFio(response.data.name)
-                        preferencesHelper.storeEmail(response.data.email)
-                        preferencesHelper.storeCompany(response.data.client.name)
-                        view?.showAccountFragment()
+                        preferencesHelper.storePhone(text)
+                        preferencesHelper.storeFio(fio)
+                        preferencesHelper.storeEmail(email)
+                        preferencesHelper.storeCompany(company)
                         view?.exit()
-                    }
-                    error is HttpException -> {
-                        handleResponseError(error) {
-                        }
-                    }
-                    else -> {
-                        view?.showErrorInternet()
-                    }
-                }
-            }.also(compositeDisposable::add)
-
-    }
-
-    override fun sendSms(text: String) {
-        val phone = text.replace(regex = Regex("\\D"), "")
-        repo.getCode(phone).compose(applySchedulers())
-            .subscribe { response, error ->
-                when {
-                    error == null -> {
-
+                        view?.showAcountFragment()
                     }
                     error is HttpException -> {
                         handleResponseError(error) {
@@ -82,6 +64,7 @@ class RegistrationPresenter @Inject constructor(
                 }
             }.also(compositeDisposable::add)
     }
+
 
     fun <T> applySchedulers(): SingleTransformer<T, T> {
         return SingleTransformer {
