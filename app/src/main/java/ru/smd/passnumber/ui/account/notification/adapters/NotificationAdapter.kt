@@ -1,22 +1,66 @@
 package ru.smd.passnumber.ui.account.notification.adapters
 
+import android.icu.util.Calendar
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.util.rangeTo
 import androidx.recyclerview.widget.RecyclerView
+import ru.smd.passnumber.data.core.Constants
 import ru.smd.passnumber.data.entities.Notification
 import ru.smd.passnumber.databinding.ItemNotificationBinding
+import java.text.SimpleDateFormat
+import java.util.*
 
-class NotificationAdapter(): RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
-
+class NotificationAdapter() : RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
 
 
     var items = mutableListOf<Notification>()
 
+    private var prevDate:String?=null
+
+    private var count:Int=0
+
     inner class ViewHolder(val binding: ItemNotificationBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data:Notification ) {
+        fun bind(data: Notification) {
             binding.run {
-
+                val regNumber = data.data.body.subSequence(0, 6)
+                txtNotificationRegNumber.setText(regNumber.toString())
+                val lenghtRegion = data.data.body.substringBefore(':')
+                val region = data.data.body.subSequence(6, lenghtRegion.length)
+                txtNotificationRegion.setText(region)
+                val title=data.data.body.subSequence(lenghtRegion.length+1, data.data.body.length)
+                txtNotificationTitle.setText(title)
+                val year=data.createdAt.subSequence(0,4).toString().toInt()
+                val moth=data.createdAt.subSequence(6,7).toString().toInt()
+                val day=data.createdAt.subSequence(9,10).toString().toInt()
+                val dateNotificaton=(year.toString()+moth.toString()+day.toString())
+                val calendar = java.util.Calendar.getInstance()
+                calendar.set(year,moth,day)
+                val date =
+                    SimpleDateFormat(Constants.DATE_MASK, Locale.getDefault()).run {
+                        format(calendar.time)
+                    }
+                txtNotificationDate.setText(date)
+                if (prevDate!=null&&dateNotificaton.equals(prevDate)){
+                txtHeaderNotification.visibility=View.GONE
+                }else{
+                    items.forEach {
+                        val year1=it.createdAt.subSequence(0,4).toString().toInt()
+                        val moth1=it.createdAt.subSequence(6,7).toString().toInt()
+                        val day1=it.createdAt.subSequence(9,10).toString().toInt()
+                        val dateNotificaton1=(year1.toString()+moth1.toString()+day1.toString())
+                        if (dateNotificaton1.equals(dateNotificaton)){
+                            count++
+                        }
+                    }
+                    txtNotificationSize.setText(count.toString())
+                    count=0
+                    txtHeaderNotification.visibility=View.VISIBLE
+                }
+                prevDate=dateNotificaton
             }
         }
     }
@@ -41,5 +85,5 @@ class NotificationAdapter(): RecyclerView.Adapter<NotificationAdapter.ViewHolder
         holder.bind(items.get(position))
     }
 
-    override fun getItemCount()= items.size
+    override fun getItemCount() = items.size
 }

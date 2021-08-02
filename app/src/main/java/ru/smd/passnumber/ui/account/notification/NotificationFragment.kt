@@ -37,6 +37,7 @@ class NotificationFragment : Fragment(), NotificationContract.View {
         super.onViewCreated(view, savedInstanceState)
         adapter = NotificationAdapter()
         binding.run {
+            recycleNotification.adapter=adapter
             btnBackMyNotification.setOnClickListener { presenter.onClickBack() }
         }
     }

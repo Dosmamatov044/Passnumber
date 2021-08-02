@@ -20,6 +20,7 @@ class NotificationPresenter @Inject constructor(val repo: PassNumberRepo) :
     override fun onStart(view: NotificationContract.View) {
         this.view = view
         compositeDisposable = CompositeDisposable()
+        getNotifications()
     }
 
     override fun onStop() {
