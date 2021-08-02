@@ -6,8 +6,8 @@ data class Notification(
     @SerializedName("id") val id: String,
     @SerializedName("type") val type: String,
     @SerializedName("data") val data: DataNotification,
-    @SerializedName("read_at") val readAt: String,
+    @SerializedName("read_at") val readAt: String?,
     @SerializedName("diff") val diff: String,
     @SerializedName("created_at") val createdAt:String,
-    @SerializedName("pass")val pass:String?
+    @SerializedName("pass")val pass:Pass
 )

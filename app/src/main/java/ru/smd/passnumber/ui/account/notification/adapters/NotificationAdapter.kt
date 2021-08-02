@@ -27,12 +27,14 @@ class NotificationAdapter() : RecyclerView.Adapter<NotificationAdapter.ViewHolde
         fun bind(data: Notification) {
             binding.run {
                 val regNumber = data.data.body.subSequence(0, 6)
-                txtNotificationRegNumber.setText(regNumber.toString())
+                txtNotificationRegNumber.setText(regNumber.toString().toLowerCase())
                 val lenghtRegion = data.data.body.substringBefore(':')
                 val region = data.data.body.subSequence(6, lenghtRegion.length)
                 txtNotificationRegion.setText(region)
-                val title=data.data.body.subSequence(lenghtRegion.length+1, data.data.body.length)
-                txtNotificationTitle.setText(title)
+                val title=data.data.body.subSequence(lenghtRegion.length+1, data.data.body.length).toString()
+                val result=title.replace(data.pass.validityPeriod,"")
+                txtNotificationTitle.setText(result)
+                txtNotificationType.setText(data.pass.validityPeriod)
                 val year=data.createdAt.subSequence(0,4).toString().toInt()
                 val moth=data.createdAt.subSequence(6,7).toString().toInt()
                 val day=data.createdAt.subSequence(9,10).toString().toInt()

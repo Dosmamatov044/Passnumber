@@ -8,6 +8,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_account.*
 import ru.smd.passnumber.R
 import ru.smd.passnumber.data.tools.PreferencesHelper
+import ru.smd.passnumber.ui.account.my_cars.MyCarsFragment
 import ru.smd.passnumber.ui.account.my_data.MyDataFragment
 import ru.smd.passnumber.ui.account.notification.NotificationFragment
 import javax.inject.Inject
@@ -31,6 +32,10 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
         }
         btn_profile_my_data.setOnClickListener {
             parentFragmentManager.beginTransaction().replace(R.id.mainContainer, MyDataFragment())
+                .addToBackStack(null).commit()
+        }
+        btn_my_cars_profile.setOnClickListener {
+            parentFragmentManager.beginTransaction().replace(R.id.mainContainer, MyCarsFragment())
                 .addToBackStack(null).commit()
         }
         tvCompany.setText(preferencesHelper.restoreCompany())

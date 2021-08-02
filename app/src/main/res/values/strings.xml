@@ -19,6 +19,15 @@
     <string name="company">Компания</string>
     <string name="my_data">Мои данные</string>
     <string name="save">Сохранить</string>
+    <string name="cars">Автомобили</string>
+    <string name="add_cars">Добавить автомобиль</string>
+    <string name="reg_number">Регистрационный номер</string>
+    <string name="label_model_auto">Марка и модель автомобиля</string>
+    <string name="name_driver">Имя водителя</string>
+    <string name="you_havent_cars">У вас пока нет автомобилей.&lt;br>
+Добавьте номера автомобилей для&lt;br>
+отслеживания</string>
+    <string name="add">Добавить</string>
     <string name="code_success_send">Код активаци успешно отправлен!</string>
     <string name="agreement">Я принимаю условия &lt;u>пользовательского соглашения&lt;/u> и даю согласие на обработку персональных данных согласно &lt;u>политике конфиденциальности.&lt;/u></string>
 </resources>
