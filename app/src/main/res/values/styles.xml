@@ -12,5 +12,13 @@
         <item name="thumbTint">@color/white</item>
         <item name="trackTint">@color/bg_switch</item>
     </style>
-    
+
+    <style name="BlueButtonStyle">
+        <item name="background">@drawable/bg_blue_button</item>
+        <item name="android:textColor">@drawable/bg_blue_button_text</item>
+        <item name="fontFamily"></item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
 </resources>

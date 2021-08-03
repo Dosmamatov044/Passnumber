@@ -1,5 +1,8 @@
 package ru.smd.passnumber.ui.account.my_cars
 
+import ru.smd.passnumber.data.entities.PassData
+import ru.smd.passnumber.data.entities.PassesData
+
 interface MyCarsContract {
     interface View{
 
@@ -13,9 +16,11 @@ interface MyCarsContract {
 
         fun showAddCarBlock()
 
-        fun showCarList()
+        fun showCarList(cars: List<PassData>)
 
         fun showEmptyList()
+
+        fun enableEdtRegNum()
     }
 
     interface Presenter{

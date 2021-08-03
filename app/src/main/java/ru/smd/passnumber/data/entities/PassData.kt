@@ -1,5 +1,6 @@
 package ru.smd.passnumber.data.entities
 
+import com.google.gson.annotations.SerializedName
 import ru.smd.passnumber.utils.getDateWithServerTimeStamp
 import ru.smd.passnumber.utils.getStringTimeStampWithDate
 
@@ -9,24 +10,27 @@ import ru.smd.passnumber.utils.getStringTimeStampWithDate
  */
 
 data class PassData(
-val id:Int,
-val reg_number:String?,
-val passes:List<PassesData>
+    @SerializedName("id") val id:Int,
+    @SerializedName("reg_number") val regNumber:String?,
+    @SerializedName("mark") val mark:String?,
+    @SerializedName("driver_name") val driverName:String?,
+    @SerializedName("passes") val passes:List<PassesData>
 )
 
 data class PassesData(
-    val number: String?,
-    val valid_from: String?,
-    val valid_to: String?,
-    val cancel_date: String?,
-    val area: String?,
-    val status: String?,
-    val days_left: Int?,
-    val validity_period: String?
+    @SerializedName("number") val number: String?,
+    @SerializedName("reg_number") val regNumber: String?,
+    @SerializedName("valid_from")  val validFrom: String?,
+    @SerializedName("valid_to")  val validTo: String?,
+    @SerializedName("cancel_date") val cancelDate:String?,
+    @SerializedName("area")    val area: String?,
+    @SerializedName("status")  val status: String?,
+    @SerializedName("days_left")  val daysLeft: Int?,
+    @SerializedName("validity_period")  val validityPeriod: String?
 ){
     fun getTime():String{
-        val validFrom=  valid_from?.getDateWithServerTimeStamp()?.getStringTimeStampWithDate()
-        val validTo=  valid_to?.getDateWithServerTimeStamp()?.getStringTimeStampWithDate()
+        val validFrom=  validFrom?.getDateWithServerTimeStamp()?.getStringTimeStampWithDate()
+        val validTo=  validTo?.getDateWithServerTimeStamp()?.getStringTimeStampWithDate()
         return  "с <b>$validFrom</b> по <b>$validTo</b>"
     }
 }

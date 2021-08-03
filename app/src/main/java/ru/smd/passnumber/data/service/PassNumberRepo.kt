@@ -13,10 +13,7 @@ import retrofit2.http.Query
 import retrofit2.http.QueryMap
 import ru.smd.passnumber.BuildConfig
 import ru.smd.passnumber.data.core.Constants
-import ru.smd.passnumber.data.entities.ResponseCheckCode
-import ru.smd.passnumber.data.entities.ResponseNotifications
-import ru.smd.passnumber.data.entities.ResponseVehicle
-import ru.smd.passnumber.data.entities.ServerResponseCheckCode
+import ru.smd.passnumber.data.entities.*
 import ru.smd.passnumber.data.tools.PreferencesHelper
 import javax.inject.Inject
 
@@ -33,13 +30,16 @@ interface PassNumberRepo {
     fun saveDataUser(@QueryMap params: MutableMap<String, String>): Single<ResponseData<Any>>
 
     @GET("user")
-    fun getUser():Single<ServerResponseCheckCode<ResponseCheckCode>>
+    fun getUser(): Single<ServerResponseCheckCode<ResponseCheckCode>>
 
     @GET("notifications")
-    fun getNotifications():Single<ResponseNotifications>
+    fun getNotifications(): Single<ResponseNotifications>
 
     @GET("vehicle")
-    fun getCarList():Single<ResponseVehicle>
+    fun getCarList(): Single<ResponseVehicle>
+
+    @POST("vehicle")
+    fun addCar(@QueryMap params: MutableMap<String, String>): Single<PassData>
 
     class Factory @Inject constructor(val preferencesHelper: PreferencesHelper) {
         fun create() = Retrofit.Builder().run {

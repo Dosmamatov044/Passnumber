@@ -50,11 +50,11 @@ class PassNumbersAdapter :
                 tvTopEnd.text = item.area
                 tvSecondStart.setText(Html.fromHtml(boldNumbers(item.status ?: "")))
                 tvSecondEnd.text = item.number
-                tvThirdEnd.text = item.validity_period
+                tvThirdEnd.text = item.validityPeriod
                 tvThirdStart.setText(Html.fromHtml(item.getTime()))
                 llThirdLine.isGone = false
                 viewTop.isGone = false
-                when (item.days_left) {
+                when (item.daysLeft) {
                     null -> {
                         tvTopStart.setTextColor(Color.parseColor("#686868"))
                         tvSecondStart.setTextColor(Color.parseColor("#686868"))
@@ -91,7 +91,7 @@ class PassNumbersAdapter :
                         )
                     }
                 }
-                btnHelpRegistration.isGone = !(item.days_left == null || item.days_left <= 60)
+                btnHelpRegistration.isGone = !(item.daysLeft == null || item.daysLeft <= 60)
                 btnHelpRegistration.setOnClickListener {
                     btnHelpClicked.value=true
                 }

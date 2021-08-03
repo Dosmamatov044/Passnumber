@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <com.chauthai.swipereveallayout.SwipeRevealLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/swipe_layout_my_cars"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:dragEdge="right"
+        app:mode="same_level">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#000000"
+            android:orientation="horizontal"
+            >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="32dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_edit_3" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_ui_display_regular"
+                    android:text="@string/edit"
+                    android:textColor="#FFFFFF"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="32dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_trash_2" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_ui_display_regular"
+                    android:text="@string/delete"
+                    android:textColor="#FFFFFF"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/main_cont_card_car"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_green_card"
+            android:backgroundTint="#FDD9CD"
+            android:paddingBottom="10dp"
+            android:paddingHorizontal="8dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cont_card_car_top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                app:layout_constraintTop_toTopOf="parent"
+                >
+
+                <TextView
+                    android:id="@+id/txt_card_car_reg_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:fontFamily="@font/sf_ui_display_semibold"
+                    android:paddingEnd="3dp"
+                    android:text="А 777 АА"
+                    android:textColor="#8F533F"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cont_card_car_flag_region"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    app:layout_constraintStart_toEndOf="@+id/txt_card_car_reg_number"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/txt_card_car_region"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_ui_display_semibold"
+                        android:includeFontPadding="false"
+                        android:text="777"
+                        android:textAlignment="center"
+                        android:textColor="#8F533F"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        app:layout_constraintTop_toBottomOf="@id/txt_card_car_region">
+
+                        <TextView
+                            android:id="@+id/txt_card_car_rus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/rus"
+                            android:textColor="#8F533F"
+                            android:textSize="10sp" />
+
+                        <ImageView
+                            android:id="@+id/img_card_car_flag"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="2dp"
+                            android:background="@drawable/ic_flag" />
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="7dp"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toEndOf="@id/cont_card_car_flag_region"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_truck_card_car"
+                        android:backgroundTint="#8F533F" />
+
+                    <TextView
+                        android:id="@+id/txt_card_car_model"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-2dp"
+                        android:fontFamily="@font/sf_ui_display_regular"
+                        android:includeFontPadding="false"
+                        android:text="Вольво"
+                        android:textColor="#8F533F"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txt_card_car_way"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="12dp"
+                    android:fontFamily="@font/sf_ui_display_semibold"
+                    android:text="МКАД"
+                    android:textColor="#8F533F"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:id="@+id/line_card_car"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="7dp"
+                android:background="#CADAC0"
+                app:layout_constraintTop_toBottomOf="@+id/cont_card_car_top" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/line_card_car">
+
+                <TextView
+                    android:id="@+id/txt_card_car_period"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_ui_display_medium"
+                    android:text="Годовой"
+                    android:textColor="@color/blue"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txt_card_car_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_ui_display_light"
+                    android:text="БА 0624852"
+                    android:textColor="@color/blue"
+                    android:textSize="15sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txt_card_car_driver"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Водитель:"
+                    android:textColor="#8F533F"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/sf_ui_display_semibold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_card_car_period" />
+
+                <TextView
+                    android:id="@+id/txt_card_car_driver_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Иванов Иван Иванович"
+                    android:layout_marginStart="2dp"
+                    android:textColor="#8F533F"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/sf_ui_display_regular"
+                    app:layout_constraintStart_toEndOf="@id/txt_card_car_driver"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_card_car_period" />
+
+                <TextView
+                    android:id="@+id/txt_card_car_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/sf_ui_display_semibold"
+                    android:text="Дневной"
+                    android:layout_marginTop="13dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_card_car_id" />
+
+                <TextView
+                    android:id="@+id/txt_card_card_remained"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="17sp"
+                    android:textColor="#8F533F"
+                    android:fontFamily="@font/sf_ui_display_regular"
+                    android:text="Осталось"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_card_car_driver" />
+
+                <TextView
+                    android:id="@+id/txt_card_card_remained_day"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="17sp"
+                    android:textColor="#8F533F"
+                    android:layout_marginStart="2dp"
+                    android:fontFamily="@font/sf_ui_display_semibold"
+                    android:text="310 дней"
+                    app:layout_constraintStart_toEndOf="@+id/txt_card_card_remained"
+                    app:layout_constraintTop_toBottomOf="@id/txt_card_car_driver" />
+
+                <TextView
+                    android:id="@+id/txt_card_car_from"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="с "
+                    android:textSize="13sp"
+                    android:textColor="#8F533F"
+                    android:fontFamily="@font/sf_ui_display_regular"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_card_card_remained" />
+
+                <TextView
+                    android:id="@+id/txt_card_car_date_from"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="15.06.2021"
+                    android:textSize="13sp"
+                    android:textColor="#8F533F"
+                    android:fontFamily="@font/sf_ui_display_semibold"
+                    app:layout_constraintStart_toEndOf="@+id/txt_card_car_from"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_card_card_remained" />
+
+                <TextView
+                    android:id="@+id/txt_card_car_to"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" по "
+                    android:textSize="13sp"
+                    android:textColor="#8F533F"
+                    android:fontFamily="@font/sf_ui_display_regular"
+                    app:layout_constraintStart_toEndOf="@+id/txt_card_car_date_from"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_card_card_remained" />
+
+                <TextView
+                    android:id="@+id/txt_card_car_date_to"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="18.05.2022 (включительно)"
+                    android:textSize="13sp"
+                    android:textColor="#8F533F"
+                    android:fontFamily="@font/sf_ui_display_semibold"
+                    app:layout_constraintStart_toEndOf="@+id/txt_card_car_to"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_card_card_remained" />
+                <TextView
+                    android:id="@+id/btn_card_car_help"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/txt_card_car_from"
+                    android:background="@drawable/bg_button_card_car"
+                    android:gravity="center"
+                    android:text="@string/help_reg"
+                    android:layout_marginTop="8dp"
+                    android:minHeight="40dp"
+                    android:textSize="14sp"
+                    android:textColor="#FFFFFF"
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.chauthai.swipereveallayout.SwipeRevealLayout>
+</layout>

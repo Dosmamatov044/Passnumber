@@ -9,5 +9,5 @@ data class Notification(
     @SerializedName("read_at") val readAt: String?,
     @SerializedName("diff") val diff: String,
     @SerializedName("created_at") val createdAt:String,
-    @SerializedName("pass")val pass:Pass
+    @SerializedName("pass")val pass:PassesData
 )

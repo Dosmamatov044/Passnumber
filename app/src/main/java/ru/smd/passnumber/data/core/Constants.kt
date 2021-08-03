@@ -25,4 +25,5 @@ object Constants {
 
     const val BASE_URL = "https://pass.su/api/"
     const val DATE_MASK = "d MMMM,EEEE"
+    const val DATE_MASK_NUMBER="dd.MM.yyyy"
 }

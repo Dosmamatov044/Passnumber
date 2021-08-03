@@ -3,7 +3,7 @@
     <string name="text_help_registration">Помощь в оформление</string>
     <string name="notifications">Уведомления</string>
     <string name="registration">Регистрация</string>
-  <string name="to_enter_number_tel"> Введите номер мобильного телефона</string>
+    <string name="to_enter_number_tel"> Введите номер мобильного телефона</string>
     <string name="send_sms">На указанный вами номер мы отправили&lt;br>
 СМС с кодом активации.&lt;br>
 Введите полученный код в&lt;br>
@@ -24,10 +24,19 @@
     <string name="reg_number">Регистрационный номер</string>
     <string name="label_model_auto">Марка и модель автомобиля</string>
     <string name="name_driver">Имя водителя</string>
+    <string name="rus">RUS</string>
+    <string name="help_reg">Помощь в оформление</string>
+    <string name="havent_pass">Пропуска нет</string>
+    <string name="annual">Годовой</string>
+    <string name="one_time">Разовый</string>
     <string name="you_havent_cars">У вас пока нет автомобилей.&lt;br>
 Добавьте номера автомобилей для&lt;br>
 отслеживания</string>
     <string name="add">Добавить</string>
     <string name="code_success_send">Код активаци успешно отправлен!</string>
     <string name="agreement">Я принимаю условия &lt;u>пользовательского соглашения&lt;/u> и даю согласие на обработку персональных данных согласно &lt;u>политике конфиденциальности.&lt;/u></string>
+    <string name="edit">Редактировать</string>
+    <string name="delete">Удалить</string>
+
+
 </resources>

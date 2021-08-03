@@ -37,10 +37,10 @@ class MyCarsPresenter @Inject constructor(val repo: PassNumberRepo):MyCarsContra
             .subscribe { response, error ->
                 when {
                     error == null -> {
-                     if (!response.data.isEmpty()){
+                     if (response.data.isEmpty()){
                          view?.showEmptyList()
                      }else{
-                         view?.showCarList()
+                         view?.showCarList(response.data)
                      }
                     }
                     else -> {
@@ -51,7 +51,24 @@ class MyCarsPresenter @Inject constructor(val repo: PassNumberRepo):MyCarsContra
     }
 
     override fun addCar(regNumber: String, labelModel: String, nameDriver: String) {
-        TODO("Not yet implemented")
+        repo.addCar(
+            mutableMapOf<String, String>().apply {
+                this["reg_numbers"] = regNumber
+                this["driver_name"] = labelModel
+                this["mark"] = nameDriver
+            }
+        ).compose(applySchedulers())
+            .subscribe {  response, error ->
+                when {
+                    error == null -> {
+                       getMyCars()
+                        view?.enableEdtRegNum()
+                    }
+                    else -> {
+                        view?.showErrorInternet()
+                    }
+                }
+            }.also(compositeDisposable::add)
     }
 
     fun <T> applySchedulers(): SingleTransformer<T, T> {

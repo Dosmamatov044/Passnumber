@@ -98,4 +98,7 @@ dependencies {
     // Retrofit2
     implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0"
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+
+    //SwipeLayout
+    implementation 'com.chauthai.swipereveallayout:swipe-reveal-layout:1.4.1'
 }

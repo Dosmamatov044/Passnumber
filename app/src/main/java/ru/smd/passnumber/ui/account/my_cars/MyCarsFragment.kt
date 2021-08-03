@@ -6,21 +6,26 @@ import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Adapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
 import ru.smd.passnumber.R
+import ru.smd.passnumber.data.entities.PassData
 import ru.smd.passnumber.databinding.FragmentMyCarsBinding
 import ru.smd.passnumber.databinding.FragmentMyDataBinding
+import ru.smd.passnumber.ui.account.my_cars.adapters.MyCarsSwipeAdapter
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MyCarsFragment : Fragment(), MyCarsContract.View {
+class MyCarsFragment : Fragment(), MyCarsContract.View,MyCarsSwipeAdapter.OnClickListner {
 
     @Inject
     lateinit var presenter: MyCarsContract.Presenter
 
     lateinit var binding: FragmentMyCarsBinding
+
+    lateinit var adapter: MyCarsSwipeAdapter
 
     override fun onStart() {
         super.onStart()
@@ -39,6 +44,8 @@ class MyCarsFragment : Fragment(), MyCarsContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.run {
+            adapter= MyCarsSwipeAdapter(this@MyCarsFragment)
+            recycleMyCars.adapter=adapter
             txtMyCarsHavent.text =
                 Html.fromHtml(requireContext().getString(R.string.you_havent_cars))
             btnBackMyCars.setOnClickListener { presenter.onClickBack() }
@@ -93,13 +100,14 @@ class MyCarsFragment : Fragment(), MyCarsContract.View {
         binding.contListCars.visibility = View.GONE
     }
 
-    override fun showCarList() {
+    override fun showCarList(cars: List<PassData>) {
         binding.contImgMyCars.visibility = View.GONE
         binding.btnAddMyCars.visibility = View.GONE
         binding.contAddMyCars.visibility = View.GONE
         binding.btnAddMyCarsPlus.visibility = View.VISIBLE
         binding.tvTitleMyCars.setText(getString(R.string.cars))
         binding.contListCars.visibility = View.VISIBLE
+        adapter.setData(cars)
     }
 
     override fun showEmptyList() {
@@ -109,6 +117,20 @@ class MyCarsFragment : Fragment(), MyCarsContract.View {
         binding.btnAddMyCarsPlus.visibility = View.VISIBLE
         binding.tvTitleMyCars.setText(getString(R.string.cars))
         binding.contListCars.visibility = View.GONE
+    }
+
+    override fun enableEdtRegNum() {
+        binding.edtRegNumberMyCars.isEnabled=true
+    }
+
+    override fun onClickEdit(regNumber: String, driverName: String, mark: String) {
+        showAddCarBlock()
+        binding.run {
+            edtRegNumberMyCars.setText(regNumber)
+            edtRegNumberMyCars.isEnabled=false
+            edtLabelModelMyCars.setText(mark)
+            edtNameDriverMyCars.setText(driverName)
+        }
     }
 
 

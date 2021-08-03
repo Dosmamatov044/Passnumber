@@ -1,11 +1,8 @@
 package ru.smd.passnumber.ui.account.notification.adapters
 
-import android.icu.util.Calendar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.core.util.rangeTo
 import androidx.recyclerview.widget.RecyclerView
 import ru.smd.passnumber.data.core.Constants
 import ru.smd.passnumber.data.entities.Notification
@@ -32,7 +29,7 @@ class NotificationAdapter() : RecyclerView.Adapter<NotificationAdapter.ViewHolde
                 val region = data.data.body.subSequence(6, lenghtRegion.length)
                 txtNotificationRegion.setText(region)
                 val title=data.data.body.subSequence(lenghtRegion.length+1, data.data.body.length).toString()
-                val result=title.replace(data.pass.validityPeriod,"")
+                val result= data.pass.validityPeriod?.let { title.replace(it,"") }
                 txtNotificationTitle.setText(result)
                 txtNotificationType.setText(data.pass.validityPeriod)
                 val year=data.createdAt.subSequence(0,4).toString().toInt()
