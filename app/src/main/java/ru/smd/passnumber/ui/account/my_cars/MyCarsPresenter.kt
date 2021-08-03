@@ -5,6 +5,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import ru.smd.passnumber.data.service.PassNumberRepo
+import ru.smd.passnumber.ui.activities.main.MainActivity
 import javax.inject.Inject
 
 class MyCarsPresenter @Inject constructor(val repo: PassNumberRepo):MyCarsContract.Presenter {
@@ -33,8 +34,10 @@ class MyCarsPresenter @Inject constructor(val repo: PassNumberRepo):MyCarsContra
     }
 
     override fun getMyCars() {
+        MainActivity.handleLoad.postValue(true)
         repo.getCarList().compose(applySchedulers())
             .subscribe { response, error ->
+                MainActivity.handleLoad.value=false
                 when {
                     error == null -> {
                      if (response.data.isEmpty()){
@@ -51,21 +54,41 @@ class MyCarsPresenter @Inject constructor(val repo: PassNumberRepo):MyCarsContra
     }
 
     override fun addCar(regNumber: String, labelModel: String, nameDriver: String) {
+        MainActivity.handleLoad.postValue(true)
         repo.addCar(
             mutableMapOf<String, String>().apply {
                 this["reg_numbers"] = regNumber
-                this["driver_name"] = labelModel
-                this["mark"] = nameDriver
+                this["mark"] = labelModel
+                this["driver_name"] = nameDriver
             }
         ).compose(applySchedulers())
             .subscribe {  response, error ->
+                MainActivity.handleLoad.value=false
                 when {
                     error == null -> {
                        getMyCars()
                         view?.enableEdtRegNum()
                     }
                     else -> {
-                        view?.showErrorInternet()
+                        MainActivity.handleError.value = error.toString()
+//                        view?.showErrorInternet()
+                    }
+                }
+            }.also(compositeDisposable::add)
+    }
+
+    override fun deleteCar(regNumber: Int) {
+        MainActivity.handleLoad.postValue(true)
+        repo.deleteCard(regNumber).compose(applySchedulers())
+            .subscribe {  response, error ->
+                MainActivity.handleLoad.value=false
+                when (error) {
+                    null -> {
+                        getMyCars()
+                    }
+                    else -> {
+                        MainActivity.handleError.value = error.toString()
+            //                        view?.showErrorInternet()
                     }
                 }
             }.also(compositeDisposable::add)

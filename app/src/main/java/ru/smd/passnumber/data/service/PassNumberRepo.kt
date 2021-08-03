@@ -7,10 +7,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
-import retrofit2.http.QueryMap
+import retrofit2.http.*
 import ru.smd.passnumber.BuildConfig
 import ru.smd.passnumber.data.core.Constants
 import ru.smd.passnumber.data.entities.*
@@ -37,6 +34,9 @@ interface PassNumberRepo {
 
     @GET("vehicle")
     fun getCarList(): Single<ResponseVehicle>
+
+    @DELETE("vehicle/{vehicle_id}")
+    fun deleteCard(@Path("vehicle_id") vehicle_id:Int): Single<Unit>
 
     @POST("vehicle")
     fun addCar(@QueryMap params: MutableMap<String, String>): Single<PassData>

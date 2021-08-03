@@ -23,6 +23,7 @@ class MyCarsSwipeAdapter(val onClick:OnClickListner) : RecyclerView.Adapter<MyCa
 
     interface OnClickListner {
         fun onClickEdit(regNumber:String,driverName:String,mark:String)
+        fun onClickDelete(regNumber:Int)
     }
 
     sealed class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -85,6 +86,7 @@ class MyCarsSwipeAdapter(val onClick:OnClickListner) : RecyclerView.Adapter<MyCa
     }
 
     fun setData(data: List<PassData>) {
+        items.clear()
         var cardCarWrapper: CardCarWrapper
         data.forEach {
             var days = 0
@@ -132,6 +134,9 @@ class MyCarsSwipeAdapter(val onClick:OnClickListner) : RecyclerView.Adapter<MyCa
                             mark=data.passData.mark
                         }
                         onClick.onClickEdit(regNumber, driverName, mark)
+                    }
+                    contDelete.setOnClickListener {
+                        onClick.onClickDelete(data.passData.id)
                     }
                     val number = data.passData.regNumber?.subSequence(0, 6)
                     val editNumber = (number?.get(0)

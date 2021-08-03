@@ -133,5 +133,9 @@ class MyCarsFragment : Fragment(), MyCarsContract.View,MyCarsSwipeAdapter.OnClic
         }
     }
 
+    override fun onClickDelete(regNumber: Int) {
+        presenter.deleteCar(regNumber)
+    }
+
 
 }
