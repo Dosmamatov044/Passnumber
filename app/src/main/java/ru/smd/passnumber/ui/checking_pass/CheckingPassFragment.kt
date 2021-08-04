@@ -12,6 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.bottom_menu.*
 import kotlinx.android.synthetic.main.fragment_checking_pass.*
 import ru.smd.passnumber.R
+import ru.smd.passnumber.data.core.hideKeyboard
 import ru.smd.passnumber.data.entities.PassData
 import ru.smd.passnumber.data.entities.PassesData
 import ru.smd.passnumber.ui.activities.main.MainActivity
@@ -25,42 +26,62 @@ import ru.smd.passnumber.ui.help_registration.HelpRegistrationFragment
 class CheckingPassFragment : Fragment(R.layout.fragment_checking_pass) {
 
     private val viewModel: CheckingPassViewModel by viewModels()
-    private val adapter=PassNumbersAdapter()
+    private val adapter = PassNumbersAdapter()
     val data = MutableLiveData<PassData>()
 
     @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        rvPassNumbers.adapter=adapter
+        rvPassNumbers.adapter = adapter
+        btn_back_checking_pass.setOnClickListener {
+            hideKeyboard()
+            requireActivity().onBackPressed()
+        }
         ivTopTruck1.setOnClickListener {
-            ivTopTruck1.isClickable=false
-            ivTopTruck1.isGone=true
-            ivTopTruck.isClickable=true
-            ivTopTruck.isGone=false
-            llSubscribe.isGone=false
+            ivTopTruck1.isClickable = false
+            ivTopTruck1.isGone = true
+            ivTopTruck.isClickable = true
+            ivTopTruck.isGone = false
+            llSubscribe.isGone = false
         }
         ivTopTruck.setOnClickListener {
-            ivTopTruck.isClickable=false
-            ivTopTruck.isGone=true
-            ivTopTruck1.isClickable=true
-            ivTopTruck1.isGone=false
-            llSubscribe.isGone=true
+            ivTopTruck.isClickable = false
+            ivTopTruck.isGone = true
+            ivTopTruck1.isClickable = true
+            ivTopTruck1.isGone = false
+            llSubscribe.isGone = true
         }
 
-        data.observe(this,passData)
-        adapter.btnHelpClicked.observe(this,btnHelpClicked)
+        data.observe(this, passData)
+        adapter.btnHelpClicked.observe(this, btnHelpClicked)
     }
-    private val btnHelpClicked= Observer<Boolean> {
-       val main= requireActivity() as MainActivity
+
+    private val btnHelpClicked = Observer<Boolean> {
+        val main = requireActivity() as MainActivity
         main.bottomSelected(main.btnBottom3)
-        parentFragmentManager.beginTransaction().replace(R.id.mainContainer,HelpRegistrationFragment()).commit()
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.mainContainer, HelpRegistrationFragment()).commit()
     }
-    private val passData= Observer<PassData> {
-        adapter.regNumber=it.regNumber?:""
+    private val passData = Observer<PassData> {
+        adapter.regNumber = it.regNumber ?: ""
         if (it.passes.isNullOrEmpty())
-            adapter.submitList(mutableListOf(PassesData(null,null,null,null,null,null,null,null,null)))
+            adapter.submitList(
+                mutableListOf(
+                    PassesData(
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    )
+                )
+            )
         else
-       adapter.submitList(it.passes)
+            adapter.submitList(it.passes)
     }
 
 

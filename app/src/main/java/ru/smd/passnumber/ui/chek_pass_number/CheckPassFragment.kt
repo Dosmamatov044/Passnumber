@@ -2,7 +2,11 @@ package ru.smd.passnumber.ui.chek_pass_number
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.InputFilter
+import android.text.InputType
 import android.view.View
+import android.widget.Filter
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -11,6 +15,7 @@ import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_check_pass.*
 import ru.smd.passnumber.R
+import ru.smd.passnumber.data.core.hideKeyboard
 import ru.smd.passnumber.data.entities.PassData
 import ru.smd.passnumber.ui.checking_pass.CheckingPassFragment
 
@@ -23,6 +28,7 @@ class CheckPassFragment : Fragment(R.layout.fragment_check_pass) {
 
     private val viewModel: CheckPassViewModel by viewModels()
 
+
     @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,6 +37,14 @@ class CheckPassFragment : Fragment(R.layout.fragment_check_pass) {
         }
         viewModel.data.observe(this, passData)
         etStartNumber.doOnTextChanged { text, start, before, count ->
+            when(etStartNumber.text.length){
+                0->etStartNumber.inputType=InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
+                1->etStartNumber.inputType=InputType.TYPE_CLASS_NUMBER
+                2->etStartNumber.inputType=InputType.TYPE_CLASS_NUMBER
+                3->etStartNumber.inputType=InputType.TYPE_CLASS_NUMBER
+                4->etStartNumber.inputType=InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
+                5->etStartNumber.inputType=InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
+            }
             if (etStartNumber.length() >= 6)
                 etEndNumber.requestFocus()
             checkNumberField()
@@ -42,7 +56,7 @@ class CheckPassFragment : Fragment(R.layout.fragment_check_pass) {
     }
 
     fun checkNumberField() {
-        if (etStartNumber.length() == 6 && etEndNumber.length() == 3) {
+        if (etStartNumber.length() == 6 && etEndNumber.length() >= 2) {
             btnCheckPassNumber.isClickable = true
             btnCheckPassNumber.setTextColor(
                 ContextCompat.getColor(
@@ -65,6 +79,7 @@ class CheckPassFragment : Fragment(R.layout.fragment_check_pass) {
     }
 
     private val passData = Observer<PassData> {
+        hideKeyboard()
         parentFragmentManager.beginTransaction()
             .replace(R.id.checkPassContainer, CheckingPassFragment().apply {
                 data.value = it

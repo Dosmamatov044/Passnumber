@@ -66,8 +66,8 @@ class MyCarsPresenter @Inject constructor(val repo: PassNumberRepo):MyCarsContra
                 MainActivity.handleLoad.value=false
                 when {
                     error == null -> {
-                       getMyCars()
                         view?.enableEdtRegNum()
+                        getMyCars()
                     }
                     else -> {
                         MainActivity.handleError.value = error.toString()
