@@ -247,6 +247,10 @@
                 android:textColor="@color/blue"
                 android:textSize="17sp"
                 android:layout_gravity="center_horizontal" />
+            <include
+                android:visibility="gone"
+                android:id="@+id/alertUsingSwipe"
+                layout="@layout/alert_view"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycle_my_cars"

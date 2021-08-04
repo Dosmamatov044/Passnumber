@@ -17,6 +17,8 @@ import java.util.*
 
 class MyCarsSwipeAdapter(val onClick:OnClickListner) : RecyclerView.Adapter<MyCarsSwipeAdapter.ViewHolder>() {
 
+    var isFirstAdded=false
+
     var items = mutableListOf<CardCarWrapper>()
 
     private val viewBinderHelper = ViewBinderHelper()
@@ -405,6 +407,8 @@ class MyCarsSwipeAdapter(val onClick:OnClickListner) : RecyclerView.Adapter<MyCa
                 }
             }
         }
+        if (isFirstAdded)
+        viewBinderHelper.openLayout(items.get(position).passData.id.toString())
     }
     override fun getItemCount() = items.size
 }

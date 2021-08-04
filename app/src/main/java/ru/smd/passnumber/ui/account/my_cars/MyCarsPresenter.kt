@@ -5,10 +5,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import ru.smd.passnumber.data.service.PassNumberRepo
+import ru.smd.passnumber.data.tools.PreferencesHelper
 import ru.smd.passnumber.ui.activities.main.MainActivity
 import javax.inject.Inject
 
-class MyCarsPresenter @Inject constructor(val repo: PassNumberRepo):MyCarsContract.Presenter {
+class MyCarsPresenter @Inject constructor(val repo: PassNumberRepo,val prefs: PreferencesHelper):MyCarsContract.Presenter {
 
     private var view: MyCarsContract.View?=null
 
@@ -43,7 +44,8 @@ class MyCarsPresenter @Inject constructor(val repo: PassNumberRepo):MyCarsContra
                      if (response.data.isEmpty()){
                          view?.showEmptyList()
                      }else{
-                         view?.showCarList(response.data)
+                         view?.showCarList(response.data,!prefs.getFirstAddedCar())
+
                      }
                     }
                     else -> {

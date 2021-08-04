@@ -15,6 +15,13 @@ class PreferencesHelper @Inject constructor(@ApplicationContext val context: Con
         sharedPreferences = context.getSharedPreferences("mainPreferences", Context.MODE_PRIVATE)
     }
 
+    fun getFirstAddedCar():Boolean{
+        return sharedPreferences.getBoolean("isFirstAddedCar",false)
+    }
+    fun setFirstAddedCar(){
+        sharedPreferences.edit().putBoolean("isFirstAddedCar",true).apply()
+    }
+
     fun storeToken(token:String?){
         sharedPreferences.edit().putString("token",token).apply()
     }
