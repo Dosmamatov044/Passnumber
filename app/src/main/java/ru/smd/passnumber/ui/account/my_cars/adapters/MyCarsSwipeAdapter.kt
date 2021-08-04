@@ -206,6 +206,21 @@ class MyCarsSwipeAdapter(val onClick:OnClickListner) : RecyclerView.Adapter<MyCa
                         data.passData.id.toString()
                     )
                     viewBinderHelper.closeLayout(data.passData.id.toString())
+                    contEdit.setOnClickListener {
+                        var regNumber=""
+                        var driverName=""
+                        var mark=""
+                        if (!data.passData.regNumber.isNullOrEmpty()){
+                            regNumber=data.passData.regNumber
+                        }
+                        if (!data.passData.driverName.isNullOrEmpty()){
+                            driverName=data.passData.driverName
+                        }
+                        if (!data.passData.mark.isNullOrEmpty()){
+                            mark=data.passData.mark
+                        }
+                        onClick.onClickEdit(regNumber, driverName, mark)
+                    }
                     val number = data.passData.regNumber?.subSequence(0, 6)
                     val editNumber = (number?.get(0)
                         ?.plus(" ")) + (number?.get(1)) + (number?.get(2)) + (number?.get(3)
@@ -269,6 +284,21 @@ class MyCarsSwipeAdapter(val onClick:OnClickListner) : RecyclerView.Adapter<MyCa
                         data.passData.id.toString()
                     )
                     viewBinderHelper.closeLayout(data.passData.id.toString())
+                    contEdit.setOnClickListener {
+                        var regNumber=""
+                        var driverName=""
+                        var mark=""
+                        if (!data.passData.regNumber.isNullOrEmpty()){
+                            regNumber=data.passData.regNumber
+                        }
+                        if (!data.passData.driverName.isNullOrEmpty()){
+                            driverName=data.passData.driverName
+                        }
+                        if (!data.passData.mark.isNullOrEmpty()){
+                            mark=data.passData.mark
+                        }
+                        onClick.onClickEdit(regNumber, driverName, mark)
+                    }
                     val number = data.passData.regNumber?.subSequence(0, 6)
                     val editNumber = (number?.get(0)
                         ?.plus(" ")) + (number?.get(1)) + (number?.get(2)) + (number?.get(3)
@@ -332,6 +362,21 @@ class MyCarsSwipeAdapter(val onClick:OnClickListner) : RecyclerView.Adapter<MyCa
                         data.passData.id.toString()
                     )
                     viewBinderHelper.closeLayout(data.passData.id.toString())
+                    contEdit.setOnClickListener {
+                        var regNumber=""
+                        var driverName=""
+                        var mark=""
+                        if (!data.passData.regNumber.isNullOrEmpty()){
+                            regNumber=data.passData.regNumber
+                        }
+                        if (!data.passData.driverName.isNullOrEmpty()){
+                            driverName=data.passData.driverName
+                        }
+                        if (!data.passData.mark.isNullOrEmpty()){
+                            mark=data.passData.mark
+                        }
+                        onClick.onClickEdit(regNumber, driverName, mark)
+                    }
                     val number = data.passData.regNumber?.subSequence(0, 6)
                     val editNumber = (number?.get(0)
                         ?.plus(" ")) + (number?.get(1)) + (number?.get(2)) + (number?.get(3)
@@ -395,6 +440,21 @@ class MyCarsSwipeAdapter(val onClick:OnClickListner) : RecyclerView.Adapter<MyCa
                         data.passData.id.toString()
                     )
                     viewBinderHelper.closeLayout(data.passData.id.toString())
+                    contEdit.setOnClickListener {
+                        var regNumber=""
+                        var driverName=""
+                        var mark=""
+                        if (!data.passData.regNumber.isNullOrEmpty()){
+                            regNumber=data.passData.regNumber
+                        }
+                        if (!data.passData.driverName.isNullOrEmpty()){
+                            driverName=data.passData.driverName
+                        }
+                        if (!data.passData.mark.isNullOrEmpty()){
+                            mark=data.passData.mark
+                        }
+                        onClick.onClickEdit(regNumber, driverName, mark)
+                    }
                     val number = data.passData.regNumber?.subSequence(0, 6)
                     val editNumber = (number?.get(0)
                         ?.plus(" ")) + (number?.get(1)) + (number?.get(2)) + (number?.get(3)
