@@ -33,6 +33,7 @@ class CheckPassFragment : Fragment(R.layout.fragment_check_pass) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         btnCheckPassNumber.setOnClickListener {
+            viewModel.composite()
             viewModel.checkPassData(etStartNumber.text.toString() + etEndNumber.text.toString())
         }
         viewModel.data.observe(this, passData)
@@ -76,6 +77,12 @@ class CheckPassFragment : Fragment(R.layout.fragment_check_pass) {
             btnCheckPassNumber.setBackgroundResource(R.drawable.ic_rectangle_round_4_gray)
         }
 
+    }
+
+    override fun onStop() {
+        super.onStop()
+        viewModel.composite()
+        viewModel.dispose()
     }
 
     private val passData = Observer<PassData> {

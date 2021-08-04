@@ -23,7 +23,7 @@ import ru.smd.passnumber.utils.boldNumbers
 
 class PassNumbersAdapter() :
     ListAdapter<PassesData, PassNumbersAdapter.PassNumberViewHolder>(DiffCallback()) {
-    lateinit var regNumber:String
+    lateinit var regNumber: String
     var btnHelpClicked = MutableLiveData<Boolean>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PassNumberViewHolder {
         return PassNumberViewHolder(
@@ -54,48 +54,67 @@ class PassNumbersAdapter() :
                 tvThirdStart.setText(Html.fromHtml(item.getTime()))
                 llThirdLine.isGone = false
                 viewTop.isGone = false
-                if (item.number?.contains("ББ") == true) {
+                var editNumber: String = ""
+                if (!regNumber.isEmpty() && regNumber.length == 8) {
+                    editNumber = (regNumber.get(0)
+                        .plus(" ")) + (regNumber.get(1)) + (regNumber.get(2)) + (regNumber.get(3)
+                        .plus(" ")) + (regNumber.get(4)) + (regNumber.get(5)).plus(" ") + regNumber[6] + regNumber[7]
+                } else if (!regNumber.isEmpty() && regNumber.length == 9) {
+                    editNumber = (regNumber.get(0)
+                        .plus(" ")) + (regNumber.get(1)) + (regNumber.get(2)) + (regNumber.get(3)
+                        .plus(" ")) + (regNumber.get(4)) + (regNumber.get(5)).plus(" ") + regNumber[6] + regNumber[7] + regNumber[8]
+                }
+                if (item.number?.contains("ББ") == true && item.daysLeft != null && item.daysLeft > 0) {
                     tvTopStart.setTextColor(Color.parseColor("#FFFFFF"))
                     tvSecondStart.setTextColor(Color.parseColor("#FFFFFF"))
                     tvThirdStart.setTextColor(Color.parseColor("#FFFFFF"))
                     tvTopEnd.setTextColor(Color.parseColor("#FFFFFF"))
                     tvSecondEnd.setTextColor(Color.parseColor("#000000"))
-                    tvTopStart.text=item.regNumber
-                    tvSecondStart.text = item.status
+                    tvTopStart.text = editNumber
+                    val text = item.status?.split(" ")
+                    if (text?.size==3){
+                        tvSecondStart.text=Html.fromHtml(itemView.context.getString(R.string.status,text[0],text[1],text[2]))
+                    }else  tvSecondStart.text = item.status
                     tvTopEnd.text = item.area
                     tvSecondEnd.text = item.number
-                    tvThirdStart.text = itemView.context.getString(
-                        R.string.date_from_date_to,
-                        item.validFrom,
-                        item.validTo
+                    tvThirdStart.text = Html.fromHtml(
+                        itemView.context.getString(
+                            R.string.date_from_date_to,
+                            item.validFrom,
+                            item.validTo
+                        )
                     )
                     tvThirdEnd.text = item.validityPeriod
                     llPassNumber.background.setColorFilter(
                         Color.parseColor("#3AB9FF"),
                         PorterDuff.Mode.SRC_ATOP
                     )
-                } else if ( item.daysLeft!=null&&item.daysLeft<=60 ){
+                } else if (item.daysLeft != null && item.daysLeft <= 60 && item.daysLeft > 0) {
                     tvTopStart.setTextColor(Color.parseColor("#C65F00"))
                     tvSecondStart.setTextColor(Color.parseColor("#C65F00"))
                     tvThirdStart.setTextColor(Color.parseColor("#C65F00"))
                     tvTopEnd.setTextColor(Color.parseColor("#C65F00"))
                     tvSecondEnd.setTextColor(Color.parseColor("#1FA6F1"))
-                    tvTopStart.text=item.regNumber
-                    tvSecondStart.text = item.status
+                    tvTopStart.text = editNumber
+                    val text = item.status?.split(" ")
+                    if (text?.size==3){
+                        tvSecondStart.text=Html.fromHtml(itemView.context.getString(R.string.status,text[0],text[1],text[2]))
+                    }else  tvSecondStart.text = item.status
                     tvTopEnd.text = item.area
                     tvSecondEnd.text = item.number
-                    tvThirdStart.text = itemView.context.getString(
-                        R.string.date_from_date_to,
-                        item.validFrom,
-                        item.validTo
+                    tvThirdStart.text = Html.fromHtml(
+                        itemView.context.getString(
+                            R.string.date_from_date_to,
+                            item.validFrom,
+                            item.validTo
+                        )
                     )
                     tvThirdEnd.text = item.validityPeriod
                     llPassNumber.background.setColorFilter(
-                        Color.parseColor("#3AB9FF"),
+                        Color.parseColor("#FFF6C5"),
                         PorterDuff.Mode.SRC_ATOP
                     )
-                }
-                else {
+                } else {
                     when (item.daysLeft) {
                         null -> {
                             tvTopStart.setTextColor(Color.parseColor("#686868"))
@@ -103,7 +122,7 @@ class PassNumbersAdapter() :
                             tvThirdStart.setTextColor(Color.parseColor("#686868"))
                             tvTopEnd.setTextColor(Color.parseColor("#686868"))
                             tvSecondStart.text = "Пропуск не найден"
-                            tvTopStart.text=regNumber
+                            tvTopStart.text = editNumber
                             tvTopEnd.text = ""
                             tvSecondEnd.text = ""
                             llThirdLine.isGone = true
@@ -119,14 +138,19 @@ class PassNumbersAdapter() :
                             tvThirdStart.setTextColor(Color.parseColor("#8F533F"))
                             tvTopEnd.setTextColor(Color.parseColor("#8F533F"))
                             tvSecondEnd.setTextColor(Color.parseColor("#1FA6F1"))
-                            tvTopStart.text=item.regNumber
-                            tvSecondStart.text = item.status
+                            tvTopStart.text = editNumber
+                            val text = item.status?.split(" ")
+                            if (text?.size==3){
+                                tvSecondStart.text=Html.fromHtml(itemView.context.getString(R.string.status,text[0],text[1],text[2]))
+                            }else  tvSecondStart.text = item.status
                             tvTopEnd.text = item.area
                             tvSecondEnd.text = item.number
-                            tvThirdStart.text = itemView.context.getString(
-                                R.string.date_from_date_to,
-                                item.validFrom,
-                                item.validTo
+                            tvThirdStart.text = Html.fromHtml(
+                                itemView.context.getString(
+                                    R.string.date_from_date_to,
+                                    item.validFrom,
+                                    item.validTo
+                                )
                             )
                             tvThirdEnd.text = item.validityPeriod
                             llPassNumber.background.setColorFilter(
@@ -140,14 +164,19 @@ class PassNumbersAdapter() :
                             tvThirdStart.setTextColor(Color.parseColor("#406D2E"))
                             tvTopEnd.setTextColor(Color.parseColor("#406D2E"))
                             tvSecondEnd.setTextColor(Color.parseColor("#408E9B"))
-                            tvTopStart.text=item.regNumber
-                            tvSecondStart.text = item.status
+                            tvTopStart.text = editNumber
+                            val text = item.status?.split(" ")
+                            if (text?.size==3){
+                                tvSecondStart.text=Html.fromHtml(itemView.context.getString(R.string.status,text[0],text[1],text[2]))
+                            }else  tvSecondStart.text = item.status
                             tvTopEnd.text = item.area
                             tvSecondEnd.text = item.number
-                            tvThirdStart.text = itemView.context.getString(
-                                R.string.date_from_date_to,
-                                item.validFrom,
-                                item.validTo
+                            tvThirdStart.text = Html.fromHtml(
+                                itemView.context.getString(
+                                    R.string.date_from_date_to,
+                                    item.validFrom,
+                                    item.validTo
+                                )
                             )
                             tvThirdEnd.text = item.validityPeriod
                             llPassNumber.background.setColorFilter(

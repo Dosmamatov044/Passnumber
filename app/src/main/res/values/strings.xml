@@ -27,7 +27,8 @@
     <string name="rus">RUS</string>
     <string name="help_reg">Помощь в оформление</string>
     <string name="havent_pass">Пропуска нет</string>
-    <string name="date_from_date_to">с %s по %s</string>
+    <string name="date_from_date_to">с &lt;b>%s&lt;/b> по &lt;b>%s&lt;/b></string>
+    <string name="status">%s &lt;b>%s&lt;/b> %s</string>
     <string name="annual">Годовой</string>
     <string name="one_time">Разовый</string>
     <string name="you_havent_cars">У вас пока нет автомобилей.&lt;br>

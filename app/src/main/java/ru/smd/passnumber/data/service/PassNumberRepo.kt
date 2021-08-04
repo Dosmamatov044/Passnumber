@@ -5,6 +5,7 @@ import io.reactivex.Single
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
@@ -40,6 +41,9 @@ interface PassNumberRepo {
 
     @POST("vehicle")
     fun addCar(@QueryMap params: MutableMap<String, String>): Single<PassData>
+
+    @POST("vehicle/check")
+    fun checkPassNumber(@Query("reg_number") reg_number: String): Single<ResponseData<PassData>>
 
     class Factory @Inject constructor(val preferencesHelper: PreferencesHelper) {
         fun create() = Retrofit.Builder().run {

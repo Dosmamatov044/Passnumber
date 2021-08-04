@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/sf_ui_display_bold"
+            android:fontFamily="@font/sf_ui_display_semibold"
             tools:text="а863кр777"
             android:textColor="#406D2E"
             android:textSize="17sp" />
@@ -27,7 +27,7 @@
             android:id="@+id/tvTopEnd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/sf_ui_display_bold"
+            android:fontFamily="@font/sf_ui_display_semibold"
             android:gravity="end"
             tools:text="МКАД"
             android:textColor="#3F662D"
@@ -48,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/sf_ui_display_light"
+            android:fontFamily="@font/sf_ui_display_medium"
             tools:text="Осталось 310 дней"
             android:textColor="#406D2E"
             android:textSize="17sp" />
