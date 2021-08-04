@@ -1,27 +1,30 @@
 package ru.smd.passnumber.ui.account.my_cars
 
-import android.os.Binder
 import android.os.Bundle
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
 import android.widget.Toast
+import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.alert_view.view.*
 import ru.smd.passnumber.R
 import ru.smd.passnumber.data.entities.PassData
+import ru.smd.passnumber.data.tools.PreferencesHelper
 import ru.smd.passnumber.databinding.FragmentMyCarsBinding
-import ru.smd.passnumber.databinding.FragmentMyDataBinding
 import ru.smd.passnumber.ui.account.my_cars.adapters.MyCarsSwipeAdapter
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MyCarsFragment : Fragment(), MyCarsContract.View,MyCarsSwipeAdapter.OnClickListner {
+class MyCarsFragment : Fragment(), MyCarsContract.View, MyCarsSwipeAdapter.OnClickListner {
 
     @Inject
     lateinit var presenter: MyCarsContract.Presenter
+
+    @Inject
+    lateinit var prefs: PreferencesHelper
 
     lateinit var binding: FragmentMyCarsBinding
 
@@ -44,8 +47,8 @@ class MyCarsFragment : Fragment(), MyCarsContract.View,MyCarsSwipeAdapter.OnClic
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.run {
-            adapter= MyCarsSwipeAdapter(this@MyCarsFragment)
-            recycleMyCars.adapter=adapter
+            adapter = MyCarsSwipeAdapter(this@MyCarsFragment)
+            recycleMyCars.adapter = adapter
             txtMyCarsHavent.text =
                 Html.fromHtml(requireContext().getString(R.string.you_havent_cars))
             btnBackMyCars.setOnClickListener { presenter.onClickBack() }
@@ -100,17 +103,30 @@ class MyCarsFragment : Fragment(), MyCarsContract.View,MyCarsSwipeAdapter.OnClic
         binding.contListCars.visibility = View.GONE
     }
 
-    override fun showCarList(cars: List<PassData>) {
+    override fun showCarList(cars: List<PassData>, firstAddedCar: Boolean) {
         binding.contImgMyCars.visibility = View.GONE
         binding.btnAddMyCars.visibility = View.GONE
         binding.contAddMyCars.visibility = View.GONE
         binding.btnAddMyCarsPlus.visibility = View.VISIBLE
         binding.tvTitleMyCars.setText(getString(R.string.cars))
         binding.contListCars.visibility = View.VISIBLE
+        adapter.isFirstAdded = firstAddedCar
         adapter.setData(cars)
+        if (firstAddedCar) {
+            binding.alertUsingSwipe.isGone = false
+            binding.alertUsingSwipe.btnAlert.setOnClickListener {
+                binding.alertUsingSwipe.isGone = true
+                prefs.setFirstAddedCar()
+                adapter.isFirstAdded = false
+                adapter.notifyDataSetChanged()
+            }
+        }
+        else
+            binding.alertUsingSwipe.isGone = true
     }
 
     override fun showEmptyList() {
+        binding.alertUsingSwipe.isGone = true
         binding.contImgMyCars.visibility = View.VISIBLE
         binding.btnAddMyCars.visibility = View.VISIBLE
         binding.contAddMyCars.visibility = View.GONE
@@ -120,14 +136,14 @@ class MyCarsFragment : Fragment(), MyCarsContract.View,MyCarsSwipeAdapter.OnClic
     }
 
     override fun enableEdtRegNum() {
-        binding.edtRegNumberMyCars.isEnabled=true
+        binding.edtRegNumberMyCars.isEnabled = true
     }
 
     override fun onClickEdit(regNumber: String, driverName: String, mark: String) {
         showAddCarBlock()
         binding.run {
             edtRegNumberMyCars.setText(regNumber)
-            edtRegNumberMyCars.isEnabled=false
+            edtRegNumberMyCars.isEnabled = false
             edtLabelModelMyCars.setText(mark)
             edtNameDriverMyCars.setText(driverName)
         }
