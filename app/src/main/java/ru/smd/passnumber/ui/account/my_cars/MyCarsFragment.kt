@@ -48,6 +48,8 @@ class MyCarsFragment : Fragment(), MyCarsContract.View, MyCarsSwipeAdapter.OnCli
         super.onViewCreated(view, savedInstanceState)
         binding.run {
             adapter = MyCarsSwipeAdapter(this@MyCarsFragment)
+            glass.setOnClickListener {  }//TODO поиск
+            microphone.setOnClickListener {  } //TODO микрофон
             recycleMyCars.adapter = adapter
             txtMyCarsHavent.text =
                 Html.fromHtml(requireContext().getString(R.string.you_havent_cars))
