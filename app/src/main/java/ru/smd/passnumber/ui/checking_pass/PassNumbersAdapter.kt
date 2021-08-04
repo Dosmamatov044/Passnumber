@@ -21,10 +21,10 @@ import ru.smd.passnumber.data.entities.PassesData
 import ru.smd.passnumber.utils.boldNumbers
 
 
-class PassNumbersAdapter :
+class PassNumbersAdapter() :
     ListAdapter<PassesData, PassNumbersAdapter.PassNumberViewHolder>(DiffCallback()) {
-    var regNumber = ""
-    var btnHelpClicked=MutableLiveData<Boolean>()
+    lateinit var regNumber:String
+    var btnHelpClicked = MutableLiveData<Boolean>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PassNumberViewHolder {
         return PassNumberViewHolder(
             LayoutInflater.from(parent.context)
@@ -54,46 +54,112 @@ class PassNumbersAdapter :
                 tvThirdStart.setText(Html.fromHtml(item.getTime()))
                 llThirdLine.isGone = false
                 viewTop.isGone = false
-                when (item.daysLeft) {
-                    null -> {
-                        tvTopStart.setTextColor(Color.parseColor("#686868"))
-                        tvSecondStart.setTextColor(Color.parseColor("#686868"))
-                        tvThirdStart.setTextColor(Color.parseColor("#686868"))
-                        tvTopEnd.setTextColor(Color.parseColor("#686868"))
-                        tvSecondStart.text = "Пропуск не найден"
-                        tvTopEnd.text = ""
-                        tvSecondEnd.text = ""
-                        llThirdLine.isGone = true
-                        viewTop.isGone = true
-                        llPassNumber.background.setColorFilter(
-                            Color.parseColor("#DDDDDD"),
-                            PorterDuff.Mode.SRC_ATOP
-                        )
-                    }
-                    0 -> {
-                        tvTopStart.setTextColor(Color.parseColor("#8F533F"))
-                        tvSecondStart.setTextColor(Color.parseColor("#8F533F"))
-                        tvThirdStart.setTextColor(Color.parseColor("#8F533F"))
-                        tvTopEnd.setTextColor(Color.parseColor("#8F533F"))
-                        llPassNumber.background.setColorFilter(
-                            Color.parseColor("#FDD9CD"),
-                            PorterDuff.Mode.SRC_ATOP
-                        )
-                    }
-                    else -> {
-                        tvTopStart.setTextColor(Color.parseColor("#406D2E"))
-                        tvSecondStart.setTextColor(Color.parseColor("#406D2E"))
-                        tvThirdStart.setTextColor(Color.parseColor("#406D2E"))
-                        tvTopEnd.setTextColor(Color.parseColor("#406D2E"))
-                        llPassNumber.background.setColorFilter(
-                            Color.parseColor("#E1F1D7"),
-                            PorterDuff.Mode.SRC_ATOP
-                        )
+                if (item.number?.contains("ББ") == true) {
+                    tvTopStart.setTextColor(Color.parseColor("#FFFFFF"))
+                    tvSecondStart.setTextColor(Color.parseColor("#FFFFFF"))
+                    tvThirdStart.setTextColor(Color.parseColor("#FFFFFF"))
+                    tvTopEnd.setTextColor(Color.parseColor("#FFFFFF"))
+                    tvSecondEnd.setTextColor(Color.parseColor("#000000"))
+                    tvTopStart.text=item.regNumber
+                    tvSecondStart.text = item.status
+                    tvTopEnd.text = item.area
+                    tvSecondEnd.text = item.number
+                    tvThirdStart.text = itemView.context.getString(
+                        R.string.date_from_date_to,
+                        item.validFrom,
+                        item.validTo
+                    )
+                    tvThirdEnd.text = item.validityPeriod
+                    llPassNumber.background.setColorFilter(
+                        Color.parseColor("#3AB9FF"),
+                        PorterDuff.Mode.SRC_ATOP
+                    )
+                } else if ( item.daysLeft!=null&&item.daysLeft<=60 ){
+                    tvTopStart.setTextColor(Color.parseColor("#C65F00"))
+                    tvSecondStart.setTextColor(Color.parseColor("#C65F00"))
+                    tvThirdStart.setTextColor(Color.parseColor("#C65F00"))
+                    tvTopEnd.setTextColor(Color.parseColor("#C65F00"))
+                    tvSecondEnd.setTextColor(Color.parseColor("#1FA6F1"))
+                    tvTopStart.text=item.regNumber
+                    tvSecondStart.text = item.status
+                    tvTopEnd.text = item.area
+                    tvSecondEnd.text = item.number
+                    tvThirdStart.text = itemView.context.getString(
+                        R.string.date_from_date_to,
+                        item.validFrom,
+                        item.validTo
+                    )
+                    tvThirdEnd.text = item.validityPeriod
+                    llPassNumber.background.setColorFilter(
+                        Color.parseColor("#3AB9FF"),
+                        PorterDuff.Mode.SRC_ATOP
+                    )
+                }
+                else {
+                    when (item.daysLeft) {
+                        null -> {
+                            tvTopStart.setTextColor(Color.parseColor("#686868"))
+                            tvSecondStart.setTextColor(Color.parseColor("#686868"))
+                            tvThirdStart.setTextColor(Color.parseColor("#686868"))
+                            tvTopEnd.setTextColor(Color.parseColor("#686868"))
+                            tvSecondStart.text = "Пропуск не найден"
+                            tvTopStart.text=regNumber
+                            tvTopEnd.text = ""
+                            tvSecondEnd.text = ""
+                            llThirdLine.isGone = true
+                            viewTop.isGone = true
+                            llPassNumber.background.setColorFilter(
+                                Color.parseColor("#DDDDDD"),
+                                PorterDuff.Mode.SRC_ATOP
+                            )
+                        }
+                        0 -> {
+                            tvTopStart.setTextColor(Color.parseColor("#8F533F"))
+                            tvSecondStart.setTextColor(Color.parseColor("#8F533F"))
+                            tvThirdStart.setTextColor(Color.parseColor("#8F533F"))
+                            tvTopEnd.setTextColor(Color.parseColor("#8F533F"))
+                            tvSecondEnd.setTextColor(Color.parseColor("#1FA6F1"))
+                            tvTopStart.text=item.regNumber
+                            tvSecondStart.text = item.status
+                            tvTopEnd.text = item.area
+                            tvSecondEnd.text = item.number
+                            tvThirdStart.text = itemView.context.getString(
+                                R.string.date_from_date_to,
+                                item.validFrom,
+                                item.validTo
+                            )
+                            tvThirdEnd.text = item.validityPeriod
+                            llPassNumber.background.setColorFilter(
+                                Color.parseColor("#FDD9CD"),
+                                PorterDuff.Mode.SRC_ATOP
+                            )
+                        }
+                        else -> {
+                            tvTopStart.setTextColor(Color.parseColor("#406D2E"))
+                            tvSecondStart.setTextColor(Color.parseColor("#406D2E"))
+                            tvThirdStart.setTextColor(Color.parseColor("#406D2E"))
+                            tvTopEnd.setTextColor(Color.parseColor("#406D2E"))
+                            tvSecondEnd.setTextColor(Color.parseColor("#408E9B"))
+                            tvTopStart.text=item.regNumber
+                            tvSecondStart.text = item.status
+                            tvTopEnd.text = item.area
+                            tvSecondEnd.text = item.number
+                            tvThirdStart.text = itemView.context.getString(
+                                R.string.date_from_date_to,
+                                item.validFrom,
+                                item.validTo
+                            )
+                            tvThirdEnd.text = item.validityPeriod
+                            llPassNumber.background.setColorFilter(
+                                Color.parseColor("#E1F1D7"),
+                                PorterDuff.Mode.SRC_ATOP
+                            )
+                        }
                     }
                 }
                 btnHelpRegistration.isGone = !(item.daysLeft == null || item.daysLeft <= 60)
                 btnHelpRegistration.setOnClickListener {
-                    btnHelpClicked.value=true
+                    btnHelpClicked.value = true
                 }
 
             }

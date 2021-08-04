@@ -73,7 +73,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sf_ui_display_light"
-            tools:text="с 15.06.2021 по 18.05.2022"
+            tools:text="@string/date_from_date_to"
             android:textColor="#406D2E"
             android:textSize="15sp" />
         <TextView
@@ -93,12 +93,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="15dp"
-        android:background="@drawable/ic_rectangle_round_4_blue"
+        android:background="@drawable/bg_button_card_car"
         android:fontFamily="@font/sf_ui_display_light"
         android:gravity="center"
         android:paddingVertical="13dp"
         android:text="@string/text_help_registration"
-        android:textColor="#1FA6F1"
+        android:textColor="#FFFFFF"
         android:textSize="14sp" />
 
 </LinearLayout>

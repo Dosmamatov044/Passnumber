@@ -63,7 +63,7 @@ class CheckingPassFragment : Fragment(R.layout.fragment_checking_pass) {
             .replace(R.id.mainContainer, HelpRegistrationFragment()).commit()
     }
     private val passData = Observer<PassData> {
-        adapter.regNumber = it.regNumber ?: ""
+        adapter.regNumber = it.regNumber?:""
         if (it.passes.isNullOrEmpty())
             adapter.submitList(
                 mutableListOf(
