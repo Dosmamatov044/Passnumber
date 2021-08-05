@@ -1,6 +1,9 @@
 package ru.smd.passnumber.data.service
 
 import androidx.lifecycle.MutableLiveData
+import io.reactivex.SingleTransformer
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -82,4 +85,32 @@ fun MutableLiveData<String>.errorHandle(it: Throwable){
         }) {
             value=it.toString()
         }
+}
+
+fun handleRxErrors(
+    error: Throwable?, responses: () -> Unit
+) {
+    handleLoad.value = false
+    when (error) {
+        null -> {
+            responses()
+        }
+        is HttpException -> {
+            handleResponseError(error, {
+               handleError.value = it
+            }) {
+                handleError.value = error.toString()
+            }
+        }
+        else -> {
+           handleError.value = error.toString()
+        }
+    }
+}
+
+fun <T> applySchedulers(): SingleTransformer<T, T> {
+    return SingleTransformer {
+        it.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
 }
