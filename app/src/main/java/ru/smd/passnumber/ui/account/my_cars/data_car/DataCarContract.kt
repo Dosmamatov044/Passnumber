@@ -5,10 +5,6 @@ import ru.smd.passnumber.data.entities.PassData
 interface DataCarContract {
     interface View{
 
-        fun showErrorMessage(message: String)
-
-        fun showErrorInternet()
-
         fun toBack()
 
         fun exit()
@@ -16,6 +12,8 @@ interface DataCarContract {
         fun showDataCar()
 
         fun showData(mark: String,driverName: String,regNumber: String)
+
+        fun showDocs(idVehicle:Int)
     }
 
     interface Presenter{
@@ -31,5 +29,7 @@ interface DataCarContract {
         fun onClickDataCar()
 
         fun onClickSaveData(mark:String,driverName:String,regNumber:String)
+
+        fun onClickDocs()
     }
 }

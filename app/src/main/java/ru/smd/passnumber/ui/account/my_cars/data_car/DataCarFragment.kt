@@ -11,6 +11,8 @@ import kotlinx.android.synthetic.main.fragment_data_car.*
 import ru.smd.passnumber.R
 import ru.smd.passnumber.databinding.FragmentDataCarBinding
 import ru.smd.passnumber.databinding.FragmentMyCarsBinding
+import ru.smd.passnumber.ui.account.my_cars.data_car.docs.DocsFragment
+import ru.smd.passnumber.ui.help_registration.HelpRegistrationFragment
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -54,15 +56,8 @@ class DataCarFragment : Fragment(), DataCarContract.View {
             tvTitle.setText(regNumber)
             btnBackMyDataCar.setOnClickListener { presenter.onClickBack() }
             dataCar.setOnClickListener { presenter.onClickDataCar() }
+            docsCar.setOnClickListener { presenter.onClickDocs() }
         }
-    }
-
-    override fun showErrorMessage(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-    }
-
-    override fun showErrorInternet() {
-        Toast.makeText(requireContext(), R.string.hasntInternet, Toast.LENGTH_SHORT).show()
     }
 
     override fun toBack() {
@@ -108,6 +103,11 @@ class DataCarFragment : Fragment(), DataCarContract.View {
             }else txtDataCarMark.visibility=View.GONE
             txtDataCarMark.setText(mark)
         }
+    }
+
+    override fun showDocs(idVehicle: Int) {
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.mainContainer, DocsFragment.create(idVehicle)).addToBackStack(null).commit()
     }
 
     companion object {

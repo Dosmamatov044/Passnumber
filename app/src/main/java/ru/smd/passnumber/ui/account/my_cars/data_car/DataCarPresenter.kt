@@ -14,6 +14,8 @@ class DataCarPresenter @Inject constructor(val repo: PassNumberRepo) : DataCarCo
 
     lateinit var compositeDisposable: CompositeDisposable
 
+    var idVehicle:Int = 0
+
     override fun onStart(view: DataCarContract.View) {
         this.view = view
         compositeDisposable = CompositeDisposable()
@@ -27,6 +29,7 @@ class DataCarPresenter @Inject constructor(val repo: PassNumberRepo) : DataCarCo
                     val mark =response.data?.mark?:""
                     val driverName=response.data?.driverName?:""
                     view?.showData(mark,driverName,response.data?.regNumber!!)
+                    idVehicle= response.data?.id ?: 0
                 }
                 else -> {
                     MainActivity.handleError.value = error.toString()
@@ -67,6 +70,10 @@ class DataCarPresenter @Inject constructor(val repo: PassNumberRepo) : DataCarCo
                     }
                 }
             }.also(compositeDisposable::add)
+    }
+
+    override fun onClickDocs() {
+        view?.showDocs(idVehicle)
     }
 
     fun <T> applySchedulers(): SingleTransformer<T, T> {

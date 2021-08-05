@@ -29,6 +29,14 @@
     <string name="data_car">Данные автомобиля</string>
     <string name="passes">Пропуска</string>
     <string name="docs">Документы</string>
+    <string name="pts">ПТС</string>
+    <string name="sts">СТС</string>
+    <string name="dk">ДК</string>
+    <string name="driver_card">Вод. удостоверение</string>
+    <string name="passport">Паспорт</string>
+    <string name="contract_credit">Договор лизинга</string>
+    <string name="contrsct_carriage">Договор перевозки</string>
+    <string name="card_company">Карточка предприятия</string>
     <string name="recommendations">Рекомендации</string>
     <string name="add_docs_car">Добавьте документы на автомобиль,&lt;br> чтобы в будущем выпускать пропуска&lt;br> автоматически</string>
     <string name="help_reg">Помощь в оформление</string>

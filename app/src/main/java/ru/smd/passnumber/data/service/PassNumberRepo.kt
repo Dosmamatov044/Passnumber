@@ -37,13 +37,16 @@ interface PassNumberRepo {
     fun getCarList(): Single<ResponseVehicle>
 
     @DELETE("vehicle/{vehicle_id}")
-    fun deleteCard(@Path("vehicle_id") vehicle_id:Int): Single<Unit>
+    fun deleteCard(@Path("vehicle_id") vehicle_id: Int): Single<Unit>
 
     @POST("vehicle")
     fun addCar(@QueryMap params: MutableMap<String, String>): Single<PassData>
 
     @POST("vehicle/check")
     fun checkPassNumber(@Query("reg_number") reg_number: String): Single<ResponseData<PassData>>
+
+    @GET("vehicle/{vehicle_id}/documents")
+    fun getDocs(@Path("vehicle_id") vehicle_id: Int): Single<ResponseData<List<Docs>>>
 
     class Factory @Inject constructor(val preferencesHelper: PreferencesHelper) {
         fun create() = Retrofit.Builder().run {
