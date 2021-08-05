@@ -2,6 +2,7 @@ package ru.smd.passnumber.ui.account.my_cars
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.speech.SpeechRecognizer
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
@@ -42,6 +43,33 @@ class MyCarsFragment : Fragment(), MyCarsContract.View, MyCarsSwipeAdapter.OnCli
 
     lateinit var adapter: MyCarsSwipeAdapter
 
+    //setup Listening audio
+    lateinit var speechRecognizer : SpeechRecognizer
+
+    fun initSpeech(){
+        speechRecognizer = SpeechRecognizer.createSpeechRecognizer(context).apply {
+            setRecognitionListener(addRecognitionListener(binding.microphone,binding.edtSearch))
+        }
+
+        binding.microphone.setOnClickListener {
+            recognizeSpeech(binding.microphone,speechRecognizer)
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String?>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        checkResultPermission(requestCode, grantResults)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        speechRecognizer.destroy()
+    }
+
     override fun onStart() {
         super.onStart()
         presenter.onStart(this)
@@ -61,8 +89,8 @@ class MyCarsFragment : Fragment(), MyCarsContract.View, MyCarsSwipeAdapter.OnCli
         super.onViewCreated(view, savedInstanceState)
         binding.run {
             adapter = MyCarsSwipeAdapter(this@MyCarsFragment)
-            glass.setOnClickListener {  }//TODO поиск
-            microphone.setOnClickListener {  } //TODO микрофон
+//            glass.setOnClickListener {  }//TODO поиск
+//            microphone.setOnClickListener {  } //TODO микрофон
             recycleMyCars.adapter = adapter
             txtMyCarsHavent.text =
                 Html.fromHtml(requireContext().getString(R.string.you_havent_cars))
@@ -86,6 +114,7 @@ class MyCarsFragment : Fragment(), MyCarsContract.View, MyCarsSwipeAdapter.OnCli
                 adapter.setSearchItems(edtSearch.text.toString())
             }
         }
+        initSpeech()
         filterCars.observe(this,applyFilter)
     }
     private val applyFilter=Observer<FilterCars>{

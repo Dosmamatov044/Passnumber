@@ -230,12 +230,12 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvTitleCont_my_cars">
 
-<!--            <TextView-->
-<!--                android:id="@+id/search_my_cars"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:textColor="#60FFFFFF"-->
-<!--                android:textSize="15sp" />-->
+            <!--            <TextView-->
+            <!--                android:id="@+id/search_my_cars"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:textColor="#60FFFFFF"-->
+            <!--                android:textSize="15sp" />-->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/contSearch"
                 android:layout_width="match_parent"
@@ -248,12 +248,12 @@
                     android:id="@+id/glass"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="10dp"
-                    >
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -279,44 +279,43 @@
                     app:layout_constraintEnd_toStartOf="@+id/microphone"
                     app:layout_constraintStart_toEndOf="@+id/glass"
                     app:layout_constraintTop_toTopOf="parent" />
-                <FrameLayout
+
+                <ImageView
+                    android:clickable="true"
+                    android:focusable="true"
                     android:id="@+id/microphone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="10dp"
+                    android:src="@drawable/ic_microphone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:paddingHorizontal="8dp"
-                    android:paddingVertical="10dp">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/ic_microphone"
-                        />
-                </FrameLayout>
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <TextView
                 android:id="@+id/btnFilter"
-                android:padding="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/sf_ui_display_light"
+                android:padding="8dp"
+                android:text="Фильтр: все (1) "
+                android:textColor="#1FA6F1"
+                android:textSize="17sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/contSearch"
-                android:text="Фильтр: все (1) "
-                android:textSize="17sp"
-                android:textColor="#1FA6F1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                app:layout_constraintTop_toBottomOf="@+id/contSearch" />
 
-<!--            <TextView-->
-<!--                android:id="@+id/filters_my_cars"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_gravity="center_horizontal"-->
-<!--                android:fontFamily="@font/sf_ui_display_regular"-->
-<!--                android:textColor="@color/blue"-->
-<!--                android:textSize="17sp" />-->
+            <!--            <TextView-->
+            <!--                android:id="@+id/filters_my_cars"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_gravity="center_horizontal"-->
+            <!--                android:fontFamily="@font/sf_ui_display_regular"-->
+            <!--                android:textColor="@color/blue"-->
+            <!--                android:textSize="17sp" />-->
 
             <include
                 android:id="@+id/alertUsingSwipe"
