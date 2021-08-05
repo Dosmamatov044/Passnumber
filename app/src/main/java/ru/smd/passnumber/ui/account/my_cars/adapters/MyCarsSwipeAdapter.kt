@@ -29,6 +29,8 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
     interface OnClickListner {
         fun onClickEdit(regNumber: String, driverName: String, mark: String)
         fun onClickDelete(regNumber: Int)
+        fun onClickCard(regNumber: String)
+        fun onClickHelp()
     }
 
     sealed class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -189,6 +191,9 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                     contDelete.setOnClickListener {
                         onClick.onClickDelete(data.passData.id)
                     }
+                    mainContCardCar.setOnClickListener {
+                        data.passData.regNumber?.let { it1 -> onClick.onClickCard(it1) }
+                    }
                     val number = data.passData.regNumber?.subSequence(0, 6)
                     val editNumber = (number?.get(0)
                         ?.plus(" ")) + (number?.get(1)) + (number?.get(2)) + (number?.get(3)
@@ -270,6 +275,12 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                         }
                         onClick.onClickEdit(regNumber, driverName, mark)
                     }
+                    mainContCardCar.setOnClickListener {
+                        data.passData.regNumber?.let { it1 -> onClick.onClickCard(it1) }
+                    }
+                    btnCardCarHelp.setOnClickListener {
+                        onClick.onClickHelp()
+                    }
                     val number = data.passData.regNumber?.subSequence(0, 6)
                     val editNumber = (number?.get(0)
                         ?.plus(" ")) + (number?.get(1)) + (number?.get(2)) + (number?.get(3)
@@ -347,6 +358,12 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                             mark = data.passData.mark
                         }
                         onClick.onClickEdit(regNumber, driverName, mark)
+                    }
+                    mainContCardCar.setOnClickListener {
+                        data.passData.regNumber?.let { it1 -> onClick.onClickCard(it1) }
+                    }
+                    btnCardCarHelp.setOnClickListener {
+                        onClick.onClickHelp()
                     }
                     val number = data.passData.regNumber?.subSequence(0, 6)
                     val editNumber = (number?.get(0)
@@ -426,6 +443,9 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                         }
                         onClick.onClickEdit(regNumber, driverName, mark)
                     }
+                    mainContCardCar.setOnClickListener {
+                        data.passData.regNumber?.let { it1 -> onClick.onClickCard(it1) }
+                    }
                     val number = data.passData.regNumber?.subSequence(0, 6)
                     val editNumber = (number?.get(0)
                         ?.plus(" ")) + (number?.get(1)) + (number?.get(2)) + (number?.get(3)
@@ -503,6 +523,12 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                             mark = data.passData.mark
                         }
                         onClick.onClickEdit(regNumber, driverName, mark)
+                    }
+                    mainContCardCar.setOnClickListener {
+                        data.passData.regNumber?.let { it1 -> onClick.onClickCard(it1) }
+                    }
+                    btnCardCarHelp.setOnClickListener {
+                        onClick.onClickHelp()
                     }
                     val number = data.passData.regNumber?.subSequence(0, 6)
                     val editNumber = (number?.get(0)
