@@ -2,11 +2,13 @@ package ru.smd.passnumber.ui.activities.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.view.isGone
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.bottom_menu.*
@@ -33,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         handleBottomClick()
         handleLiveData()
+        sendPushToken()
     }
 
     fun handleLiveData() {
@@ -85,5 +88,14 @@ class MainActivity : AppCompatActivity() {
         this.isSelected=true
         this.isClickable=false
 
+    }
+    fun sendPushToken(){
+        FirebaseMessaging.getInstance().token.addOnCompleteListener {
+            if(it.isComplete){
+                val fbToken = it.result.toString()
+                Log.e("TTT", "pushToken:$fbToken")
+//                firebaseDomain.sendPushToken(fbToken,  Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID))
+            }
+        }
     }
 }
