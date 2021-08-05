@@ -41,7 +41,7 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
             parentFragmentManager.beginTransaction().replace(R.id.mainContainer, MyCarsFragment())
                 .addToBackStack(null).commit()
         }
-        btnSettings.setOnClickListener {
+        btnSettingsNotification.setOnClickListener {
             parentFragmentManager.beginTransaction().replace(R.id.mainContainer, SettingsNotificationFragment())
                 .addToBackStack(null).commit()
         }

@@ -16,18 +16,19 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class MyCarsSwipeAdapter(val onClick:OnClickListner) : RecyclerView.Adapter<MyCarsSwipeAdapter.ViewHolder>() {
+class MyCarsSwipeAdapter(val onClick: OnClickListner) :
+    RecyclerView.Adapter<MyCarsSwipeAdapter.ViewHolder>() {
 
-    var filterCars= FilterCars()
-    var isFirstAdded=false
+    var filterCars = FilterCars()
+    var isFirstAdded = false
 
     var items = mutableListOf<CardCarWrapper>()
 
     private val viewBinderHelper = ViewBinderHelper()
 
     interface OnClickListner {
-        fun onClickEdit(regNumber:String,driverName:String,mark:String)
-        fun onClickDelete(regNumber:Int)
+        fun onClickEdit(regNumber: String, driverName: String, mark: String)
+        fun onClickDelete(regNumber: Int)
     }
 
     sealed class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -88,13 +89,14 @@ class MyCarsSwipeAdapter(val onClick:OnClickListner) : RecyclerView.Adapter<MyCa
             )
         }
     }
-var unfilteredItems=items
+
+    var unfilteredItems = items
     fun setData(data: List<PassData>) {
         items.clear()
         var cardCarWrapper: CardCarWrapper
         data.forEach {
             var days = 0
-            if (!it.passes.isNullOrEmpty()){
+            if (!it.passes.isNullOrEmpty()) {
                 it.passes[0].daysLeft?.let { days = it }
             }
             if (it.passes.isEmpty()) {
@@ -110,36 +112,52 @@ var unfilteredItems=items
             }
             items.add(cardCarWrapper)
         }
-        unfilteredItems=items
-        if (filterCars.isFiltered)
-        items=unfilteredItems.filter {
-            var passes=it.passData.passes
-            if (passes.isNullOrEmpty()){
-                (filterCars.filterByStatus == "Не найден" || filterCars.filterByStatus == "Все")&&filterCars.filterByTypePass.isNullOrEmpty()
-            }
-            else{
-                var status: Boolean = when (filterCars.filterByStatus) {
-                    "Действует более 14 дней" -> {
-                        passes.first().daysLeft?:0>14
-                    }
-                    "Осталось 0-14 дней" -> {
-                        passes.first().daysLeft?:0 in 1..14
-                    }
-                    "Все" -> {
-                        true
-                    }
-                    else -> passes.first().status==filterCars.filterByStatus
-                }
-                var typePass=
-                    when(filterCars.filterByTypePass){
-                        ""->true
-                        else-> passes.first().number?.contains(filterCars.filterByTypePass)==true
-                    }
-                status && typePass
-            }
+        filterItems()
+        notifyDataSetChanged()
+    }
 
+    fun setSearchItems(text: String) {
+        items = unfilteredItems.filter {
+            var number =
+                if (it.passData.passes.isNullOrEmpty()) {
+                    false
+                } else {
+                    it.passData.passes.first().number?.contains(text,ignoreCase = true) == true
+                }
+            it.passData.mark?.contains(text,ignoreCase = true) == true || it.passData.driverName?.contains(text,ignoreCase = true) == true || number
         }.toMutableList()
         notifyDataSetChanged()
+    }
+
+    private fun filterItems() {
+        unfilteredItems = items
+        if (filterCars.isFiltered)
+            items = unfilteredItems.filter {
+                var passes = it.passData.passes
+                if (passes.isNullOrEmpty()) {
+                    (filterCars.filterByStatus == "Не найден" || filterCars.filterByStatus == "Все") && filterCars.filterByTypePass.isNullOrEmpty()
+                } else {
+                    var status: Boolean = when (filterCars.filterByStatus) {
+                        "Действует более 14 дней" -> {
+                            passes.first().daysLeft ?: 0 > 14
+                        }
+                        "Осталось 0-14 дней" -> {
+                            passes.first().daysLeft ?: 0 in 1..14
+                        }
+                        "Все" -> {
+                            true
+                        }
+                        else -> passes.first().status == filterCars.filterByStatus
+                    }
+                    var typePass =
+                        when (filterCars.filterByTypePass) {
+                            "" -> true
+                            else -> passes.first().number?.contains(filterCars.filterByTypePass) == true
+                        }
+                    status && typePass
+                }
+
+            }.toMutableList()
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -154,17 +172,17 @@ var unfilteredItems=items
                     )
                     viewBinderHelper.closeLayout(data.passData.id.toString())
                     contEdit.setOnClickListener {
-                        var regNumber=""
-                        var driverName=""
-                        var mark=""
-                        if (!data.passData.regNumber.isNullOrEmpty()){
-                            regNumber=data.passData.regNumber
+                        var regNumber = ""
+                        var driverName = ""
+                        var mark = ""
+                        if (!data.passData.regNumber.isNullOrEmpty()) {
+                            regNumber = data.passData.regNumber
                         }
-                        if (!data.passData.driverName.isNullOrEmpty()){
-                            driverName=data.passData.driverName
+                        if (!data.passData.driverName.isNullOrEmpty()) {
+                            driverName = data.passData.driverName
                         }
-                        if (!data.passData.mark.isNullOrEmpty()){
-                            mark=data.passData.mark
+                        if (!data.passData.mark.isNullOrEmpty()) {
+                            mark = data.passData.mark
                         }
                         onClick.onClickEdit(regNumber, driverName, mark)
                     }
@@ -182,7 +200,7 @@ var unfilteredItems=items
                     txtCardCarModel.setText(data.passData.mark)
                     if (!data.passData.passes.isEmpty()) {
                         txtCardCarWay.setText(data.passData.passes.first().area)
-                        if (data.passData.passes[0].number?.equals("ББ")==true) {
+                        if (data.passData.passes[0].number?.equals("ББ") == true) {
                             txtCardCarPeriod.setText(itemView.context.getString(R.string.one_time))
                         } else txtCardCarPeriod.setText(itemView.context.getString(R.string.annual))
                         txtCardCarId.setText(data.passData.passes[0].number)
@@ -238,17 +256,17 @@ var unfilteredItems=items
                     )
                     viewBinderHelper.closeLayout(data.passData.id.toString())
                     contEdit.setOnClickListener {
-                        var regNumber=""
-                        var driverName=""
-                        var mark=""
-                        if (!data.passData.regNumber.isNullOrEmpty()){
-                            regNumber=data.passData.regNumber
+                        var regNumber = ""
+                        var driverName = ""
+                        var mark = ""
+                        if (!data.passData.regNumber.isNullOrEmpty()) {
+                            regNumber = data.passData.regNumber
                         }
-                        if (!data.passData.driverName.isNullOrEmpty()){
-                            driverName=data.passData.driverName
+                        if (!data.passData.driverName.isNullOrEmpty()) {
+                            driverName = data.passData.driverName
                         }
-                        if (!data.passData.mark.isNullOrEmpty()){
-                            mark=data.passData.mark
+                        if (!data.passData.mark.isNullOrEmpty()) {
+                            mark = data.passData.mark
                         }
                         onClick.onClickEdit(regNumber, driverName, mark)
                     }
@@ -316,17 +334,17 @@ var unfilteredItems=items
                     )
                     viewBinderHelper.closeLayout(data.passData.id.toString())
                     contEdit.setOnClickListener {
-                        var regNumber=""
-                        var driverName=""
-                        var mark=""
-                        if (!data.passData.regNumber.isNullOrEmpty()){
-                            regNumber=data.passData.regNumber
+                        var regNumber = ""
+                        var driverName = ""
+                        var mark = ""
+                        if (!data.passData.regNumber.isNullOrEmpty()) {
+                            regNumber = data.passData.regNumber
                         }
-                        if (!data.passData.driverName.isNullOrEmpty()){
-                            driverName=data.passData.driverName
+                        if (!data.passData.driverName.isNullOrEmpty()) {
+                            driverName = data.passData.driverName
                         }
-                        if (!data.passData.mark.isNullOrEmpty()){
-                            mark=data.passData.mark
+                        if (!data.passData.mark.isNullOrEmpty()) {
+                            mark = data.passData.mark
                         }
                         onClick.onClickEdit(regNumber, driverName, mark)
                     }
@@ -394,17 +412,17 @@ var unfilteredItems=items
                     )
                     viewBinderHelper.closeLayout(data.passData.id.toString())
                     contEdit.setOnClickListener {
-                        var regNumber=""
-                        var driverName=""
-                        var mark=""
-                        if (!data.passData.regNumber.isNullOrEmpty()){
-                            regNumber=data.passData.regNumber
+                        var regNumber = ""
+                        var driverName = ""
+                        var mark = ""
+                        if (!data.passData.regNumber.isNullOrEmpty()) {
+                            regNumber = data.passData.regNumber
                         }
-                        if (!data.passData.driverName.isNullOrEmpty()){
-                            driverName=data.passData.driverName
+                        if (!data.passData.driverName.isNullOrEmpty()) {
+                            driverName = data.passData.driverName
                         }
-                        if (!data.passData.mark.isNullOrEmpty()){
-                            mark=data.passData.mark
+                        if (!data.passData.mark.isNullOrEmpty()) {
+                            mark = data.passData.mark
                         }
                         onClick.onClickEdit(regNumber, driverName, mark)
                     }
@@ -472,17 +490,17 @@ var unfilteredItems=items
                     )
                     viewBinderHelper.closeLayout(data.passData.id.toString())
                     contEdit.setOnClickListener {
-                        var regNumber=""
-                        var driverName=""
-                        var mark=""
-                        if (!data.passData.regNumber.isNullOrEmpty()){
-                            regNumber=data.passData.regNumber
+                        var regNumber = ""
+                        var driverName = ""
+                        var mark = ""
+                        if (!data.passData.regNumber.isNullOrEmpty()) {
+                            regNumber = data.passData.regNumber
                         }
-                        if (!data.passData.driverName.isNullOrEmpty()){
-                            driverName=data.passData.driverName
+                        if (!data.passData.driverName.isNullOrEmpty()) {
+                            driverName = data.passData.driverName
                         }
-                        if (!data.passData.mark.isNullOrEmpty()){
-                            mark=data.passData.mark
+                        if (!data.passData.mark.isNullOrEmpty()) {
+                            mark = data.passData.mark
                         }
                         onClick.onClickEdit(regNumber, driverName, mark)
                     }
@@ -499,7 +517,8 @@ var unfilteredItems=items
             }
         }
         if (isFirstAdded)
-        viewBinderHelper.openLayout(items.get(position).passData.id.toString())
+            viewBinderHelper.openLayout(items.get(position).passData.id.toString())
     }
+
     override fun getItemCount() = items.size
 }

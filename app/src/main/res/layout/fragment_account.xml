@@ -80,6 +80,7 @@
                     android:layout_height="1dp"
                     android:background="#38383A"/>
                 <TextView
+                    android:id="@+id/btnSettingsNotification"
                     android:gravity="center_vertical"
                     android:drawableStart="@drawable/ic_bell"
                     android:drawableEnd="@drawable/ic_next_small"

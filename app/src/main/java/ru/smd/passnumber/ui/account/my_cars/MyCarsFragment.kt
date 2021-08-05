@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isGone
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -80,6 +81,9 @@ class MyCarsFragment : Fragment(), MyCarsContract.View, MyCarsSwipeAdapter.OnCli
             btnFilter.setOnClickListener {
                 parentFragmentManager.beginTransaction()
                     .replace(R.id.mainContainer, FilterFragment()).addToBackStack(null).commit()
+            }
+            edtSearch.doAfterTextChanged {
+                adapter.setSearchItems(edtSearch.text.toString())
             }
         }
         filterCars.observe(this,applyFilter)
