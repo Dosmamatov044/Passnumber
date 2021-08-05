@@ -11,12 +11,14 @@ import ru.smd.passnumber.data.entities.CardCarWrapper
 import ru.smd.passnumber.data.entities.PassData
 import ru.smd.passnumber.data.entities.Type
 import ru.smd.passnumber.databinding.*
+import ru.smd.passnumber.ui.account.my_cars.filter.FilterCars
 import java.text.SimpleDateFormat
 import java.util.*
 
 
 class MyCarsSwipeAdapter(val onClick:OnClickListner) : RecyclerView.Adapter<MyCarsSwipeAdapter.ViewHolder>() {
 
+    var filterCars= FilterCars()
     var isFirstAdded=false
 
     var items = mutableListOf<CardCarWrapper>()
@@ -86,7 +88,7 @@ class MyCarsSwipeAdapter(val onClick:OnClickListner) : RecyclerView.Adapter<MyCa
             )
         }
     }
-
+var unfilteredItems=items
     fun setData(data: List<PassData>) {
         items.clear()
         var cardCarWrapper: CardCarWrapper
@@ -108,6 +110,35 @@ class MyCarsSwipeAdapter(val onClick:OnClickListner) : RecyclerView.Adapter<MyCa
             }
             items.add(cardCarWrapper)
         }
+        unfilteredItems=items
+        if (filterCars.isFiltered)
+        items=unfilteredItems.filter {
+            var passes=it.passData.passes
+            if (passes.isNullOrEmpty()){
+                (filterCars.filterByStatus == "Не найден" || filterCars.filterByStatus == "Все")&&filterCars.filterByTypePass.isNullOrEmpty()
+            }
+            else{
+                var status: Boolean = when (filterCars.filterByStatus) {
+                    "Действует более 14 дней" -> {
+                        passes.first().daysLeft?:0>14
+                    }
+                    "Осталось 0-14 дней" -> {
+                        passes.first().daysLeft?:0 in 1..14
+                    }
+                    "Все" -> {
+                        true
+                    }
+                    else -> passes.first().status==filterCars.filterByStatus
+                }
+                var typePass=
+                    when(filterCars.filterByTypePass){
+                        ""->true
+                        else-> passes.first().number?.contains(filterCars.filterByTypePass)==true
+                    }
+                status && typePass
+            }
+
+        }.toMutableList()
         notifyDataSetChanged()
     }
 

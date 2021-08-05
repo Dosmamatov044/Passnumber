@@ -1,5 +1,6 @@
 package ru.smd.passnumber.ui.account.my_cars
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Html
 import android.view.LayoutInflater
@@ -8,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.alert_view.view.*
 import ru.smd.passnumber.R
@@ -15,10 +18,18 @@ import ru.smd.passnumber.data.entities.PassData
 import ru.smd.passnumber.data.tools.PreferencesHelper
 import ru.smd.passnumber.databinding.FragmentMyCarsBinding
 import ru.smd.passnumber.ui.account.my_cars.adapters.MyCarsSwipeAdapter
+import ru.smd.passnumber.ui.account.my_cars.filter.FilterCars
+import ru.smd.passnumber.ui.account.my_cars.filter.FilterCarsPosition
+import ru.smd.passnumber.ui.account.my_cars.filter.FilterFragment
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MyCarsFragment : Fragment(), MyCarsContract.View, MyCarsSwipeAdapter.OnClickListner {
+
+   companion object{
+       val filterCars=MutableLiveData<FilterCars>()
+       val filterCarsPosition=MutableLiveData<FilterCarsPosition>()
+   }
 
     @Inject
     lateinit var presenter: MyCarsContract.Presenter
@@ -44,6 +55,7 @@ class MyCarsFragment : Fragment(), MyCarsContract.View, MyCarsSwipeAdapter.OnCli
         super.onCreate(savedInstanceState)
     }
 
+    @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.run {
@@ -65,7 +77,17 @@ class MyCarsFragment : Fragment(), MyCarsContract.View, MyCarsSwipeAdapter.OnCli
                 } else
                     presenter.onClickAdd()
             }
+            btnFilter.setOnClickListener {
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.mainContainer, FilterFragment()).addToBackStack(null).commit()
+            }
         }
+        filterCars.observe(this,applyFilter)
+    }
+    private val applyFilter=Observer<FilterCars>{
+        adapter.filterCars=it
+        adapter.notifyDataSetChanged()
+        binding.btnFilter.text="Фильтр: все (${adapter.items.size})"
     }
 
     override fun onCreateView(
@@ -125,6 +147,7 @@ class MyCarsFragment : Fragment(), MyCarsContract.View, MyCarsSwipeAdapter.OnCli
         }
         else
             binding.alertUsingSwipe.isGone = true
+        binding.btnFilter.text="Фильтр: все (${adapter.items.size})"
     }
 
     override fun showEmptyList() {
