@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/itemDropDown"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:id="@+id/itemDropDown"
+    android:foreground="?selectableItemBackgroundBorderless"
     android:orientation="vertical"
     android:paddingHorizontal="10dp"
-    tools:background="#000"
-    android:foreground="?selectableItemBackgroundBorderless">
+    tools:background="#000">
 
 
     <TextView
-        android:fontFamily="@font/sf_ui_display_light"
         android:id="@+id/tvSelectCardName"
         android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:gravity="center_vertical"
         android:layout_height="0dp"
         android:layout_marginStart="10dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/sf_ui_display_light"
+        android:gravity="center_vertical"
         android:textColor="@color/white"
         android:textSize="17sp"
-        tools:text="United Kingdom"/>
+        tools:text="United Kingdom" />
+
     <View
         android:id="@+id/bottomView"
         android:layout_width="match_parent"
@@ -29,12 +29,12 @@
         android:layout_marginTop="4dp"
         android:background="#C8C7CC" />
 
-<!--    <ImageView-->
-<!--        android:visibility="invisible"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:id="@+id/dropDown"-->
-<!--        android:layout_marginEnd="10dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:src="@drawable/ic_arrow_down_black"-->
-<!--        />-->
+    <!--    <ImageView-->
+    <!--        android:visibility="invisible"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:id="@+id/dropDown"-->
+    <!--        android:layout_marginEnd="10dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:src="@drawable/ic_arrow_down_black"-->
+    <!--        />-->
 </LinearLayout>
