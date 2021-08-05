@@ -25,6 +25,12 @@
     <string name="label_model_auto">Марка и модель автомобиля</string>
     <string name="name_driver">Имя водителя</string>
     <string name="rus">RUS</string>
+    <string name="driver">Водитель: </string>
+    <string name="data_car">Данные автомобиля</string>
+    <string name="passes">Пропуска</string>
+    <string name="docs">Документы</string>
+    <string name="recommendations">Рекомендации</string>
+    <string name="add_docs_car">Добавьте документы на автомобиль,&lt;br> чтобы в будущем выпускать пропуска&lt;br> автоматически</string>
     <string name="help_reg">Помощь в оформление</string>
     <string name="havent_pass">Пропуска нет</string>
     <string name="date_from_date_to">с &lt;b>%s&lt;/b> по &lt;b>%s&lt;/b></string>

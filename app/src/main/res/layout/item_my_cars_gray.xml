@@ -60,7 +60,6 @@
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/main_cont_card_car"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_green_card"
@@ -68,6 +67,14 @@
             android:paddingBottom="15dp"
             android:paddingHorizontal="8dp">
 
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/main_cont_card_car"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toTopOf="@+id/btn_card_car_help"
+    android:paddingBottom="27dp"
+    >
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cont_card_car_top"
                 android:layout_width="match_parent"
@@ -228,26 +235,22 @@
                     android:layout_marginTop="13dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txt_card_car_id" />
-
-
-
-
-                <TextView
-                    android:id="@+id/btn_card_car_help"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="8dp"
-                    app:layout_constraintTop_toBottomOf="@id/txt_card_car_driver"
-                    android:background="@drawable/bg_button_card_car"
-                    android:gravity="center"
-                    android:text="@string/help_reg"
-                    android:layout_marginTop="27dp"
-                    android:minHeight="40dp"
-                    android:textSize="14sp"
-                    android:textColor="#FFFFFF"
-                    />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/btn_card_car_help"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:elevation="1dp"
+                app:layout_constraintTop_toBottomOf="@id/main_cont_card_car"
+                android:background="@drawable/bg_button_card_car"
+                android:gravity="center"
+                android:text="@string/help_reg"
+                android:minHeight="40dp"
+                android:textSize="14sp"
+                android:textColor="#FFFFFF"
+                />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.chauthai.swipereveallayout.SwipeRevealLayout>
 </layout>

@@ -10,11 +10,15 @@ import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.alert_view.view.*
+import kotlinx.android.synthetic.main.bottom_menu.*
 import ru.smd.passnumber.R
 import ru.smd.passnumber.data.entities.PassData
 import ru.smd.passnumber.data.tools.PreferencesHelper
 import ru.smd.passnumber.databinding.FragmentMyCarsBinding
 import ru.smd.passnumber.ui.account.my_cars.adapters.MyCarsSwipeAdapter
+import ru.smd.passnumber.ui.account.my_cars.data_car.DataCarFragment
+import ru.smd.passnumber.ui.activities.main.MainActivity
+import ru.smd.passnumber.ui.help_registration.HelpRegistrationFragment
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -48,8 +52,8 @@ class MyCarsFragment : Fragment(), MyCarsContract.View, MyCarsSwipeAdapter.OnCli
         super.onViewCreated(view, savedInstanceState)
         binding.run {
             adapter = MyCarsSwipeAdapter(this@MyCarsFragment)
-            glass.setOnClickListener {  }//TODO поиск
-            microphone.setOnClickListener {  } //TODO микрофон
+            glass.setOnClickListener { }//TODO поиск
+            microphone.setOnClickListener { } //TODO микрофон
             recycleMyCars.adapter = adapter
             txtMyCarsHavent.text =
                 Html.fromHtml(requireContext().getString(R.string.you_havent_cars))
@@ -122,8 +126,7 @@ class MyCarsFragment : Fragment(), MyCarsContract.View, MyCarsSwipeAdapter.OnCli
                 adapter.isFirstAdded = false
                 adapter.notifyDataSetChanged()
             }
-        }
-        else
+        } else
             binding.alertUsingSwipe.isGone = true
     }
 
@@ -155,5 +158,18 @@ class MyCarsFragment : Fragment(), MyCarsContract.View, MyCarsSwipeAdapter.OnCli
         presenter.deleteCar(regNumber)
     }
 
+    override fun onClickCard(regNumber: String) {
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.mainContainer, DataCarFragment.create(regNumber)).addToBackStack(null)
+            .commit()
+    }
+
+    override fun onClickHelp() {
+        val main = requireActivity() as MainActivity
+        main.bottomSelected(main.btnBottom3)
+        parentFragmentManager.popBackStack()
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.mainContainer, HelpRegistrationFragment()).commit()
+    }
 
 }
