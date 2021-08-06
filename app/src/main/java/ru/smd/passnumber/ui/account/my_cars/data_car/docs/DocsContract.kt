@@ -7,7 +7,15 @@ interface DocsContract {
 
         fun toBack()
 
-        fun showDocs(docs:List<Docs>)
+        fun showDocsSts(docs:List<Docs>)
+
+        fun showDocsPts(docs:List<Docs>)
+        fun showDocsDk(docs:List<Docs>)
+        fun showDocsDriverCard(docs:List<Docs>)
+        fun showDocsPassport(docs:List<Docs>)
+        fun showDocsCardCompany(docs:List<Docs>)
+        fun showDocsContractCredit(docs:List<Docs>)
+        fun showDocsContractCarriage(docs:List<Docs>)
     }
 
     interface Presenter{

@@ -20,7 +20,14 @@ class DocsFragment:Fragment(),DocsContract.View,DocsAdapter.OnClickListner {
 
     lateinit var binding: FragmentDocsBinding
 
-    lateinit var adapter: DocsAdapter
+    lateinit var adapterSts: DocsAdapter
+    lateinit var adapterPts: DocsAdapter
+    lateinit var adapterDk: DocsAdapter
+    lateinit var adapterDriverCard: DocsAdapter
+    lateinit var adapterPassport: DocsAdapter
+    lateinit var adapterCardCompany: DocsAdapter
+    lateinit var adapterContractCredit: DocsAdapter
+    lateinit var adapterContractCarriage: DocsAdapter
     var idVehicle:Int = 0
     override fun onStart() {
         super.onStart()
@@ -35,7 +42,14 @@ class DocsFragment:Fragment(),DocsContract.View,DocsAdapter.OnClickListner {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter= DocsAdapter(this)
+        adapterSts= DocsAdapter(this)
+        adapterPts= DocsAdapter(this)
+        adapterDk= DocsAdapter(this)
+        adapterDriverCard= DocsAdapter(this)
+        adapterPassport= DocsAdapter(this)
+        adapterCardCompany= DocsAdapter(this)
+        adapterContractCredit= DocsAdapter(this)
+        adapterContractCarriage= DocsAdapter(this)
         idVehicle= arguments?.getInt("vehicle_id")!!
     }
 
@@ -52,7 +66,6 @@ class DocsFragment:Fragment(),DocsContract.View,DocsAdapter.OnClickListner {
         super.onViewCreated(view, savedInstanceState)
         binding.run {
             btnBackDocs.setOnClickListener { presenter.onClickBack() }
-           recycleDocs.adapter=adapter
         }
     }
 
@@ -61,8 +74,44 @@ class DocsFragment:Fragment(),DocsContract.View,DocsAdapter.OnClickListner {
         requireActivity().onBackPressed()
     }
 
-    override fun showDocs(docs: List<Docs>) {
-        adapter.setData(docs)
+    override fun showDocsSts(docs: List<Docs>) {
+        binding.recycleDocsSts.adapter=adapterSts
+        adapterSts.setData(docs)
+    }
+
+    override fun showDocsPts(docs: List<Docs>) {
+       binding.recycleDocsPts.adapter=adapterPts
+        adapterPts.setData(docs)
+    }
+
+    override fun showDocsDk(docs: List<Docs>) {
+        binding.recycleDocsDk.adapter=adapterDk
+        adapterDk.setData(docs)
+    }
+
+    override fun showDocsDriverCard(docs: List<Docs>) {
+        binding.recycleDocsDriverCard.adapter=adapterDriverCard
+        adapterDriverCard.setData(docs)
+    }
+
+    override fun showDocsPassport(docs: List<Docs>) {
+        binding.recycleDocsPassport.adapter=adapterPassport
+        adapterPassport.setData(docs)
+    }
+
+    override fun showDocsCardCompany(docs: List<Docs>) {
+        binding.recycleDocsCardCompany.adapter=adapterCardCompany
+        adapterCardCompany.setData(docs)
+    }
+
+    override fun showDocsContractCredit(docs: List<Docs>) {
+        binding.recycleDocsContractCredit.adapter=adapterContractCredit
+        adapterContractCredit.setData(docs)
+    }
+
+    override fun showDocsContractCarriage(docs: List<Docs>) {
+        binding.recycleDocsContractCarriage.adapter=adapterContractCarriage
+        adapterContractCarriage.setData(docs)
     }
 
     override fun onClickAdd() {
