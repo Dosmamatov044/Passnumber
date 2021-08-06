@@ -120,13 +120,13 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
 
     fun setSearchItems(text: String) {
         items = unfilteredItems.filter {
-            var number =
-                if (it.passData.passes.isNullOrEmpty()) {
-                    false
-                } else {
-                    it.passData.passes.first().number?.contains(text,ignoreCase = true) == true
-                }
-            it.passData.mark?.contains(text,ignoreCase = true) == true || it.passData.driverName?.contains(text,ignoreCase = true) == true || number
+//            var number =
+//                if (it.passData.passes.isNullOrEmpty()) {
+//                    false
+//                } else {
+//                    it.passData.regNumber?.contains(text,ignoreCase = true) == true
+//                }
+            it.passData.mark?.contains(text,ignoreCase = true) == true || it.passData.driverName?.contains(text,ignoreCase = true) == true || it.passData.regNumber?.contains(text,ignoreCase = true) == true
         }.toMutableList()
         notifyDataSetChanged()
     }
