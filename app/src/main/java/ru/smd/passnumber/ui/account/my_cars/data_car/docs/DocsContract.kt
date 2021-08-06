@@ -1,6 +1,9 @@
 package ru.smd.passnumber.ui.account.my_cars.data_car.docs
 
+import android.content.Context
+import android.graphics.Bitmap
 import ru.smd.passnumber.data.entities.Docs
+import java.io.File
 
 interface DocsContract {
     interface View{
@@ -16,6 +19,8 @@ interface DocsContract {
         fun showDocsCardCompany(docs:List<Docs>)
         fun showDocsContractCredit(docs:List<Docs>)
         fun showDocsContractCarriage(docs:List<Docs>)
+
+        fun camera()
     }
 
     interface Presenter{
@@ -27,5 +32,10 @@ interface DocsContract {
         fun onClickBack()
 
         fun getDocs(idVehicle:Int)
+
+        fun addPhoto(bitmap: Bitmap,file:File,context: Context)
+        fun storeType(type:Int)
+
+        fun storeId(idVehicle:Int)
     }
 }

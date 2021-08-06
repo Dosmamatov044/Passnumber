@@ -70,7 +70,7 @@
              />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycleDocsSts"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -94,8 +94,10 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycleDocsPts"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="10dp"
             android:layout_gravity="center"
             app:layout_constraintBottom_toTopOf="@+id/txt_title_dk"
@@ -118,10 +120,12 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycleDocsDk"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/txt_title_driver_card"
             app:layout_constraintTop_toBottomOf="@+id/txt_title_dk"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
@@ -141,8 +145,10 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycleDocsDriverCard"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="10dp"
             android:layout_gravity="center"
             app:layout_constraintBottom_toTopOf="@+id/txt_title_passport"
@@ -164,10 +170,12 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycleDocsPassport"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@id/txt_title_card_company"
             app:layout_constraintTop_toBottomOf="@+id/txt_title_passport"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
@@ -188,10 +196,12 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycleDocsCardCompany"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toTopOf="@id/txt_title_contract_credit"
             app:layout_constraintTop_toBottomOf="@+id/txt_title_card_company"
@@ -212,10 +222,12 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycleDocsContractCredit"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/txt_title_contract_carriage"
             app:layout_constraintTop_toBottomOf="@+id/txt_title_contract_credit"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
@@ -236,10 +248,12 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycleDocsContractCarriage"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="28dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_title_contract_carriage"

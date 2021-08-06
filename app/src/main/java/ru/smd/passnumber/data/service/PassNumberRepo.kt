@@ -1,9 +1,12 @@
 package ru.smd.passnumber.data.service
 
+import com.google.android.gms.common.internal.safeparcel.SafeParcelable
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import io.reactivex.Single
 import okhttp3.Interceptor
+import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
+import okhttp3.RequestBody
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -13,6 +16,7 @@ import ru.smd.passnumber.BuildConfig
 import ru.smd.passnumber.data.core.Constants
 import ru.smd.passnumber.data.entities.*
 import ru.smd.passnumber.data.tools.PreferencesHelper
+import java.io.File
 import javax.inject.Inject
 
 interface PassNumberRepo {
@@ -47,6 +51,15 @@ interface PassNumberRepo {
 
     @GET("vehicle/{vehicle_id}/documents")
     fun getDocs(@Path("vehicle_id") vehicle_id: Int): Single<ResponseData<List<Docs>>>
+
+
+    @Multipart
+    @POST("vehicle/{vehicle_id}/documents")
+    fun storeDocs(
+        @Path("vehicle_id") vehicle_id: Int,
+        @Part file: MultipartBody.Part,
+        @PartMap params: MutableMap<String, RequestBody>
+    ): Single<ResponseData<Any>>
 
     class Factory @Inject constructor(val preferencesHelper: PreferencesHelper) {
         fun create() = Retrofit.Builder().run {

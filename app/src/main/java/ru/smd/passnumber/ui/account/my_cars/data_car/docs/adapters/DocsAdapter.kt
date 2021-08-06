@@ -1,11 +1,8 @@
 package ru.smd.passnumber.ui.account.my_cars.data_car.docs.adapters
 
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
@@ -21,9 +18,14 @@ class DocsAdapter(val onClick: OnClickListner) : RecyclerView.Adapter<DocsAdapte
 
     var items = mutableListOf<DocsWrapper>()
 
+    var type=0
 
     interface OnClickListner {
-        fun onClickAdd()
+
+        fun onClickAdd(type:Int)
+
+        fun onClickDelete()
+
     }
 
     sealed class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -78,7 +80,7 @@ class DocsAdapter(val onClick: OnClickListner) : RecyclerView.Adapter<DocsAdapte
             TypeItem.Add.type -> {
                 (holder as ViewHolder.AddViewHolder).run {
                     binding.run {
-
+                    txtDocs.setOnClickListener { onClick.onClickAdd(type) }
                     }
                 }
             }
