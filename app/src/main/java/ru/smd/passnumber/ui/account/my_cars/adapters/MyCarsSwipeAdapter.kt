@@ -538,6 +538,9 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                         data.passData.regNumber?.subSequence(6, data.passData.regNumber.length)
                     txtCardCarRegNumber.setText(editNumber)
                     txtCardCarRegion.setText(region)
+                    if (!data.passData.driverName.isNullOrEmpty()) {
+                        txtCardCarDriverName.setText(data.passData.driverName)
+                    }
                     txtCardCarModel.setText(data.passData.mark)
                 }
             }
