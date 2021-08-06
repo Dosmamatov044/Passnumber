@@ -5,7 +5,6 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.provider.Settings
 import android.text.Html
-import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +29,8 @@ class RegistrationFragment : Fragment(), RegistrationContract.View {
 
     lateinit var binding: FragmentRegistrationBinding
 
+    var userNumberFromCheckPass=""
+    var userNameFromCheckPass=""
     override fun onStart() {
         super.onStart()
         presenter.onStart(this)
@@ -50,7 +51,6 @@ class RegistrationFragment : Fragment(), RegistrationContract.View {
     }
 
 
-    @SuppressLint("HardwareIds")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.run {
@@ -60,19 +60,7 @@ class RegistrationFragment : Fragment(), RegistrationContract.View {
             }
             txtSendSms.text=Html.fromHtml(getString(R.string.send_sms))
             btnRegistrationEnter.setOnClickListener {
-                if (block2RegistrationCont.visibility==View.GONE){
-                    block1RegistrationCont.visibility=View.GONE
-                    block2RegistrationCont.visibility=View.VISIBLE
-                    btnRegistrationEnter.isEnabled=false
-                    btnRegistrationEnter.setBackgroundResource(R.drawable.ic_rectangle_round_4_gray)
-                    btnRegistrationEnter.setTextColor(resources.getColor(R.color.gray))
-                    presenter.sendSms(edtRegistrationPhone.text.toString())
-                }else{
-                    presenter.onClickEnter(
-                        Settings.Secure.getString(requireActivity().getContentResolver(), Settings.Secure.ANDROID_ID)
-                        ,edtRegistrationCode.text.toString()
-                        ,edtRegistrationPhone.text.toString())
-                }
+                handleClickBtnRegistration()
             }
             edtRegistrationCode.addTextChangedListener{
                 if (edtRegistrationCode.length()==4){
@@ -106,6 +94,35 @@ class RegistrationFragment : Fragment(), RegistrationContract.View {
                 }
             }
 
+        }
+        if (userNumberFromCheckPass.isNotEmpty()){
+            binding.edtRegistrationPhone.setText(userNumberFromCheckPass)
+            binding.handleClickBtnRegistration()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        userNumberFromCheckPass=""
+        userNameFromCheckPass=""
+    }
+
+    @SuppressLint("HardwareIds")
+    private fun FragmentRegistrationBinding.handleClickBtnRegistration() {
+        if (block2RegistrationCont.visibility == View.GONE) {
+            block1RegistrationCont.visibility = View.GONE
+            block2RegistrationCont.visibility = View.VISIBLE
+            btnRegistrationEnter.isEnabled = false
+            btnRegistrationEnter.setBackgroundResource(R.drawable.ic_rectangle_round_4_gray)
+            btnRegistrationEnter.setTextColor(resources.getColor(R.color.gray))
+            presenter.sendSms(edtRegistrationPhone.text.toString())
+        } else {
+            presenter.onClickEnter(
+                Settings.Secure.getString(
+                    requireActivity().getContentResolver(),
+                    Settings.Secure.ANDROID_ID
+                ), edtRegistrationCode.text.toString(), edtRegistrationPhone.text.toString(),userNameFromCheckPass
+            )
         }
     }
 

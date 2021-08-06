@@ -82,6 +82,15 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+    fun openRegistrationFragment(userNumber:String,userName:String){
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.mainContainer, RegistrationFragment().apply {
+                userNumberFromCheckPass=userNumber
+                userNameFromCheckPass=userName
+            }).commit()
+        btnBottom2.bottomSelelected()
+    }
     fun hideBottomMenu(hide:Boolean=false){
         lvBottomMenu.isGone=hide
     }
