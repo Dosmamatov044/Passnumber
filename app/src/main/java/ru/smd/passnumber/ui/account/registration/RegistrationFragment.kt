@@ -17,6 +17,7 @@ import ru.smd.passnumber.R
 import ru.smd.passnumber.data.core.Constants
 import ru.smd.passnumber.databinding.FragmentRegistrationBinding
 import ru.smd.passnumber.ui.account.AccountFragment
+import ru.smd.passnumber.utils.openLink
 import ru.tinkoff.decoro.MaskImpl
 import ru.tinkoff.decoro.watchers.FormatWatcher
 import ru.tinkoff.decoro.watchers.MaskFormatWatcher
@@ -54,6 +55,9 @@ class RegistrationFragment : Fragment(), RegistrationContract.View {
         super.onViewCreated(view, savedInstanceState)
         binding.run {
             txtAgreement.text= Html.fromHtml(getString(R.string.agreement))
+            txtAgreement.setOnClickListener {
+                openLink("https://pass.su/terms")
+            }
             txtSendSms.text=Html.fromHtml(getString(R.string.send_sms))
             btnRegistrationEnter.setOnClickListener {
                 if (block2RegistrationCont.visibility==View.GONE){
