@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="#000"
+    android:id="@+id/slashView"
+    android:animateLayoutChanges="true"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <View
+        android:id="@+id/vNumberHolder"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginHorizontal="28dp"
+        android:background="@drawable/ic_rectangle_round_8_lightgray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivCircleStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="9dp"
+        android:src="@drawable/ic_ellipse"
+        app:layout_constraintBottom_toBottomOf="@+id/vNumberHolder"
+        app:layout_constraintStart_toStartOf="@+id/vNumberHolder"
+        app:layout_constraintTop_toTopOf="@+id/vNumberHolder" />
+
+    <ImageView
+        android:id="@+id/ivCircleEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="9dp"
+        android:src="@drawable/ic_ellipse"
+        app:layout_constraintBottom_toBottomOf="@+id/vNumberHolder"
+        app:layout_constraintEnd_toEndOf="@+id/vNumberHolder"
+        app:layout_constraintTop_toTopOf="@+id/vNumberHolder" />
+
+    <View
+        android:id="@+id/vSeperatorNumber"
+        android:layout_width="2dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="110dp"
+        android:background="#fff"
+        app:layout_constraintBottom_toBottomOf="@+id/vNumberHolder"
+        app:layout_constraintEnd_toEndOf="@+id/vNumberHolder"
+        app:layout_constraintTop_toTopOf="@+id/vNumberHolder" />
+
+    <EditText
+        android:clickable="false"
+        android:focusable="false"
+        android:id="@+id/etStartNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/sf_ui_display_light"
+        android:hint="А000АА"
+        android:imeOptions="actionNext"
+        android:inputType="textCapCharacters"
+        android:maxLength="6"
+        android:textColor="#fff"
+        android:textColorHint="#B9B9B9"
+        android:textSize="33sp"
+        app:layout_constraintBottom_toBottomOf="@+id/vNumberHolder"
+        app:layout_constraintEnd_toStartOf="@+id/vSeperatorNumber"
+        app:layout_constraintStart_toEndOf="@+id/ivCircleStart"
+        app:layout_constraintTop_toTopOf="@+id/vNumberHolder" />
+
+    <EditText
+        android:clickable="false"
+        android:focusable="false"
+        android:id="@+id/etEndNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/sf_ui_display_light"
+        android:hint="000"
+        android:imeOptions="actionDone"
+        android:inputType="number"
+        android:maxLength="3"
+        android:textColor="#fff"
+        android:textColorHint="#B9B9B9"
+        android:textSize="33sp"
+        app:layout_constraintBottom_toBottomOf="@+id/vNumberHolder"
+        app:layout_constraintEnd_toStartOf="@+id/ivCircleEnd"
+        app:layout_constraintStart_toStartOf="@+id/vSeperatorNumber"
+        app:layout_constraintTop_toTopOf="@+id/vNumberHolder" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/ic_flag_ru"
+        android:drawablePadding="3dp"
+        android:fontFamily="@font/sf_ui_display_light"
+        android:text="RUS"
+        android:textColor="#fff"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/etEndNumber"
+        app:layout_constraintEnd_toEndOf="@+id/etEndNumber"
+        app:layout_constraintStart_toStartOf="@+id/etEndNumber"
+        app:layout_constraintTop_toBottomOf="@+id/etEndNumber" />
+</androidx.constraintlayout.widget.ConstraintLayout>

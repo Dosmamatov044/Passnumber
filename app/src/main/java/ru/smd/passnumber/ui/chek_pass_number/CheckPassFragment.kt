@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.fragment_check_pass.*
 import ru.smd.passnumber.R
 import ru.smd.passnumber.data.core.hideKeyboard
 import ru.smd.passnumber.data.entities.PassData
+import ru.smd.passnumber.ui.activities.main.MainActivity
 import ru.smd.passnumber.ui.checking_pass.CheckingPassFragment
 
 
@@ -32,6 +33,9 @@ class CheckPassFragment : Fragment(R.layout.fragment_check_pass) {
     @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val main = requireActivity() as MainActivity
+        requireActivity().window.statusBarColor=ContextCompat.getColor(requireContext(),R.color.colorPrimaryDark)
+        main.hideBottomMenu()
         btnCheckPassNumber.setOnClickListener {
             viewModel.composite()
             viewModel.checkPassData(etStartNumber.text.toString() + etEndNumber.text.toString())

@@ -19,6 +19,7 @@ import ru.smd.passnumber.data.tools.PreferencesHelper
 import ru.smd.passnumber.ui.account.AccountFragment
 import ru.smd.passnumber.ui.account.registration.RegistrationFragment
 import ru.smd.passnumber.ui.help_registration.HelpRegistrationFragment
+import ru.smd.passnumber.ui.splash.SplashFragment
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -52,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 
     fun handleBottomClick() {
         btnBottom1.bottomSelelected()
-        supportFragmentManager.beginTransaction().replace(R.id.mainContainer, CheckPassFragment())
+        supportFragmentManager.beginTransaction().replace(R.id.mainContainer, SplashFragment())
             .commit()
 
         btnBottom1.setOnClickListener {
@@ -80,6 +81,9 @@ class MainActivity : AppCompatActivity() {
             it.bottomSelelected()
         }
 
+    }
+    fun hideBottomMenu(hide:Boolean=false){
+        lvBottomMenu.isGone=hide
     }
 
     fun bottomSelected(view: View) {
