@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.bottom_menu.*
 import ru.smd.passnumber.ui.chek_pass_number.CheckPassFragment
@@ -23,6 +24,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     companion object {
+        val compositeDisposableMain=CompositeDisposable()
         val handleLoad = MutableLiveData<Boolean>()
         val handleError = MutableLiveData<String>()
     }

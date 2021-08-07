@@ -31,6 +31,7 @@ class DocsFragment : Fragment(), DocsContract.View, DocsAdapter.OnClickListner {
     @Inject
     lateinit var presenter: DocsContract.Presenter
 
+    //todo set xml id without underScope ex:  use txtTitlePts instead txt_title_pts
     lateinit var binding: FragmentDocsBinding
 
     lateinit var adapterSts: DocsAdapter
