@@ -26,7 +26,6 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
     companion object {
         lateinit var mainCompositeDisposable: CompositeDisposable
-        val compositeDisposableMain=CompositeDisposable()
         val handleLoad = MutableLiveData<Boolean>()
         val handleError = MutableLiveData<String>()
     }

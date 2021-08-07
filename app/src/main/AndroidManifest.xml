@@ -26,7 +26,6 @@
             android:resource="@xml/file_path">
         </meta-data>
         </provider>
-        <activity android:name=".ui.activities.main.MainActivity"
         <activity android:screenOrientation="portrait"
             android:name=".ui.activities.main.MainActivity"
             android:windowSoftInputMode="adjustPan">

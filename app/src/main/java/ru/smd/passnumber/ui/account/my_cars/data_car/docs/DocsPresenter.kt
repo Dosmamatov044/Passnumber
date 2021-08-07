@@ -15,7 +15,7 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import ru.smd.passnumber.data.entities.Docs
 import ru.smd.passnumber.data.service.PassNumberRepo
 import ru.smd.passnumber.ui.activities.main.MainActivity
-import ru.smd.passnumber.ui.activities.main.MainActivity.Companion.compositeDisposableMain
+import ru.smd.passnumber.ui.activities.main.MainActivity.Companion.mainCompositeDisposable
 import java.io.File
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -94,7 +94,7 @@ class DocsPresenter @Inject constructor(val repo: PassNumberRepo) : DocsContract
                     MainActivity.handleError.value = error.toString()
                 }
             }
-        }.also(compositeDisposableMain::add)
+        }.also(mainCompositeDisposable::add)
     }
 
     fun toRequestBody(value: String): RequestBody {
@@ -121,7 +121,7 @@ class DocsPresenter @Inject constructor(val repo: PassNumberRepo) : DocsContract
                         MainActivity.handleError.value = error.toString()
                     }
                 }
-            }.also(compositeDisposableMain::add)
+            }.also(mainCompositeDisposable::add)
     }
 
     override fun storeType(type: Int) {
