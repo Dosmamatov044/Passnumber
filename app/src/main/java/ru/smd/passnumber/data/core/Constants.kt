@@ -22,7 +22,8 @@ object Constants {
         PredefinedSlots.digit(),
         PredefinedSlots.digit())
 
-
+    const val CAMERA_PERMISSION_CODE = 100
+    const val CAMERA_REQUEST = 1888
     const val BASE_URL = "https://pass.su/api/"
     const val DATE_MASK = "d MMMM,EEEE"
     const val DATE_MASK_NUMBER="dd.MM.yyyy"
