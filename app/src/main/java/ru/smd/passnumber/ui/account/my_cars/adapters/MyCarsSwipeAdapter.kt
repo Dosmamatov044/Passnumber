@@ -490,6 +490,7 @@ class MyCarsSwipeAdapter(val onClick:OnClickListner) : RecyclerView.Adapter<MyCa
                     txtCardCarRegNumber.setText(editNumber)
                     txtCardCarRegion.setText(region)
                     txtCardCarModel.setText(data.passData.mark)
+                    txtCardCarDriverName.setText(data.passData.driverName)
                 }
             }
         }
