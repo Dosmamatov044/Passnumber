@@ -25,7 +25,7 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().window.statusBarColor=ContextCompat.getColor(requireContext(),R.color.black)
         GlobalScope.launch {
-            delay(1000)
+            delay(0)
             parentFragmentManager.beginTransaction()
                 .replace(R.id.mainContainer, CheckPassFragment())
                 .commit()

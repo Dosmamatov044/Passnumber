@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 
     fun handleBottomClick() {
         btnBottom1.bottomSelelected()
-        supportFragmentManager.beginTransaction().replace(R.id.mainContainer, SplashFragment())
+        supportFragmentManager.beginTransaction().replace(R.id.mainContainer, CheckPassFragment())
             .commit()
 
         btnBottom1.setOnClickListener {
