@@ -11,7 +11,6 @@ interface DocsContract {
         fun toBack()
 
         fun showDocsSts(docs:List<Docs>)
-
         fun showDocsPts(docs:List<Docs>)
         fun showDocsDk(docs:List<Docs>)
         fun showDocsDriverCard(docs:List<Docs>)
@@ -25,6 +24,10 @@ interface DocsContract {
 
     interface Presenter{
 
+        var context:Context
+
+        var file:File?
+
         fun onStart(view:View)
 
         fun onStop()
@@ -33,7 +36,7 @@ interface DocsContract {
 
         fun getDocs(idVehicle:Int)
 
-        fun addPhoto(bitmap: Bitmap,file:File,context: Context)
+        fun addPhoto(file:File,context: Context)
         fun storeType(type:Int)
 
         fun storeId(idVehicle:Int)

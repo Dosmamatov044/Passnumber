@@ -109,14 +109,14 @@ class DocsAdapter(val onClick: OnClickListner) : RecyclerView.Adapter<DocsAdapte
                                 )
                             }
                         }
-                        if (data.docs?.thumb != null) {
+                        if (data.docs?.thumb?.contains(".jpg")==true||data.docs?.thumb?.contains(".png")==true) {
                             txtDocs.visibility = View.GONE
                             mainImg.visibility=View.VISIBLE
                             Picasso.get().load(data.docs.thumb).resize(135, 112).into(mainImg)
                         } else {
                             txtDocs.visibility = View.VISIBLE
                             mainImg.visibility=View.GONE
-                            txtDocs.setText(data.docs?.file)
+                            txtDocs.setText(itemView.context.getString(R.string.open))
                         }
                     }
                 }

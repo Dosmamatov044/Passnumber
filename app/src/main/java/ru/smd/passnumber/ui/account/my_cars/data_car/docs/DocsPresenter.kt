@@ -22,12 +22,16 @@ import javax.inject.Singleton
 
 
 @Singleton
-class DocsPresenter @Inject constructor(val repo: PassNumberRepo) : DocsContract.Presenter {
+class DocsPresenter @Inject constructor(
+    val repo: PassNumberRepo,
+) : DocsContract.Presenter {
 
     private var view: DocsContract.View? = null
 
-    var type=0
-    var idVehicle=0
+    override var file: File? = null
+    override lateinit var context: Context
+    var type = 0
+    var idVehicle = 0
     lateinit var compositeDisposable: CompositeDisposable
     lateinit var compressedFile: File
     val docsSts = mutableListOf<Docs>()
@@ -41,6 +45,8 @@ class DocsPresenter @Inject constructor(val repo: PassNumberRepo) : DocsContract
     override fun onStart(view: DocsContract.View) {
         this.view = view
         compositeDisposable = CompositeDisposable()
+        getDocs(idVehicle)
+        file?.let { addPhoto(it, context) }
     }
 
     override fun onStop() {
@@ -94,42 +100,51 @@ class DocsPresenter @Inject constructor(val repo: PassNumberRepo) : DocsContract
                     MainActivity.handleError.value = error.toString()
                 }
             }
-        }.also(compositeDisposableMain::add)
+        }.also(compositeDisposable::add)
     }
 
     fun toRequestBody(value: String): RequestBody {
-        val body=RequestBody.create("text/plain".toMediaTypeOrNull(), value)
+        val body = RequestBody.create("text/plain".toMediaTypeOrNull(), value)
         return body
     }
 
-    override fun addPhoto(bitmap: Bitmap, file: File, context: Context) {
-        compressedFile = Compressor(context).compressToFile(file)
-        val reqFile = compressedFile.asRequestBody("image/*".toMediaTypeOrNull())
-        val part: MultipartBody.Part =
-            MultipartBody.Part.createFormData("file", "file.png", reqFile)
-        val map= mutableMapOf<String,RequestBody>()
-        map.put("type_id",toRequestBody(type.toString()))
+
+
+    override fun addPhoto(file: File, context: Context) {
+        val reqFile:RequestBody
+        val part: MultipartBody.Part
+        if (file.toURI().toString().contains(".jpg")||file.toURI().toString().contains(".png")){
+            compressedFile = Compressor(context).compressToFile(file)
+            reqFile = compressedFile.asRequestBody("image/*".toMediaTypeOrNull())
+            part = MultipartBody.Part.createFormData("file", "file.png", reqFile)
+        }else{
+            reqFile = file.asRequestBody("application/json".toMediaTypeOrNull())
+            part = MultipartBody.Part.createFormData("file", "file", reqFile)
+        }
+        val map = mutableMapOf<String, RequestBody>()
+        map.put("type_id", toRequestBody(type.toString()))
         repo.storeDocs(idVehicle, part, map).compose(applySchedulers())
             .subscribe { response, error ->
                 MainActivity.handleLoad.value = false
                 when {
                     error == null -> {
                         getDocs(idVehicle)
-                       toString()
+                        toString()
                     }
                     else -> {
                         MainActivity.handleError.value = error.toString()
                     }
                 }
-            }.also(compositeDisposableMain::add)
+            }.also(compositeDisposable::add)
+        this.file = null
     }
 
     override fun storeType(type: Int) {
-       this.type=type
+        this.type = type
     }
 
     override fun storeId(idVehicle: Int) {
-        if (this.idVehicle==0) this.idVehicle=idVehicle
+         this.idVehicle = idVehicle
     }
 
     fun <T> applySchedulers(): SingleTransformer<T, T> {
