@@ -21,6 +21,13 @@ import javax.inject.Inject
 
 interface PassNumberRepo {
 
+    @POST("user/notifications")
+    fun saveNotifications(
+        @Query("notification_time") notification_time: String,
+        @Query("notifications_email") notifications_email: Int,
+        @Query("notifications_push") notifications_push: Int
+    ): Single<Unit>
+
 
     @POST("auth/check_code")
     fun registration(@QueryMap params: MutableMap<String, String>): Single<ServerResponseCheckCode<ResponseCheckCode>>

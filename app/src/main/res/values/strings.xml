@@ -54,6 +54,9 @@
     <string name="agreement">Я принимаю условия &lt;u>пользовательского соглашения&lt;/u> и даю согласие на обработку персональных данных согласно &lt;u>политике конфиденциальности.&lt;/u></string>
     <string name="edit">Редактировать</string>
     <string name="delete">Удалить</string>
+    <string name="text_status">Статус</string>
+    <string name="text_type_pass">Тип пропуска</string>
+    <string name="text_sort">Сортировка</string>
 
 
 </resources>

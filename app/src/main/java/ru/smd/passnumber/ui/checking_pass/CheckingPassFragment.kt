@@ -15,8 +15,10 @@ import ru.smd.passnumber.R
 import ru.smd.passnumber.data.core.hideKeyboard
 import ru.smd.passnumber.data.entities.PassData
 import ru.smd.passnumber.data.entities.PassesData
+import ru.smd.passnumber.data.tools.PreferencesHelper
 import ru.smd.passnumber.ui.activities.main.MainActivity
 import ru.smd.passnumber.ui.help_registration.HelpRegistrationFragment
+import javax.inject.Inject
 
 
 /**
@@ -24,6 +26,9 @@ import ru.smd.passnumber.ui.help_registration.HelpRegistrationFragment
  */
 @AndroidEntryPoint
 class CheckingPassFragment : Fragment(R.layout.fragment_checking_pass) {
+
+    @Inject
+    lateinit var prefs: PreferencesHelper
 
     private val viewModel: CheckingPassViewModel by viewModels()
     private val adapter = PassNumbersAdapter()
@@ -37,12 +42,15 @@ class CheckingPassFragment : Fragment(R.layout.fragment_checking_pass) {
             hideKeyboard()
             requireActivity().onBackPressed()
         }
+        btnRegister.setOnClickListener {
+            (requireActivity() as MainActivity).openRegistrationFragment(phone_input.text.toString(),etNameUser.text.toString())
+        }
         ivTopTruck1.setOnClickListener {
             ivTopTruck1.isClickable = false
             ivTopTruck1.isGone = true
             ivTopTruck.isClickable = true
             ivTopTruck.isGone = false
-            llSubscribe.isGone = false
+            llSubscribe.isGone = prefs.restoreToken()!=null
         }
         ivTopTruck.setOnClickListener {
             ivTopTruck.isClickable = false

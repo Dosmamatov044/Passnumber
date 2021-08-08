@@ -80,6 +80,7 @@
                     android:layout_height="1dp"
                     android:background="#38383A"/>
                 <TextView
+                    android:id="@+id/btnSettingsNotification"
                     android:gravity="center_vertical"
                     android:drawableStart="@drawable/ic_bell"
                     android:drawableEnd="@drawable/ic_next_small"
@@ -184,23 +185,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="#38383A"/>
-                <TextView
-                    android:gravity="center_vertical"
-                    android:drawableStart="@drawable/ic_settings"
-                    android:drawableEnd="@drawable/ic_next_small"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/sf_ui_display_bold"
-                    android:text="Настройки"
-                    android:drawablePadding="13dp"
-                    android:textColor="#fff"
-                    android:textSize="13sp" />
-                <View
-                    android:layout_marginTop="21dp"
-                    android:layout_marginBottom="25dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#38383A"/>
+<!--                <TextView-->
+<!--                    android:id="@+id/btnSettings"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:drawableStart="@drawable/ic_settings"-->
+<!--                    android:drawableEnd="@drawable/ic_next_small"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:fontFamily="@font/sf_ui_display_bold"-->
+<!--                    android:text="Настройки"-->
+<!--                    android:drawablePadding="13dp"-->
+<!--                    android:textColor="#fff"-->
+<!--                    android:textSize="13sp" />-->
+<!--                <View-->
+<!--                    android:layout_marginTop="21dp"-->
+<!--                    android:layout_marginBottom="25dp"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="1dp"-->
+<!--                    android:background="#38383A"/>-->
                 <TextView
                     android:gravity="center_vertical"
                     android:drawableStart="@drawable/ic_message_circle"

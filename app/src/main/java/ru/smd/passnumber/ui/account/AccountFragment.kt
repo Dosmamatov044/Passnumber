@@ -13,6 +13,7 @@ import ru.smd.passnumber.data.tools.PreferencesHelper
 import ru.smd.passnumber.ui.account.my_cars.MyCarsFragment
 import ru.smd.passnumber.ui.account.my_data.MyDataFragment
 import ru.smd.passnumber.ui.account.notification.NotificationFragment
+import ru.smd.passnumber.ui.account.settings_notification.SettingsNotificationFragment
 import javax.inject.Inject
 
 
@@ -38,6 +39,10 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
         }
         btn_my_cars_profile.setOnClickListener {
             parentFragmentManager.beginTransaction().replace(R.id.mainContainer, MyCarsFragment())
+                .addToBackStack(null).commit()
+        }
+        btnSettingsNotification.setOnClickListener {
+            parentFragmentManager.beginTransaction().replace(R.id.mainContainer, SettingsNotificationFragment())
                 .addToBackStack(null).commit()
         }
         setAlert()

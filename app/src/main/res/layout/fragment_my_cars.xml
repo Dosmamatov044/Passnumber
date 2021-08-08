@@ -62,71 +62,10 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/contSearch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="8dp"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/bg_search"
-            app:layout_constraintTop_toBottomOf="@+id/tvTitleCont_my_cars">
-
-            <FrameLayout
-                android:id="@+id/glass"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:paddingHorizontal="8dp"
-                android:paddingVertical="10dp"
-                >
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ic_mangnifyingglass"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </FrameLayout>
-
-            <EditText
-                android:id="@+id/edtSearch"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="#1D1D1D"
-                android:backgroundTint="#1D1D1D"
-                android:fontFamily="@font/sf_ui_display_regular"
-                android:hint="Поиск по номеру, марке модели, водителю"
-                android:textAlignment="viewStart"
-                android:textColor="@color/color_gray_text"
-                android:textColorHint="@color/color_gray_text"
-                android:textSize="15sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/microphone"
-                app:layout_constraintStart_toEndOf="@+id/glass"
-                app:layout_constraintTop_toTopOf="parent" />
-            <FrameLayout
-                android:id="@+id/microphone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:paddingHorizontal="8dp"
-                android:paddingVertical="10dp">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/ic_microphone"
-                 />
-            </FrameLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/main_cont_my_cars"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/contSearch">
+            app:layout_constraintTop_toBottomOf="@+id/tvTitleCont_my_cars">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/contImg_my_cars"
@@ -291,21 +230,92 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvTitleCont_my_cars">
 
-            <TextView
-                android:id="@+id/search_my_cars"
+            <!--            <TextView-->
+            <!--                android:id="@+id/search_my_cars"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:textColor="#60FFFFFF"-->
+            <!--                android:textSize="15sp" />-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/contSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#60FFFFFF"
-                android:textSize="15sp" />
+                android:layout_marginHorizontal="8dp"
+                android:background="@drawable/bg_search"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitleCont_my_cars">
+
+                <FrameLayout
+                    android:id="@+id/glass"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_mangnifyingglass"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </FrameLayout>
+
+                <EditText
+                    android:id="@+id/edtSearch"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="#1D1D1D"
+                    android:backgroundTint="#1D1D1D"
+                    android:fontFamily="@font/sf_ui_display_regular"
+                    android:hint="Поиск по номеру, марке модели, водителю"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/color_gray_text"
+                    android:textColorHint="@color/color_gray_text"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/microphone"
+                    app:layout_constraintStart_toEndOf="@+id/glass"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:id="@+id/microphone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="10dp"
+                    android:src="@drawable/ic_microphone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/filters_my_cars"
+                android:id="@+id/btnFilter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:fontFamily="@font/sf_ui_display_regular"
-                android:textColor="@color/blue"
-                android:textSize="17sp" />
+                android:layout_gravity="center"
+                android:fontFamily="@font/sf_ui_display_light"
+                android:padding="8dp"
+                android:text="Фильтр: все (1) "
+                android:textColor="#1FA6F1"
+                android:textSize="17sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/contSearch" />
+
+            <!--            <TextView-->
+            <!--                android:id="@+id/filters_my_cars"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_gravity="center_horizontal"-->
+            <!--                android:fontFamily="@font/sf_ui_display_regular"-->
+            <!--                android:textColor="@color/blue"-->
+            <!--                android:textSize="17sp" />-->
 
             <include
                 android:id="@+id/alertUsingSwipe"

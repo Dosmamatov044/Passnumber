@@ -1,13 +1,18 @@
 package ru.smd.passnumber.ui.account.my_cars
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.speech.SpeechRecognizer
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isGone
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.alert_view.view.*
 import kotlinx.android.synthetic.main.bottom_menu.*
@@ -16,6 +21,9 @@ import ru.smd.passnumber.data.entities.PassData
 import ru.smd.passnumber.data.tools.PreferencesHelper
 import ru.smd.passnumber.databinding.FragmentMyCarsBinding
 import ru.smd.passnumber.ui.account.my_cars.adapters.MyCarsSwipeAdapter
+import ru.smd.passnumber.ui.account.my_cars.filter.FilterCars
+import ru.smd.passnumber.ui.account.my_cars.filter.FilterCarsPosition
+import ru.smd.passnumber.ui.account.my_cars.filter.FilterFragment
 import ru.smd.passnumber.ui.account.my_cars.data_car.DataCarFragment
 import ru.smd.passnumber.ui.activities.main.MainActivity
 import ru.smd.passnumber.ui.help_registration.HelpRegistrationFragment
@@ -23,6 +31,11 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MyCarsFragment : Fragment(), MyCarsContract.View, MyCarsSwipeAdapter.OnClickListner {
+
+   companion object{
+       val filterCars=MutableLiveData<FilterCars>()
+       val filterCarsPosition=MutableLiveData<FilterCarsPosition>()
+   }
 
     @Inject
     lateinit var presenter: MyCarsContract.Presenter
@@ -33,6 +46,33 @@ class MyCarsFragment : Fragment(), MyCarsContract.View, MyCarsSwipeAdapter.OnCli
     lateinit var binding: FragmentMyCarsBinding
 
     lateinit var adapter: MyCarsSwipeAdapter
+
+    //setup Listening audio
+    lateinit var speechRecognizer : SpeechRecognizer
+
+    fun initSpeech(){
+        speechRecognizer = SpeechRecognizer.createSpeechRecognizer(context).apply {
+            setRecognitionListener(addRecognitionListener(binding.microphone,binding.edtSearch))
+        }
+
+        binding.microphone.setOnClickListener {
+            recognizeSpeech(binding.microphone,speechRecognizer)
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String?>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        checkResultPermission(requestCode, grantResults)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        speechRecognizer.destroy()
+    }
 
     override fun onStart() {
         super.onStart()
@@ -48,12 +88,13 @@ class MyCarsFragment : Fragment(), MyCarsContract.View, MyCarsSwipeAdapter.OnCli
         super.onCreate(savedInstanceState)
     }
 
+    @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.run {
             adapter = MyCarsSwipeAdapter(this@MyCarsFragment)
-            glass.setOnClickListener { }//TODO поиск
-            microphone.setOnClickListener { } //TODO микрофон
+//            glass.setOnClickListener {  }//TODO поиск
+//            microphone.setOnClickListener {  } //TODO микрофон
             recycleMyCars.adapter = adapter
             txtMyCarsHavent.text =
                 Html.fromHtml(requireContext().getString(R.string.you_havent_cars))
@@ -69,7 +110,21 @@ class MyCarsFragment : Fragment(), MyCarsContract.View, MyCarsSwipeAdapter.OnCli
                 } else
                     presenter.onClickAdd()
             }
+            btnFilter.setOnClickListener {
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.mainContainer, FilterFragment()).addToBackStack(null).commit()
+            }
+            edtSearch.doAfterTextChanged {
+                adapter.setSearchItems(edtSearch.text.toString())
+            }
         }
+        initSpeech()
+        filterCars.observe(this,applyFilter)
+    }
+    private val applyFilter=Observer<FilterCars>{
+        adapter.filterCars=it
+        adapter.notifyDataSetChanged()
+        binding.btnFilter.text="Фильтр: все (${adapter.items.size})"
     }
 
     override fun onCreateView(
@@ -128,6 +183,7 @@ class MyCarsFragment : Fragment(), MyCarsContract.View, MyCarsSwipeAdapter.OnCli
             }
         } else
             binding.alertUsingSwipe.isGone = true
+        binding.btnFilter.text="Фильтр: все (${adapter.items.size})"
     }
 
     override fun showEmptyList() {

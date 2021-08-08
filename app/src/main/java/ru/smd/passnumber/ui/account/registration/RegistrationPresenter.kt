@@ -6,9 +6,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import org.json.JSONObject
-import ru.smd.passnumber.data.service.ApiService
 import ru.smd.passnumber.data.service.PassNumberRepo
 import ru.smd.passnumber.data.tools.PreferencesHelper
+import ru.smd.passnumber.ui.activities.main.MainActivity.Companion.mainCompositeDisposable
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -20,22 +20,29 @@ class RegistrationPresenter @Inject constructor(
 
     private var view: RegistrationContract.View? = null
 
-    lateinit var compositeDisposable: CompositeDisposable
+//    lateinit var compositeDisposable: CompositeDisposable
 
     override fun onStart(view: RegistrationContract.View) {
         this.view = view
-        compositeDisposable = CompositeDisposable()
+//        compositeDisposable = CompositeDisposable()
     }
 
     override fun onStop() {
         view = null
-        compositeDisposable.dispose()
+//        compositeDisposable.dispose()
     }
 
-    override fun onClickEnter(androidId: String, code: String, text: String) {
+    override fun onClickEnter(
+        androidId: String,
+        code: String,
+        text: String,
+        userNameFromCheckPass: String
+    ) {
         val phone = text.replace(regex = Regex("\\D"), "")
         repo.registration(
             mutableMapOf<String, String>().apply {
+                if (userNameFromCheckPass.isNotEmpty())
+                this["name"] = userNameFromCheckPass
                 this["phone"] = phone
                 this["code"] = code
                 this["device_name"] = androidId
@@ -60,7 +67,7 @@ class RegistrationPresenter @Inject constructor(
                         view?.showErrorInternet()
                     }
                 }
-            }.also(compositeDisposable::add)
+            }.also(mainCompositeDisposable::add)
 
     }
 
@@ -80,7 +87,7 @@ class RegistrationPresenter @Inject constructor(
                         view?.showErrorInternet()
                     }
                 }
-            }.also(compositeDisposable::add)
+            }.also(mainCompositeDisposable::add)
     }
 
     fun <T> applySchedulers(): SingleTransformer<T, T> {

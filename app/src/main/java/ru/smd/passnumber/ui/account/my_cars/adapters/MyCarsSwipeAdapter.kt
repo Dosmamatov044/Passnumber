@@ -11,21 +11,24 @@ import ru.smd.passnumber.data.entities.CardCarWrapper
 import ru.smd.passnumber.data.entities.PassData
 import ru.smd.passnumber.data.entities.Type
 import ru.smd.passnumber.databinding.*
+import ru.smd.passnumber.ui.account.my_cars.filter.FilterCars
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-class MyCarsSwipeAdapter(val onClick:OnClickListner) : RecyclerView.Adapter<MyCarsSwipeAdapter.ViewHolder>() {
+class MyCarsSwipeAdapter(val onClick: OnClickListner) :
+    RecyclerView.Adapter<MyCarsSwipeAdapter.ViewHolder>() {
 
-    var isFirstAdded=false
+    var filterCars = FilterCars()
+    var isFirstAdded = false
 
     var items = mutableListOf<CardCarWrapper>()
 
     private val viewBinderHelper = ViewBinderHelper()
 
     interface OnClickListner {
-        fun onClickEdit(regNumber:String,driverName:String,mark:String)
-        fun onClickDelete(regNumber:Int)
+        fun onClickEdit(regNumber: String, driverName: String, mark: String)
+        fun onClickDelete(regNumber: Int)
         fun onClickCard(regNumber: String)
         fun onClickHelp()
     }
@@ -89,12 +92,13 @@ class MyCarsSwipeAdapter(val onClick:OnClickListner) : RecyclerView.Adapter<MyCa
         }
     }
 
+    var unfilteredItems = items
     fun setData(data: List<PassData>) {
         items.clear()
         var cardCarWrapper: CardCarWrapper
         data.forEach {
             var days = 0
-            if (!it.passes.isNullOrEmpty()){
+            if (!it.passes.isNullOrEmpty()) {
                 it.passes[0].daysLeft?.let { days = it }
             }
             if (it.passes.isEmpty()) {
@@ -110,7 +114,52 @@ class MyCarsSwipeAdapter(val onClick:OnClickListner) : RecyclerView.Adapter<MyCa
             }
             items.add(cardCarWrapper)
         }
+        filterItems()
         notifyDataSetChanged()
+    }
+
+    fun setSearchItems(text: String) {
+        items = unfilteredItems.filter {
+//            var number =
+//                if (it.passData.passes.isNullOrEmpty()) {
+//                    false
+//                } else {
+//                    it.passData.regNumber?.contains(text,ignoreCase = true) == true
+//                }
+            it.passData.mark?.contains(text,ignoreCase = true) == true || it.passData.driverName?.contains(text,ignoreCase = true) == true || it.passData.regNumber?.contains(text,ignoreCase = true) == true
+        }.toMutableList()
+        notifyDataSetChanged()
+    }
+
+    private fun filterItems() {
+        unfilteredItems = items
+        if (filterCars.isFiltered)
+            items = unfilteredItems.filter {
+                var passes = it.passData.passes
+                if (passes.isNullOrEmpty()) {
+                    (filterCars.filterByStatus == "Не найден" || filterCars.filterByStatus == "Все") && filterCars.filterByTypePass.isNullOrEmpty()
+                } else {
+                    var status: Boolean = when (filterCars.filterByStatus) {
+                        "Действует более 14 дней" -> {
+                            passes.first().daysLeft ?: 0 > 14
+                        }
+                        "Осталось 0-14 дней" -> {
+                            passes.first().daysLeft ?: 0 in 1..14
+                        }
+                        "Все" -> {
+                            true
+                        }
+                        else -> passes.first().status == filterCars.filterByStatus
+                    }
+                    var typePass =
+                        when (filterCars.filterByTypePass) {
+                            "" -> true
+                            else -> passes.first().number?.contains(filterCars.filterByTypePass) == true
+                        }
+                    status && typePass
+                }
+
+            }.toMutableList()
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -212,17 +261,17 @@ class MyCarsSwipeAdapter(val onClick:OnClickListner) : RecyclerView.Adapter<MyCa
                     )
                     viewBinderHelper.closeLayout(data.passData.id.toString())
                     contEdit.setOnClickListener {
-                        var regNumber=""
-                        var driverName=""
-                        var mark=""
-                        if (!data.passData.regNumber.isNullOrEmpty()){
-                            regNumber=data.passData.regNumber
+                        var regNumber = ""
+                        var driverName = ""
+                        var mark = ""
+                        if (!data.passData.regNumber.isNullOrEmpty()) {
+                            regNumber = data.passData.regNumber
                         }
-                        if (!data.passData.driverName.isNullOrEmpty()){
-                            driverName=data.passData.driverName
+                        if (!data.passData.driverName.isNullOrEmpty()) {
+                            driverName = data.passData.driverName
                         }
-                        if (!data.passData.mark.isNullOrEmpty()){
-                            mark=data.passData.mark
+                        if (!data.passData.mark.isNullOrEmpty()) {
+                            mark = data.passData.mark
                         }
                         onClick.onClickEdit(regNumber, driverName, mark)
                     }
@@ -296,17 +345,17 @@ class MyCarsSwipeAdapter(val onClick:OnClickListner) : RecyclerView.Adapter<MyCa
                     )
                     viewBinderHelper.closeLayout(data.passData.id.toString())
                     contEdit.setOnClickListener {
-                        var regNumber=""
-                        var driverName=""
-                        var mark=""
-                        if (!data.passData.regNumber.isNullOrEmpty()){
-                            regNumber=data.passData.regNumber
+                        var regNumber = ""
+                        var driverName = ""
+                        var mark = ""
+                        if (!data.passData.regNumber.isNullOrEmpty()) {
+                            regNumber = data.passData.regNumber
                         }
-                        if (!data.passData.driverName.isNullOrEmpty()){
-                            driverName=data.passData.driverName
+                        if (!data.passData.driverName.isNullOrEmpty()) {
+                            driverName = data.passData.driverName
                         }
-                        if (!data.passData.mark.isNullOrEmpty()){
-                            mark=data.passData.mark
+                        if (!data.passData.mark.isNullOrEmpty()) {
+                            mark = data.passData.mark
                         }
                         onClick.onClickEdit(regNumber, driverName, mark)
                     }
@@ -380,17 +429,17 @@ class MyCarsSwipeAdapter(val onClick:OnClickListner) : RecyclerView.Adapter<MyCa
                     )
                     viewBinderHelper.closeLayout(data.passData.id.toString())
                     contEdit.setOnClickListener {
-                        var regNumber=""
-                        var driverName=""
-                        var mark=""
-                        if (!data.passData.regNumber.isNullOrEmpty()){
-                            regNumber=data.passData.regNumber
+                        var regNumber = ""
+                        var driverName = ""
+                        var mark = ""
+                        if (!data.passData.regNumber.isNullOrEmpty()) {
+                            regNumber = data.passData.regNumber
                         }
-                        if (!data.passData.driverName.isNullOrEmpty()){
-                            driverName=data.passData.driverName
+                        if (!data.passData.driverName.isNullOrEmpty()) {
+                            driverName = data.passData.driverName
                         }
-                        if (!data.passData.mark.isNullOrEmpty()){
-                            mark=data.passData.mark
+                        if (!data.passData.mark.isNullOrEmpty()) {
+                            mark = data.passData.mark
                         }
                         onClick.onClickEdit(regNumber, driverName, mark)
                     }
@@ -461,17 +510,17 @@ class MyCarsSwipeAdapter(val onClick:OnClickListner) : RecyclerView.Adapter<MyCa
                     )
                     viewBinderHelper.closeLayout(data.passData.id.toString())
                     contEdit.setOnClickListener {
-                        var regNumber=""
-                        var driverName=""
-                        var mark=""
-                        if (!data.passData.regNumber.isNullOrEmpty()){
-                            regNumber=data.passData.regNumber
+                        var regNumber = ""
+                        var driverName = ""
+                        var mark = ""
+                        if (!data.passData.regNumber.isNullOrEmpty()) {
+                            regNumber = data.passData.regNumber
                         }
-                        if (!data.passData.driverName.isNullOrEmpty()){
-                            driverName=data.passData.driverName
+                        if (!data.passData.driverName.isNullOrEmpty()) {
+                            driverName = data.passData.driverName
                         }
-                        if (!data.passData.mark.isNullOrEmpty()){
-                            mark=data.passData.mark
+                        if (!data.passData.mark.isNullOrEmpty()) {
+                            mark = data.passData.mark
                         }
                         onClick.onClickEdit(regNumber, driverName, mark)
                     }
@@ -489,13 +538,17 @@ class MyCarsSwipeAdapter(val onClick:OnClickListner) : RecyclerView.Adapter<MyCa
                         data.passData.regNumber?.subSequence(6, data.passData.regNumber.length)
                     txtCardCarRegNumber.setText(editNumber)
                     txtCardCarRegion.setText(region)
+                    if (!data.passData.driverName.isNullOrEmpty()) {
+                        txtCardCarDriverName.setText(data.passData.driverName)
+                    }
                     txtCardCarModel.setText(data.passData.mark)
                     txtCardCarDriverName.setText(data.passData.driverName)
                 }
             }
         }
         if (isFirstAdded)
-        viewBinderHelper.openLayout(items.get(position).passData.id.toString())
+            viewBinderHelper.openLayout(items.get(position).passData.id.toString())
     }
+
     override fun getItemCount() = items.size
 }

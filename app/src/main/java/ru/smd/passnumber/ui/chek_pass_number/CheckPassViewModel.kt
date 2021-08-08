@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 import ru.smd.passnumber.data.entities.PassData
 import ru.smd.passnumber.data.service.ApiService
 import ru.smd.passnumber.data.service.PassNumberRepo
+import ru.smd.passnumber.data.service.applySchedulers
 import ru.smd.passnumber.data.service.enqueue
 
 
@@ -47,12 +48,6 @@ class CheckPassViewModel @ViewModelInject constructor(private val repo: PassNumb
         }.also(compositeDisposable::add)
     }
 
-    fun <T> applySchedulers(): SingleTransformer<T, T> {
-        return SingleTransformer {
-            it.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-        }
-    }
 }
 
 

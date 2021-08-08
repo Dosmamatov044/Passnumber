@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:gravity="center_vertical"
+    android:background="@drawable/ic_rectangle_round_10_black_solid"
+    android:foreground="?selectableItemBackgroundBorderless">
+
+
+    <TextView
+        android:fontFamily="@font/sf_ui_display_light"
+        android:id="@+id/tvSelectCardName"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:textColor="#60EBEBF5"
+        android:textSize="17sp"
+        tools:text="United Kingdom"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:id="@+id/dropDown"
+        android:layout_marginEnd="10dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_arrow_down_white"
+        />
+</LinearLayout>
