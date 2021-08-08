@@ -9,13 +9,17 @@ import com.squareup.picasso.Picasso
 import ru.smd.passnumber.R
 import ru.smd.passnumber.data.entities.Docs
 import ru.smd.passnumber.data.entities.DocsWrapper
+import ru.smd.passnumber.data.entities.Type
 import ru.smd.passnumber.data.entities.TypeItem
 import ru.smd.passnumber.databinding.ItemAddDocsBinding
 import ru.smd.passnumber.databinding.ItemDocsBinding
 
 
 class DocsAdapter(val onClick: OnClickListner) : RecyclerView.Adapter<DocsAdapter.ViewHolder>() {
-
+    //для выбора чем открыввать документ
+    enum class TypeOpen(val type: Int) {
+        Photo(0), PDF(1), DOC(2),
+    }
     var items = mutableListOf<DocsWrapper>()
 
     var type=0
@@ -23,8 +27,9 @@ class DocsAdapter(val onClick: OnClickListner) : RecyclerView.Adapter<DocsAdapte
     interface OnClickListner {
 
         fun onClickAdd(type:Int)
-
         fun onClickDelete()
+        fun onClickOpen(url:String?, type: TypeOpen)
+
 
     }
 
@@ -109,15 +114,25 @@ class DocsAdapter(val onClick: OnClickListner) : RecyclerView.Adapter<DocsAdapte
                                 )
                             }
                         }
-                        if (data.docs?.thumb?.contains(".jpg")==true||data.docs?.thumb?.contains(".png")==true) {
+                        var typeOpen:TypeOpen
+                        if (data.docs?.thumb?.contains(".jpg", ignoreCase = true)==true
+                            ||data.docs?.thumb?.contains(".png",ignoreCase = true)==true
+                            ||data.docs?.thumb?.contains(".jpeg",ignoreCase = true)==true) {
                             txtDocs.visibility = View.GONE
                             mainImg.visibility=View.VISIBLE
-                            Picasso.get().load(data.docs.thumb).resize(135, 112).into(mainImg)
+                            Picasso.get().load(data.docs.thumb).into(mainImg)
+                            typeOpen = TypeOpen.Photo
                         } else {
                             txtDocs.visibility = View.VISIBLE
                             mainImg.visibility=View.GONE
                             txtDocs.setText(itemView.context.getString(R.string.open))
+                            typeOpen = TypeOpen.DOC
+                            if (data.docs?.file?.contains(".PDF", ignoreCase = true) == true)
+                                typeOpen = TypeOpen.PDF
                         }
+                        //логика открытия файла через интент
+                        mainContDocs.setOnClickListener { onClick.onClickOpen(data.docs?.file, typeOpen) }
+
                     }
                 }
             }

@@ -1,5 +1,6 @@
 package ru.smd.passnumber.ui.checking_pass
 
+import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch

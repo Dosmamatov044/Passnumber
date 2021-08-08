@@ -220,6 +220,35 @@ class DocsFragment : Fragment(), DocsContract.View, DocsAdapter.OnClickListner {
         startActivityForResult(intentChooser(), Constants.CAMERA_REQUEST)
     }
 
+    override fun onClickOpen(url: String?, type: DocsAdapter.TypeOpen) {
+        //просто открываем по url через Intent
+        when(type){
+            DocsAdapter.TypeOpen.Photo -> {
+                val intent = Intent()
+                intent.action = Intent.ACTION_VIEW
+                intent.setDataAndType(Uri.parse(url), "image/*")
+                activity?.startActivity(intent)
+            }
+            DocsAdapter.TypeOpen.PDF -> {
+                val googleDocs = "https://docs.google.com/viewer?url="
+                val intent = Intent()
+                intent.action = Intent.ACTION_VIEW
+                intent.setData(Uri.parse(googleDocs + url))
+                activity?.startActivity(intent)
+            }
+            DocsAdapter.TypeOpen.DOC -> {
+            //открываем документ (doc, docx, excel и прочее)
+                val intent = Intent()
+                intent.action = Intent.ACTION_VIEW
+                intent.setDataAndType(Uri.parse(url), "application/msword")
+                activity?.startActivity(intent)
+            }
+
+        }
+
+
+    }
+
     fun intentChooser(): Intent? {
         if (if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
                 requireActivity().checkSelfPermission(android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED || requireActivity().checkSelfPermission(

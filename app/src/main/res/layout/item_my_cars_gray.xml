@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <com.chauthai.swipereveallayout.SwipeRevealLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.chauthai.swipereveallayout.SwipeRevealLayout
         android:id="@+id/swipe_layout_my_cars"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -180,7 +180,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="12dp"
                     android:fontFamily="@font/sf_ui_display_semibold"
-                    android:text="МКАД"
+                    android:text=""
                     android:textColor="#686868"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -216,13 +216,15 @@
                     android:id="@+id/txt_card_car_driver_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Иванов Иван Иванович"
                     android:layout_marginStart="2dp"
+                    android:fontFamily="@font/sf_ui_display_regular"
+                    android:text=""
                     android:textColor="#686868"
                     android:textSize="15sp"
-                    android:fontFamily="@font/sf_ui_display_regular"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/txt_card_car_type"
                     app:layout_constraintStart_toEndOf="@id/txt_card_car_driver"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_card_car_period" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/txt_card_car_type"

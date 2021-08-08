@@ -59,6 +59,8 @@
 
 
             <ImageView
+                android:background="@android:color/black"
+                android:scaleType="fitCenter"
                 android:id="@+id/main_img"
                 android:layout_width="135dp"
                 android:layout_height="112dp"
