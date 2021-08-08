@@ -116,7 +116,7 @@
                 android:drawableStart="@drawable/ic_call"
                 android:drawablePadding="13dp"
                 android:fontFamily="@font/sf_ui_display_bold"
-                android:text="+7 (495) 456 72 89"
+                android:text="+7 (991) 333 48 27"
                 android:textColor="#fff"
                 android:textSize="17sp" />
 
@@ -136,7 +136,7 @@
                 android:drawableStart="@drawable/ic_message"
                 android:drawablePadding="13dp"
                 android:fontFamily="@font/sf_ui_display_bold"
-                android:text="admin@pass.su"
+                android:text="info@pass.su"
                 android:textColor="#fff"
                 android:textSize="17sp" />
 

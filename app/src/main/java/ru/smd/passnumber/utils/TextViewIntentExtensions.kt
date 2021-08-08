@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 fun TextView.callToNumber(){
     this.isClickable=true
     setOnClickListener {
-        val number = Uri.parse("tel:+$text");
+        val number = Uri.parse("tel:$text");
         val callIntent =  Intent(Intent.ACTION_DIAL, number);
         context.startActivity(callIntent)
     }
@@ -24,7 +24,7 @@ fun Fragment.openLink(url:String){
 
 }
 fun Fragment.callToNumber(number:String){
-    val number = Uri.parse("tel:+$number");
+    val number = Uri.parse("tel:$number");
     val callIntent =  Intent(Intent.ACTION_DIAL, number);
     this.startActivity(callIntent)
 }
