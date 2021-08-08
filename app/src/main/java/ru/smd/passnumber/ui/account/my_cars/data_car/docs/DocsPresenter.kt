@@ -15,7 +15,6 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import ru.smd.passnumber.data.entities.Docs
 import ru.smd.passnumber.data.service.PassNumberRepo
 import ru.smd.passnumber.ui.activities.main.MainActivity
-import ru.smd.passnumber.ui.activities.main.MainActivity.Companion.compositeDisposableMain
 import java.io.File
 import javax.inject.Inject
 import javax.inject.Singleton
