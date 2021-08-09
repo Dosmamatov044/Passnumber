@@ -32,6 +32,7 @@
     <string name="pts">ПТС</string>
     <string name="sts">СТС</string>
     <string name="dk">ДК</string>
+    <string name="dont_may_is_empty">Поле не может быть пустым</string>
     <string name="open">Открыть</string>
     <string name="driver_card">Вод. удостоверение</string>
     <string name="passport">Паспорт</string>
