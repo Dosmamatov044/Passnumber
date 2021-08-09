@@ -35,6 +35,17 @@ fun Fragment.openMail(mail:String){
     this.startActivity(intent)
 }
 
+fun Fragment.openMail(mail: String,title:String){
+    val intent =  Intent(Intent.ACTION_VIEW);
+    val data = Uri.parse("mailto:");
+    intent.setData(data);
+    val address= Array<String>(1){mail}
+    intent.putExtra(Intent.EXTRA_EMAIL, address)
+    intent.putExtra(Intent.EXTRA_SUBJECT, title)
+    this.startActivity(intent)
+//    startActivityForResult(intent,12)
+}
+
 fun TextView.openMail(){
     setOnClickListener {
         val intent =  Intent(Intent.ACTION_VIEW);

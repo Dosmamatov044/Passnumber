@@ -205,7 +205,7 @@
             app:layout_constraintTop_toBottomOf="@+id/registration_cont_blocks">
 
             <TextView
-                android:id="@+id/btn_retry_send_code"
+                android:id="@+id/btnRetrySendCode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -221,7 +221,7 @@
                 android:background="@drawable/ic_rectangle_round_4_blue" />
 
             <TextView
-                android:id="@+id/btn_didnt_get_sms"
+                android:id="@+id/btnDidntGetSms"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
