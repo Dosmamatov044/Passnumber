@@ -140,6 +140,9 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                     (filterCars.filterByStatus == "Не найден" || filterCars.filterByStatus == "Все") && filterCars.filterByTypePass.isNullOrEmpty()
                 } else {
                     var status: Boolean = when (filterCars.filterByStatus) {
+                        "Действует" -> {
+                            passes.first().daysLeft?: 0>0
+                        }
                         "Действует более 14 дней" -> {
                             passes.first().daysLeft ?: 0 > 14
                         }
