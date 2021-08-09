@@ -11,6 +11,12 @@ interface RegistrationContract {
 
         fun showAccountFragment()
 
+        fun showTimer(time:Long)
+
+        fun activateButtons()
+
+
+
         fun exit()
     }
 
@@ -25,6 +31,8 @@ interface RegistrationContract {
             phone: String,
             userNameFromCheckPass: String
         )
+
+        fun startTimer()
 
         fun sendSms(phone: String)
     }

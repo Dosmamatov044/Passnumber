@@ -168,6 +168,7 @@
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/sf_ui_display_light"
                     android:hint="----"
+                    android:maxLength="4"
                     android:padding="0dp"
                     android:inputType="number"
                     android:textColor="@color/white"
@@ -181,6 +182,7 @@
                     android:background="#C8C7CC" />
 
                 <TextView
+                    android:id="@+id/txtTimer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -236,15 +238,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
-                android:textColor="#99EBEBF5"
+                android:textColor="@drawable/bg_blue_button_text"
                 android:text="@string/enter"
+                android:enabled="false"
                 android:minHeight="40dp"
                 android:minWidth="180dp"
                 android:gravity="center"
                 android:fontFamily="@font/sf_ui_display_regular"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="13dp"
-                android:background="@drawable/ic_rectangle_round_4_gray" />
+                android:background="@drawable/bg_blue_button" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

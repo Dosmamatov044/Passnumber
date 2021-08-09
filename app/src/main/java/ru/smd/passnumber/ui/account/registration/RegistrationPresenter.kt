@@ -1,5 +1,6 @@
 package ru.smd.passnumber.ui.account.registration
 
+import android.os.CountDownTimer
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException
 import io.reactivex.SingleTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -8,6 +9,7 @@ import io.reactivex.schedulers.Schedulers
 import org.json.JSONObject
 import ru.smd.passnumber.data.service.PassNumberRepo
 import ru.smd.passnumber.data.tools.PreferencesHelper
+import ru.smd.passnumber.ui.activities.main.MainActivity
 import ru.smd.passnumber.ui.activities.main.MainActivity.Companion.mainCompositeDisposable
 import java.lang.Exception
 import javax.inject.Inject
@@ -20,6 +22,7 @@ class RegistrationPresenter @Inject constructor(
 
     private var view: RegistrationContract.View? = null
 
+    private var phone:String?=null
 //    lateinit var compositeDisposable: CompositeDisposable
 
     override fun onStart(view: RegistrationContract.View) {
@@ -29,7 +32,13 @@ class RegistrationPresenter @Inject constructor(
 
     override fun onStop() {
         view = null
+        timer.onFinish()
 //        compositeDisposable.dispose()
+    }
+
+
+    override fun startTimer() {
+        timer.start()
     }
 
     override fun onClickEnter(
@@ -39,6 +48,7 @@ class RegistrationPresenter @Inject constructor(
         userNameFromCheckPass: String
     ) {
         val phone = text.replace(regex = Regex("\\D"), "")
+        MainActivity.handleLoad.postValue(true)
         repo.registration(
             mutableMapOf<String, String>().apply {
                 if (userNameFromCheckPass.isNotEmpty())
@@ -49,6 +59,7 @@ class RegistrationPresenter @Inject constructor(
             }
         ).compose(applySchedulers())
             .subscribe { response, error ->
+                MainActivity.handleLoad.value=false
                 when {
                     error == null -> {
                         preferencesHelper.storeToken(response.api_token)
@@ -60,11 +71,10 @@ class RegistrationPresenter @Inject constructor(
                         view?.exit()
                     }
                     error is HttpException -> {
-                        handleResponseError(error) {
-                        }
+                        MainActivity.handleError.value = error.toString()
                     }
                     else -> {
-                        view?.showErrorInternet()
+                        MainActivity.handleError.value = error.toString()
                     }
                 }
             }.also(mainCompositeDisposable::add)
@@ -72,19 +82,21 @@ class RegistrationPresenter @Inject constructor(
     }
 
     override fun sendSms(text: String) {
-        val phone = text.replace(regex = Regex("\\D"), "")
-        repo.getCode(phone).compose(applySchedulers())
+        if (this.phone==null){
+            val phone = text.replace(regex = Regex("\\D"), "")
+            this.phone=phone
+        }else
+        repo.getCode(this.phone!!).compose(applySchedulers())
             .subscribe { response, error ->
                 when {
                     error == null -> {
 
                     }
                     error is HttpException -> {
-                        handleResponseError(error) {
-                        }
+                        MainActivity.handleError.value = error.toString()
                     }
                     else -> {
-                        view?.showErrorInternet()
+                        MainActivity.handleError.value = error.toString()
                     }
                 }
             }.also(mainCompositeDisposable::add)
@@ -105,6 +117,19 @@ class RegistrationPresenter @Inject constructor(
             view?.showErrorMessage(ks)
         } catch (e: Exception) {
             block()
+        }
+    }
+
+
+    private val timer = object : CountDownTimer(300000, 1000) {
+        override fun onTick(millisUntilFinished: Long) {
+            view?.showTimer(
+                    millisUntilFinished / 1000
+                )
+        }
+
+        override fun onFinish() {
+            view?.activateButtons()
         }
     }
 

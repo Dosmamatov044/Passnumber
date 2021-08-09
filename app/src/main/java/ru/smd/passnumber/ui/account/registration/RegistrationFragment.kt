@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_registration.*
 import ru.smd.passnumber.R
 import ru.smd.passnumber.data.core.Constants
 import ru.smd.passnumber.databinding.FragmentRegistrationBinding
@@ -73,23 +74,15 @@ class RegistrationFragment : Fragment(), RegistrationContract.View {
             edtRegistrationPhone.isFocusable=true
             edtRegistrationPhone.addTextChangedListener {
                 if (edtRegistrationPhone.text.length == 16 && registrationSwitch.isChecked) {
-                    btnRegistrationEnter.setBackgroundResource(R.drawable.ic_rectangle_round_4_blue)
-                    btnRegistrationEnter.setTextColor(resources.getColor(R.color.blue))
                     btnRegistrationEnter.isEnabled=true
                 }else {
-                    btnRegistrationEnter.setBackgroundResource(R.drawable.ic_rectangle_round_4_gray)
-                    btnRegistrationEnter.setTextColor(resources.getColor(R.color.gray))
                     btnRegistrationEnter.isEnabled=false
                 }
             }
             registrationSwitch.setOnClickListener {
                 if (edtRegistrationPhone.text.length == 16 && registrationSwitch.isChecked) {
-                    btnRegistrationEnter.setBackgroundResource(R.drawable.ic_rectangle_round_4_blue)
-                    btnRegistrationEnter.setTextColor(resources.getColor(R.color.blue))
                     btnRegistrationEnter.isEnabled=true
                 }else {
-                    btnRegistrationEnter.setBackgroundResource(R.drawable.ic_rectangle_round_4_gray)
-                    btnRegistrationEnter.setTextColor(resources.getColor(R.color.gray))
                     btnRegistrationEnter.isEnabled=false
                 }
             }
@@ -113,8 +106,7 @@ class RegistrationFragment : Fragment(), RegistrationContract.View {
             block1RegistrationCont.visibility = View.GONE
             block2RegistrationCont.visibility = View.VISIBLE
             btnRegistrationEnter.isEnabled = false
-            btnRegistrationEnter.setBackgroundResource(R.drawable.ic_rectangle_round_4_gray)
-            btnRegistrationEnter.setTextColor(resources.getColor(R.color.gray))
+            presenter.startTimer()
             presenter.sendSms(edtRegistrationPhone.text.toString())
         } else {
             presenter.onClickEnter(
@@ -137,6 +129,25 @@ class RegistrationFragment : Fragment(), RegistrationContract.View {
     override fun showAccountFragment() {
         parentFragmentManager.beginTransaction().replace(R.id.mainContainer, AccountFragment())
             .commit()
+    }
+
+    override fun showTimer(time: Long) {
+       binding.txtTimer.setText(getString(R.string.retry_send_code,time.toString()))
+    }
+
+    override fun activateButtons() {
+        binding.run {
+            txtTimer.visibility=View.GONE
+            btnDidntGetSms.visibility=View.VISIBLE
+            btnRetrySendCode.visibility=View.VISIBLE
+            btnRetrySendCode.setOnClickListener {
+                txtTimer.visibility=View.VISIBLE
+                btnDidntGetSms.visibility=View.GONE
+                btnRetrySendCode.visibility=View.GONE
+                presenter.sendSms("")
+                presenter.startTimer()
+            }
+        }
     }
 
     override fun exit() {
