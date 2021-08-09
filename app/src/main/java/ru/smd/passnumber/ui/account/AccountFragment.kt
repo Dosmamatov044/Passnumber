@@ -8,14 +8,20 @@ import android.view.View
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.SingleTransformer
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.alert_view.view.*
 import kotlinx.android.synthetic.main.fragment_account.*
 import ru.smd.passnumber.R
+import ru.smd.passnumber.data.service.PassNumberRepo
 import ru.smd.passnumber.data.tools.PreferencesHelper
 import ru.smd.passnumber.ui.account.my_cars.MyCarsFragment
 import ru.smd.passnumber.ui.account.my_data.MyDataFragment
 import ru.smd.passnumber.ui.account.notification.NotificationFragment
 import ru.smd.passnumber.ui.account.settings_notification.SettingsNotificationFragment
+import ru.smd.passnumber.ui.activities.main.MainActivity
 import javax.inject.Inject
 
 
@@ -27,6 +33,11 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
 
     @Inject
     lateinit var preferencesHelper: PreferencesHelper
+
+    @Inject
+    lateinit var repo: PassNumberRepo
+
+    lateinit var compositeDisposable: CompositeDisposable
 
     @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -106,6 +117,43 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
                 }
 
             }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        compositeDisposable = CompositeDisposable()
+        getMyCars()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        compositeDisposable.dispose()
+    }
+
+     fun getMyCars() {
+        MainActivity.handleLoad.postValue(true)
+        repo.getCarList().compose(applySchedulers())
+            .subscribe { response, error ->
+                MainActivity.handleLoad.value=false
+                when {
+                    error == null -> {
+                        if (response.data.size>0){
+                            countCar.visibility=View.VISIBLE
+                            countCar.setText(response.data.size.toString())
+                        }else countCar.visibility=View.INVISIBLE
+                    }
+                    else -> {
+
+                    }
+                }
+            }.also(compositeDisposable::add)
+    }
+
+    fun <T> applySchedulers(): SingleTransformer<T, T> {
+        return SingleTransformer {
+            it.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+        }
     }
 
 }
