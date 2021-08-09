@@ -81,7 +81,8 @@ class PassNumbersAdapter() :
                         itemView.context.getString(
                             R.string.date_from_date_to,
                             item.validFrom,
-                            item.validTo
+                            item.validTo,
+                            itemView.context.getString(R.string.inclusively)
                         )
                     )
                     tvThirdEnd.text = item.validityPeriod
@@ -106,7 +107,8 @@ class PassNumbersAdapter() :
                         itemView.context.getString(
                             R.string.date_from_date_to,
                             item.validFrom,
-                            item.validTo
+                            item.validTo,
+                            itemView.context.getString(R.string.inclusively)
                         )
                     )
                     tvThirdEnd.text = item.validityPeriod
@@ -149,7 +151,8 @@ class PassNumbersAdapter() :
                                 itemView.context.getString(
                                     R.string.date_from_date_to,
                                     item.validFrom,
-                                    item.validTo
+                                    item.validTo,
+                                    itemView.context.getString(R.string.inclusively)
                                 )
                             )
                             tvThirdEnd.text = item.validityPeriod
@@ -175,7 +178,8 @@ class PassNumbersAdapter() :
                                 itemView.context.getString(
                                     R.string.date_from_date_to,
                                     item.validFrom,
-                                    item.validTo
+                                    item.validTo,
+                                    itemView.context.getString(R.string.inclusively)
                                 )
                             )
                             tvThirdEnd.text = item.validityPeriod

@@ -212,10 +212,17 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                         txtCardCarDriverName.setText(data.passData.driverName)
                         val status = data.passData.passes[0].status?.let {
                             data.passData.passes[0].status?.subSequence(
-                                9,
+                                8,
                                 it.length
                             )
                         }
+                        val remained=data.passData.passes[0].status?.let {
+                            data.passData.passes[0].status?.subSequence(
+                                0,
+                                8
+                            )
+                        }
+                        txtCarCardRemained.setText(remained.toString())
                         txtCardCardRemainedDay.setText(status.toString())
                         var year = data.passData.passes[0].validFrom?.subSequence(0, 4)
                         var month = data.passData.passes[0].validFrom?.subSequence(5, 7)
@@ -243,7 +250,7 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                             SimpleDateFormat(Constants.DATE_MASK_NUMBER, Locale.getDefault()).run {
                                 format(calendar.time)
                             }
-                        txtCardCarDateTo.setText(date)
+                        txtCardCarDateTo.setText(itemView.context.getString(R.string.to_date,date,itemView.context.getString(R.string.inclusively)))
                         txtCardCarType.setText(data.passData.passes[0].validityPeriod)
                     }
 
@@ -299,10 +306,17 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                         txtCardCarDriverName.setText(data.passData.driverName)
                         val status = data.passData.passes[0].status?.let {
                             data.passData.passes[0].status?.subSequence(
-                                9,
+                                8,
                                 it.length
                             )
                         }
+                        val remained=data.passData.passes[0].status?.let {
+                            data.passData.passes[0].status?.subSequence(
+                                0,
+                                8
+                            )
+                        }
+                        txtCarCardRemained.setText(remained.toString())
                         txtCardCardRemainedDay.setText(status.toString())
                         var year = data.passData.passes[0].validFrom?.subSequence(0, 4)
                         var month = data.passData.passes[0].validFrom?.subSequence(5, 7)
@@ -330,7 +344,7 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                             SimpleDateFormat(Constants.DATE_MASK_NUMBER, Locale.getDefault()).run {
                                 format(calendar.time)
                             }
-                        txtCardCarDateTo.setText(date)
+                        txtCardCarDateTo.setText(itemView.context.getString(R.string.to_date,date,itemView.context.getString(R.string.inclusively)))
                         txtCardCarType.setText(data.passData.passes[0].validityPeriod)
                     }
                 }
@@ -383,10 +397,17 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                         txtCardCarDriverName.setText(data.passData.driverName)
                         val status = data.passData.passes[0].status?.let {
                             data.passData.passes[0].status?.subSequence(
-                                9,
+                                8,
                                 it.length
                             )
                         }
+                        val remained=data.passData.passes[0].status?.let {
+                            data.passData.passes[0].status?.subSequence(
+                                0,
+                                8
+                            )
+                        }
+                        txtCarCardRemained.setText(remained.toString())
                         txtCardCardRemainedDay.setText(status.toString())
                         var year = data.passData.passes[0].validFrom?.subSequence(0, 4)
                         var month = data.passData.passes[0].validFrom?.subSequence(5, 7)
@@ -414,7 +435,7 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                             SimpleDateFormat(Constants.DATE_MASK_NUMBER, Locale.getDefault()).run {
                                 format(calendar.time)
                             }
-                        txtCardCarDateTo.setText(date)
+                        txtCardCarDateTo.setText(itemView.context.getString(R.string.to_date,date,itemView.context.getString(R.string.inclusively)))
                         txtCardCarType.setText(data.passData.passes[0].validityPeriod)
                     }
                 }
@@ -464,10 +485,17 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                         txtCardCarDriverName.setText(data.passData.driverName)
                         val status = data.passData.passes[0].status?.let {
                             data.passData.passes[0].status?.subSequence(
-                                9,
+                                8,
                                 it.length
                             )
                         }
+                        val remained=data.passData.passes[0].status?.let {
+                            data.passData.passes[0].status?.subSequence(
+                                0,
+                                8
+                            )
+                        }
+                        txtCarCardRemained.setText(remained.toString())
                         txtCardCardRemainedDay.setText(status.toString())
                         var year = data.passData.passes[0].validFrom?.subSequence(0, 4)
                         var month = data.passData.passes[0].validFrom?.subSequence(5, 7)
@@ -495,7 +523,7 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                             SimpleDateFormat(Constants.DATE_MASK_NUMBER, Locale.getDefault()).run {
                                 format(calendar.time)
                             }
-                        txtCardCarDateTo.setText(date)
+                        txtCardCarDateTo.setText(itemView.context.getString(R.string.to_date,date,itemView.context.getString(R.string.inclusively)))
                         txtCardCarType.setText(data.passData.passes[0].validityPeriod)
                     }
                 }

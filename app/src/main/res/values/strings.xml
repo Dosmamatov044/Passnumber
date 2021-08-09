@@ -29,6 +29,7 @@
     <string name="data_car">Данные автомобиля</string>
     <string name="passes">Пропуска</string>
     <string name="docs">Документы</string>
+    <string name="to_date">%s %s</string>
     <string name="pts">ПТС</string>
     <string name="sts">СТС</string>
     <string name="dk">ДК</string>
@@ -43,7 +44,7 @@
     <string name="add_docs_car">Добавьте документы на автомобиль,&lt;br> чтобы в будущем выпускать пропуска&lt;br> автоматически</string>
     <string name="help_reg">Помощь в оформление</string>
     <string name="havent_pass">Пропуска нет</string>
-    <string name="date_from_date_to">с &lt;b>%s&lt;/b> по &lt;b>%s&lt;/b></string>
+    <string name="date_from_date_to">с &lt;b>%s&lt;/b> по &lt;b>%s %s&lt;/b></string>
     <string name="status">%s &lt;b>%s&lt;/b> %s</string>
     <string name="annual">Годовой</string>
     <string name="one_time">Разовый</string>
@@ -58,7 +59,7 @@
     <string name="text_status">Статус</string>
     <string name="text_type_pass">Тип пропуска</string>
     <string name="text_sort">Сортировка</string>
-
+    <string name="inclusively">(включительно)</string>
     <!--  Профиль-кабинет    -->
     <string name="email_supprt">info@pass.su</string>
     <string name="text_title_mail">Мобильное приложение</string>
