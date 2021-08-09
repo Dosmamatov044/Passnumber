@@ -129,7 +129,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="27dp"
+                    android:layout_marginTop="28dp"
                     android:fontFamily="@font/sf_ui_display_regular"
                     android:text="@string/reg_number"
                     android:textColor="@color/blue"
@@ -156,6 +156,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
                     android:fontFamily="@font/sf_ui_display_regular"
                     android:text="@string/label_model_auto"
                     android:textColor="@color/blue"
@@ -181,6 +182,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sf_ui_display_regular"
+                    android:layout_marginTop="24dp"
                     android:text="@string/name_driver"
                     android:textColor="@color/blue"
                     android:textSize="17sp" />
