@@ -126,7 +126,13 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
 //                } else {
 //                    it.passData.regNumber?.contains(text,ignoreCase = true) == true
 //                }
-            it.passData.mark?.contains(text,ignoreCase = true) == true || it.passData.driverName?.contains(text,ignoreCase = true) == true || it.passData.regNumber?.contains(text,ignoreCase = true) == true
+            it.passData.mark?.contains(
+                text,
+                ignoreCase = true
+            ) == true || it.passData.driverName?.contains(
+                text,
+                ignoreCase = true
+            ) == true || it.passData.regNumber?.contains(text, ignoreCase = true) == true
         }.toMutableList()
         notifyDataSetChanged()
     }
@@ -141,13 +147,16 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                 } else {
                     var status: Boolean = when (filterCars.filterByStatus) {
                         "Действует" -> {
-                            passes.first().daysLeft?: 0>0
+                            passes.first().daysLeft ?: 0 >= 0
                         }
-                        "Действует более 14 дней" -> {
-                            passes.first().daysLeft ?: 0 > 14
+                        "Не действует" -> {
+                            passes.isEmpty()||passes.first().status?.contains("Аннулирован")==true||passes.first().status?.contains("Закончился")==true
                         }
-                        "Осталось 0-14 дней" -> {
-                            passes.first().daysLeft ?: 0 in 1..14
+                        "Аннулирован" -> {
+                            passes.first().status?.contains("Аннулирован")==true
+                        }
+                        "Закончился" -> {
+                            passes.first().status?.contains("Закончился")==true
                         }
                         "Все" -> {
                             true
@@ -219,7 +228,7 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                                 it.length
                             )
                         }
-                        val remained=data.passData.passes[0].status?.let {
+                        val remained = data.passData.passes[0].status?.let {
                             data.passData.passes[0].status?.subSequence(
                                 0,
                                 8
@@ -253,7 +262,13 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                             SimpleDateFormat(Constants.DATE_MASK_NUMBER, Locale.getDefault()).run {
                                 format(calendar.time)
                             }
-                        txtCardCarDateTo.setText(itemView.context.getString(R.string.to_date,date,itemView.context.getString(R.string.inclusively)))
+                        txtCardCarDateTo.setText(
+                            itemView.context.getString(
+                                R.string.to_date,
+                                date,
+                                itemView.context.getString(R.string.inclusively)
+                            )
+                        )
                         txtCardCarType.setText(data.passData.passes[0].validityPeriod)
                     }
 
@@ -313,7 +328,7 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                                 it.length
                             )
                         }
-                        val remained=data.passData.passes[0].status?.let {
+                        val remained = data.passData.passes[0].status?.let {
                             data.passData.passes[0].status?.subSequence(
                                 0,
                                 8
@@ -347,7 +362,13 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                             SimpleDateFormat(Constants.DATE_MASK_NUMBER, Locale.getDefault()).run {
                                 format(calendar.time)
                             }
-                        txtCardCarDateTo.setText(itemView.context.getString(R.string.to_date,date,itemView.context.getString(R.string.inclusively)))
+                        txtCardCarDateTo.setText(
+                            itemView.context.getString(
+                                R.string.to_date,
+                                date,
+                                itemView.context.getString(R.string.inclusively)
+                            )
+                        )
                         txtCardCarType.setText(data.passData.passes[0].validityPeriod)
                     }
                 }
@@ -404,7 +425,7 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                                 it.length
                             )
                         }
-                        val remained=data.passData.passes[0].status?.let {
+                        val remained = data.passData.passes[0].status?.let {
                             data.passData.passes[0].status?.subSequence(
                                 0,
                                 8
@@ -438,7 +459,13 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                             SimpleDateFormat(Constants.DATE_MASK_NUMBER, Locale.getDefault()).run {
                                 format(calendar.time)
                             }
-                        txtCardCarDateTo.setText(itemView.context.getString(R.string.to_date,date,itemView.context.getString(R.string.inclusively)))
+                        txtCardCarDateTo.setText(
+                            itemView.context.getString(
+                                R.string.to_date,
+                                date,
+                                itemView.context.getString(R.string.inclusively)
+                            )
+                        )
                         txtCardCarType.setText(data.passData.passes[0].validityPeriod)
                     }
                 }
@@ -492,7 +519,7 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                                 it.length
                             )
                         }
-                        val remained=data.passData.passes[0].status?.let {
+                        val remained = data.passData.passes[0].status?.let {
                             data.passData.passes[0].status?.subSequence(
                                 0,
                                 8
@@ -526,7 +553,13 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                             SimpleDateFormat(Constants.DATE_MASK_NUMBER, Locale.getDefault()).run {
                                 format(calendar.time)
                             }
-                        txtCardCarDateTo.setText(itemView.context.getString(R.string.to_date,date,itemView.context.getString(R.string.inclusively)))
+                        txtCardCarDateTo.setText(
+                            itemView.context.getString(
+                                R.string.to_date,
+                                date,
+                                itemView.context.getString(R.string.inclusively)
+                            )
+                        )
                         txtCardCarType.setText(data.passData.passes[0].validityPeriod)
                     }
                 }
