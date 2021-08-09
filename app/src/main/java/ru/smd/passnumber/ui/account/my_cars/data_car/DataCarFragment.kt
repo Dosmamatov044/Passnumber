@@ -7,12 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_data_car.*
 import ru.smd.passnumber.R
+import ru.smd.passnumber.data.core.hideKeyboard
+import ru.smd.passnumber.data.entities.PassData
 import ru.smd.passnumber.databinding.FragmentDataCarBinding
 import ru.smd.passnumber.databinding.FragmentMyCarsBinding
 import ru.smd.passnumber.ui.account.my_cars.data_car.docs.DocsFragment
+import ru.smd.passnumber.ui.checking_pass.CheckingPassFragment
 import ru.smd.passnumber.ui.help_registration.HelpRegistrationFragment
 import javax.inject.Inject
 
@@ -55,6 +59,7 @@ class DataCarFragment : Fragment(), DataCarContract.View {
         super.onViewCreated(view, savedInstanceState)
         binding.run {
             tvTitle.setText(regNumber)
+            passesCar.setOnClickListener { regNumber?.let { it1 -> presenter.getPasses(it1) } }
             recommendation.text= Html.fromHtml(requireContext().getString(R.string.add_docs_car))
             btnBackMyDataCar.setOnClickListener { presenter.onClickBack() }
             dataCar.setOnClickListener { presenter.onClickDataCar() }
@@ -75,6 +80,13 @@ class DataCarFragment : Fragment(), DataCarContract.View {
 
     override fun exit() {
         activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
+    }
+
+    override fun showPasses(passData: PassData) {
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.mainContainer, CheckingPassFragment().apply {
+                data.value = passData
+            }).addToBackStack(null).commit()
     }
 
     override fun showDataCar() {
