@@ -1,6 +1,7 @@
 package ru.smd.passnumber.ui.account.my_cars.data_car
 
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,6 +55,7 @@ class DataCarFragment : Fragment(), DataCarContract.View {
         super.onViewCreated(view, savedInstanceState)
         binding.run {
             tvTitle.setText(regNumber)
+            recommendation.text= Html.fromHtml(requireContext().getString(R.string.add_docs_car))
             btnBackMyDataCar.setOnClickListener { presenter.onClickBack() }
             dataCar.setOnClickListener { presenter.onClickDataCar() }
             docsCar.setOnClickListener { presenter.onClickDocs() }

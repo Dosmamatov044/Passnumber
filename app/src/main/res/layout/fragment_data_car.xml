@@ -79,7 +79,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
+                            android:paddingTop="12dp"
                             android:text="@string/recommendations"
+                            android:textSize="17sp"
+                            android:fontFamily="@font/sf_ui_display_medium"
                             android:textColor="@color/white" />
 
                         <TextView
@@ -87,6 +90,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
+                            android:textSize="15sp"
+                            android:fontFamily="@font/sf_ui_display_regular"
                             android:text="@string/add_docs_car"
                             android:textAlignment="center"
                             android:textColor="@color/white" />
@@ -98,6 +103,7 @@
                             android:layout_marginTop="13dp"
                             android:background="@drawable/bg_blue_button"
                             android:paddingHorizontal="30dp"
+                            android:textSize="14sp"
                             android:paddingVertical="12dp"
                             android:text="@string/add"
                             android:textColor="@drawable/bg_blue_button_text" />
