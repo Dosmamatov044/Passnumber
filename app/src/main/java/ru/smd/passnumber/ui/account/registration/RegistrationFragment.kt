@@ -17,6 +17,7 @@ import ru.smd.passnumber.data.core.Constants
 import ru.smd.passnumber.databinding.FragmentRegistrationBinding
 import ru.smd.passnumber.ui.account.AccountFragment
 import ru.smd.passnumber.utils.openLink
+import ru.smd.passnumber.utils.openMail
 import ru.tinkoff.decoro.MaskImpl
 import ru.tinkoff.decoro.watchers.FormatWatcher
 import ru.tinkoff.decoro.watchers.MaskFormatWatcher
@@ -112,6 +113,11 @@ class RegistrationFragment : Fragment(), RegistrationContract.View {
         if (block2RegistrationCont.visibility == View.GONE) {
             block1RegistrationCont.visibility = View.GONE
             block2RegistrationCont.visibility = View.VISIBLE
+            btnDidntGetSms.visibility = View.VISIBLE
+            btnDidntGetSms.setOnClickListener {
+                openMail(getString(R.string.info_pass_su),"не пришло смс "+edtRegistrationPhone.text.toString())
+
+            }
             btnRegistrationEnter.isEnabled = false
             btnRegistrationEnter.setBackgroundResource(R.drawable.ic_rectangle_round_4_gray)
             btnRegistrationEnter.setTextColor(resources.getColor(R.color.gray))
