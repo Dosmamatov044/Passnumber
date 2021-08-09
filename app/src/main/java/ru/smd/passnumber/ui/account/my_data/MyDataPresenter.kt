@@ -8,6 +8,7 @@ import io.reactivex.schedulers.Schedulers
 import org.json.JSONObject
 import ru.smd.passnumber.data.service.PassNumberRepo
 import ru.smd.passnumber.data.tools.PreferencesHelper
+import ru.smd.passnumber.ui.activities.main.MainActivity
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -63,6 +64,7 @@ class MyDataPresenter @Inject constructor(
 
     override fun onClickSave(fio: String, text: String, email: String, company: String) {
         val phone = text.replace(regex = Regex("\\D"), "")
+        MainActivity.handleLoad.postValue(true)
         repo.saveDataUser(
             mutableMapOf<String, String>().apply {
                 this["name"] = fio
@@ -72,6 +74,7 @@ class MyDataPresenter @Inject constructor(
             }
         ).compose(applySchedulers())
             .subscribe { response, error ->
+                MainActivity.handleLoad.value=false
                 when {
                     error == null -> {
                         preferencesHelper.storePhone(text)
@@ -82,11 +85,10 @@ class MyDataPresenter @Inject constructor(
                         view?.showAcountFragment()
                     }
                     error is HttpException -> {
-                        handleResponseError(error) {
-                        }
+                        MainActivity.handleError.value = error.toString()
                     }
                     else -> {
-                        view?.showErrorInternet()
+                        MainActivity.handleError.value = error.toString()
                     }
                 }
             }.also(compositeDisposable::add)
