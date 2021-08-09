@@ -12,6 +12,7 @@ import ru.smd.passnumber.R
 import ru.smd.passnumber.databinding.FragmentDataCarBinding
 import ru.smd.passnumber.databinding.FragmentMyCarsBinding
 import ru.smd.passnumber.ui.account.my_cars.data_car.docs.DocsFragment
+import ru.smd.passnumber.ui.account.notification.NotificationFragment
 import ru.smd.passnumber.ui.help_registration.HelpRegistrationFragment
 import javax.inject.Inject
 
@@ -57,6 +58,7 @@ class DataCarFragment : Fragment(), DataCarContract.View {
             btnBackMyDataCar.setOnClickListener { presenter.onClickBack() }
             dataCar.setOnClickListener { presenter.onClickDataCar() }
             docsCar.setOnClickListener { presenter.onClickDocs() }
+            btnNotifications.setOnClickListener {  showNotifications()}
         }
     }
 
@@ -103,6 +105,10 @@ class DataCarFragment : Fragment(), DataCarContract.View {
             }else txtDataCarMark.visibility=View.GONE
             txtDataCarMark.setText(mark)
         }
+    }
+    fun showNotifications(){
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.mainContainer, NotificationFragment()).addToBackStack(null).commit()
     }
 
     override fun showDocs(idVehicle: Int) {
