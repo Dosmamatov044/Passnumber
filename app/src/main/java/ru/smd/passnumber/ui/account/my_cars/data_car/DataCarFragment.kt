@@ -58,6 +58,10 @@ class DataCarFragment : Fragment(), DataCarContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.run {
+            dataCar.isEnabled=false
+            passesCar.isEnabled=false
+            notificationsCar.isEnabled=false
+            docsCar.isEnabled=false
             tvTitle.setText(regNumber)
             passesCar.setOnClickListener { regNumber?.let { it1 -> presenter.getPasses(it1) } }
             recommendation.text= Html.fromHtml(requireContext().getString(R.string.add_docs_car))
@@ -107,6 +111,10 @@ class DataCarFragment : Fragment(), DataCarContract.View {
 
     override fun showData(mark: String, driverName: String, regNumber: String) {
         binding.run{
+            dataCar.isEnabled=true
+            passesCar.isEnabled=true
+            notificationsCar.isEnabled=true
+            docsCar.isEnabled=true
             edtLabelModelDataCar.setText(mark)
             edtNameDriverDataCar.setText(driverName)
             edtRegNumberDataCar.isEnabled=false
