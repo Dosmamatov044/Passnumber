@@ -59,5 +59,10 @@
     <string name="text_type_pass">Тип пропуска</string>
     <string name="text_sort">Сортировка</string>
 
+    <!--  Профиль-кабинет    -->
+    <string name="email_supprt">info@pass.su</string>
+    <string name="text_title_mail">Мобильное приложение</string>
+    <string name="title_activity_splash">SplashActivity</string>
+
 
 </resources>

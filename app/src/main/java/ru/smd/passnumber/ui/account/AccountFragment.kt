@@ -1,6 +1,8 @@
 package ru.smd.passnumber.ui.account
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isGone
@@ -45,6 +47,28 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
             parentFragmentManager.beginTransaction().replace(R.id.mainContainer, SettingsNotificationFragment())
                 .addToBackStack(null).commit()
         }
+
+        btnFeedback.setOnClickListener{
+            val intent =  Intent(Intent.ACTION_VIEW);
+            val data = Uri.parse("mailto:");
+            intent.setData(data);
+            val address= Array<String>(1){getString(R.string.email_supprt)}
+            intent.putExtra(Intent.EXTRA_EMAIL, address)
+            intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.text_title_mail))
+            startActivityForResult(intent,12)
+        }
+
+        btnShare.setOnClickListener{
+            val message ="Скачайте приложение PASS.SU:\n"+
+                    "Для iPhone https://apps.apple.com/app/apple-store/id1579017960\n" +
+                    "Для Android https://play.google.com/store/apps/details?id=ru.smd.passnumber"
+            startActivity(Intent.createChooser(Intent().apply {
+                action = Intent.ACTION_SEND
+                type = "text/plain"
+                putExtra(Intent.EXTRA_TEXT, message)
+            }, "Поделиться"))
+        }
+
         setAlert()
         tvCompany.setText(preferencesHelper.restoreCompany())
         tvPhone.setText(preferencesHelper.restorePhone())

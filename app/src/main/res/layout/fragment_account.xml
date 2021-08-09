@@ -205,6 +205,7 @@
 <!--                    android:layout_height="1dp"-->
 <!--                    android:background="#38383A"/>-->
                 <TextView
+                    android:id="@+id/btnFeedback"
                     android:gravity="center_vertical"
                     android:drawableStart="@drawable/ic_message_circle"
                     android:drawableEnd="@drawable/ic_next_small"
@@ -222,6 +223,7 @@
                     android:layout_height="1dp"
                     android:background="#38383A"/>
                 <TextView
+                    android:id="@+id/btnShare"
                     android:gravity="center_vertical"
                     android:drawableStart="@drawable/ic_like_up"
                     android:drawableEnd="@drawable/ic_next_small"

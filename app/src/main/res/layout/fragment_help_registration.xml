@@ -136,7 +136,7 @@
                 android:drawableStart="@drawable/ic_message"
                 android:drawablePadding="13dp"
                 android:fontFamily="@font/sf_ui_display_bold"
-                android:text="info@pass.su"
+                android:text="@string/email_supprt"
                 android:textColor="#fff"
                 android:textSize="17sp" />
 
