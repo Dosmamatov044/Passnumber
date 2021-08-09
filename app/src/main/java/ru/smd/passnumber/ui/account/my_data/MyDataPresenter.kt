@@ -1,11 +1,13 @@
 package ru.smd.passnumber.ui.account.my_data
 
+import android.content.Context
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException
 import io.reactivex.SingleTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import org.json.JSONObject
+import ru.smd.passnumber.R
 import ru.smd.passnumber.data.service.PassNumberRepo
 import ru.smd.passnumber.data.tools.PreferencesHelper
 import ru.smd.passnumber.ui.activities.main.MainActivity
@@ -62,7 +64,7 @@ class MyDataPresenter @Inject constructor(
         view?.showMyData(preferencesHelper.restoreFio(),preferencesHelper.restorePhone(),preferencesHelper.restoreEmail(),preferencesHelper.restoreCompany())
     }
 
-    override fun onClickSave(fio: String, text: String, email: String, company: String) {
+    override fun onClickSave(fio: String, text: String, email: String, company: String,context: Context) {
         val phone = text.replace(regex = Regex("\\D"), "")
         MainActivity.handleLoad.postValue(true)
         repo.saveDataUser(
@@ -84,11 +86,10 @@ class MyDataPresenter @Inject constructor(
                         view?.exit()
                         view?.showAcountFragment()
                     }
-                    error is HttpException -> {
-                        MainActivity.handleError.value = error.toString()
-                    }
                     else -> {
-                        MainActivity.handleError.value = error.toString()
+                       if (error.toString().contains("to accept malformed JSON at line 1 column 1 path $")){
+                           view?.showErrorMessage(context.getString(R.string.email_allready_registration))
+                       }else MainActivity.handleError.value = error.toString()
                     }
                 }
             }.also(compositeDisposable::add)

@@ -56,7 +56,7 @@ class MyDataFragment:Fragment(),MyDataContract.View {
                 if (edtMyDataFio.text.isEmpty()||edtMyDataCompany.text.isEmpty()||edtMyDataEmail.text.isEmpty()||edtMyDataPhone.text.isEmpty()){
                     showErrorMessage(getString(R.string.dont_may_is_empty))
                 }else
-                presenter.onClickSave(edtMyDataFio.text.toString(),edtMyDataPhone.text.toString(),edtMyDataEmail.text.toString(),edtMyDataCompany.text.toString())
+                presenter.onClickSave(edtMyDataFio.text.toString(),edtMyDataPhone.text.toString(),edtMyDataEmail.text.toString(),edtMyDataCompany.text.toString(),requireContext())
             }
         }
     }

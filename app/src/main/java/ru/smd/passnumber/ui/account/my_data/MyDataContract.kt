@@ -1,5 +1,7 @@
 package ru.smd.passnumber.ui.account.my_data
 
+import android.content.Context
+
 interface MyDataContract {
     interface View{
 
@@ -24,6 +26,6 @@ interface MyDataContract {
 
         fun onClickBack()
 
-        fun onClickSave(fio:String,phone:String,email:String,company:String)
+        fun onClickSave(fio:String,phone:String,email:String,company:String,context: Context)
     }
 }
