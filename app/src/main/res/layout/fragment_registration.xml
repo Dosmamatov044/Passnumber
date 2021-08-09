@@ -9,7 +9,10 @@
         android:background="#000"
         android:orientation="vertical"
         android:paddingHorizontal="10dp">
-
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bknd_pass"/>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/tvTitleCont"
             android:layout_width="match_parent"
