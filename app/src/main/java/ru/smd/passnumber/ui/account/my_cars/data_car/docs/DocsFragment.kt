@@ -215,9 +215,31 @@ class DocsFragment : Fragment(), DocsContract.View, DocsAdapter.OnClickListner {
         }
     }
 
+
+
     override fun onClickAdd(type: Int) {
         presenter.storeType(type)
-        startActivityForResult(intentChooser(), Constants.CAMERA_REQUEST)
+        if (if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                requireActivity().checkSelfPermission(android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED || requireActivity().checkSelfPermission(
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ) != PackageManager.PERMISSION_GRANTED || requireActivity().checkSelfPermission(
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE
+                ) != PackageManager.PERMISSION_GRANTED
+            } else {
+                TODO("VERSION.SDK_INT < M")
+            }
+        ) {
+            requestPermissions(
+                arrayOf(
+                    android.Manifest.permission.CAMERA,
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ),
+                Constants.CAMERA_PERMISSION_CODE
+            )
+        }else{
+            startActivityForResult(intentChooser(), Constants.CAMERA_REQUEST)
+        }
     }
 
     override fun onClickOpen(url: String?, type: DocsAdapter.TypeOpen) {
@@ -238,9 +260,10 @@ class DocsFragment : Fragment(), DocsContract.View, DocsAdapter.OnClickListner {
             }
             DocsAdapter.TypeOpen.DOC -> {
             //открываем документ (doc, docx, excel и прочее)
+                val googleDocs = "https://docs.google.com/viewer?url="
                 val intent = Intent()
                 intent.action = Intent.ACTION_VIEW
-                intent.setDataAndType(Uri.parse(url), "application/msword")
+                intent.setData(Uri.parse(googleDocs + url))
                 activity?.startActivity(intent)
             }
 
@@ -250,25 +273,6 @@ class DocsFragment : Fragment(), DocsContract.View, DocsAdapter.OnClickListner {
     }
 
     fun intentChooser(): Intent? {
-        if (if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-                requireActivity().checkSelfPermission(android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED || requireActivity().checkSelfPermission(
-                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-                ) != PackageManager.PERMISSION_GRANTED || requireActivity().checkSelfPermission(
-                    android.Manifest.permission.READ_EXTERNAL_STORAGE
-                ) != PackageManager.PERMISSION_GRANTED
-            } else {
-                TODO("VERSION.SDK_INT < M")
-            }
-        ) {
-            requestPermissions(
-                arrayOf(
-                    android.Manifest.permission.CAMERA,
-                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-                ),
-                Constants.CAMERA_PERMISSION_CODE
-            )
-        } else {
             val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             file = File.createTempFile(
                 UUID.randomUUID().toString(),
@@ -303,8 +307,6 @@ class DocsFragment : Fragment(), DocsContract.View, DocsAdapter.OnClickListner {
             }
 
             return chooserIntent
-        }
-        return null
     }
 
     private fun addIntentsToList(
