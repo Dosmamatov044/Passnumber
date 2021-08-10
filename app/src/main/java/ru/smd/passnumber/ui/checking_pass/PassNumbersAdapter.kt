@@ -80,8 +80,8 @@ class PassNumbersAdapter() :
                     tvThirdStart.text = Html.fromHtml(
                         itemView.context.getString(
                             R.string.date_from_date_to,
-                            item.validFrom,
-                            item.validTo,
+                            item.validFrom?.replace("-","."),
+                            item.validTo?.replace("-","."),
                             itemView.context.getString(R.string.inclusively)
                         )
                     )
@@ -106,8 +106,8 @@ class PassNumbersAdapter() :
                     tvThirdStart.text = Html.fromHtml(
                         itemView.context.getString(
                             R.string.date_from_date_to,
-                            item.validFrom,
-                            item.validTo,
+                            item.validFrom?.replace("-","."),
+                            item.validTo?.replace("-","."),
                             itemView.context.getString(R.string.inclusively)
                         )
                     )
@@ -150,8 +150,8 @@ class PassNumbersAdapter() :
                             tvThirdStart.text = Html.fromHtml(
                                 itemView.context.getString(
                                     R.string.date_from_date_to,
-                                    item.validFrom,
-                                    item.validTo,
+                                    item.validFrom?.replace("-","."),
+                                    item.validTo?.replace("-","."),
                                     itemView.context.getString(R.string.inclusively)
                                 )
                             )
@@ -177,8 +177,8 @@ class PassNumbersAdapter() :
                             tvThirdStart.text = Html.fromHtml(
                                 itemView.context.getString(
                                     R.string.date_from_date_to,
-                                    item.validFrom,
-                                    item.validTo,
+                                    item.validFrom?.replace("-","."),
+                                    item.validTo?.replace("-","."),
                                     itemView.context.getString(R.string.inclusively)
                                 )
                             )

@@ -45,7 +45,6 @@ class CheckingPassFragment : Fragment(R.layout.fragment_checking_pass) {
             llSubscribe.visibility = View.GONE
         } else {
             cont_pass.visibility = View.VISIBLE
-            llSubscribe.visibility = View.VISIBLE
         }
         fromFragment = null
         etNameUser.addTextChangedListener {

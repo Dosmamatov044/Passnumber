@@ -55,22 +55,23 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
                 .addToBackStack(null).commit()
         }
         btnSettingsNotification.setOnClickListener {
-            parentFragmentManager.beginTransaction().replace(R.id.mainContainer, SettingsNotificationFragment())
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.mainContainer, SettingsNotificationFragment())
                 .addToBackStack(null).commit()
         }
 
-        btnFeedback.setOnClickListener{
-            val intent =  Intent(Intent.ACTION_VIEW);
+        btnFeedback.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW);
             val data = Uri.parse("mailto:");
             intent.setData(data);
-            val address= Array<String>(1){getString(R.string.email_supprt)}
+            val address = Array<String>(1) { getString(R.string.email_supprt) }
             intent.putExtra(Intent.EXTRA_EMAIL, address)
             intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.text_title_mail))
-            startActivityForResult(intent,12)
+            startActivityForResult(intent, 12)
         }
 
-        btnShare.setOnClickListener{
-            val message ="Скачайте приложение PASS.SU:\n"+
+        btnShare.setOnClickListener {
+            val message = "Скачайте приложение PASS.SU:\n" +
                     "Для iPhone https://apps.apple.com/app/apple-store/id1579017960\n" +
                     "Для Android https://play.google.com/store/apps/details?id=ru.smd.passnumber"
             startActivity(Intent.createChooser(Intent().apply {
@@ -123,6 +124,7 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
         super.onStart()
         compositeDisposable = CompositeDisposable()
         getMyCars()
+        getUnreadNotification()
     }
 
     override fun onStop() {
@@ -130,17 +132,34 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
         compositeDisposable.dispose()
     }
 
-     fun getMyCars() {
+    fun getUnreadNotification() {
+        MainActivity.handleLoad.postValue(true)
+        repo.getUnreadNotifications().compose(applySchedulers()).subscribe { response, error ->
+            MainActivity.handleLoad.value = false
+            when {
+                error == null -> {
+                    if (!response.data.isEmpty()) {
+                        alertNotifications.visibility = View.VISIBLE
+                    } else alertNotifications.visibility = View.GONE
+                }
+                else -> {
+
+                }
+            }
+        }.also(compositeDisposable::add)
+    }
+
+    fun getMyCars() {
         MainActivity.handleLoad.postValue(true)
         repo.getCarList().compose(applySchedulers())
             .subscribe { response, error ->
-                MainActivity.handleLoad.value=false
+                MainActivity.handleLoad.value = false
                 when {
                     error == null -> {
-                        if (response.data.size>0){
-                            countCar.visibility=View.VISIBLE
+                        if (response.data.size > 0) {
+                            countCar.visibility = View.VISIBLE
                             countCar.setText(response.data.size.toString())
-                        }else countCar.visibility=View.INVISIBLE
+                        } else countCar.visibility = View.INVISIBLE
                     }
                     else -> {
 
