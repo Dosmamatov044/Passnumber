@@ -24,34 +24,34 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupSpinners()
-
+        btnBackFilter.setOnClickListener { requireActivity().onBackPressed() }
         btnQuitFilter.setOnClickListener {
             filterCars.value = FilterCars(false)
             filterCarsPosition.value = FilterCarsPosition()
             requireActivity().onBackPressed()
         }
         btnApplyFilter.setOnClickListener {
-            val filterByTypePass= when {
+            val filterByTypePass = when {
                 spinnerSelectPass.selectedItem.toString().contains("ББ") -> "ББ"
                 spinnerSelectPass.selectedItem.toString().contains("БА") -> "БА"
                 else -> ""
             }
-            val sort=spinnerSelectSorts.selectedItemPosition % 2 == 0
+            val sort = spinnerSelectSorts.selectedItemPosition % 2 == 0
             filterCars.value = FilterCars(
                 true,
-               filterByStatus =  spinnerSelectStatus.selectedItem.toString(),
-               filterByTypePass =  filterByTypePass,
-               filterBySort =  Pair(spinnerSelectSorts.selectedItem.toString(),sort)
+                filterByStatus = spinnerSelectStatus.selectedItem.toString(),
+                filterByTypePass = filterByTypePass,
+                filterBySort = Pair(spinnerSelectSorts.selectedItem.toString(), sort)
             )
             filterCarsPosition.value = FilterCarsPosition(
-                filterByStatus =  spinnerSelectStatus.selectedItemPosition,
-                filterByTypePass =  spinnerSelectPass.selectedItemPosition,
-                filterBySort =  spinnerSelectSorts.selectedItemPosition)
+                filterByStatus = spinnerSelectStatus.selectedItemPosition,
+                filterByTypePass = spinnerSelectPass.selectedItemPosition,
+                filterBySort = spinnerSelectSorts.selectedItemPosition
+            )
             requireActivity().onBackPressed()
         }
         hideShowView(true)
     }
-
 
 
     override fun onResume() {
