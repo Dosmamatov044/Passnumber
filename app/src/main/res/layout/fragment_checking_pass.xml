@@ -189,13 +189,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
-            android:background="@drawable/ic_rectangle_round_4_blue"
+            android:enabled="false"
+            android:background="@drawable/bg_blue_button"
             android:fontFamily="@font/sf_ui_display_light"
             android:gravity="center"
             android:foreground="?selectableItemBackgroundBorderless"
             android:paddingVertical="13dp"
             android:text="Подписаться"
-            android:textColor="#1FA6F1"
+            android:textColor="@drawable/bg_blue_button_text"
             android:textSize="14sp"/>
 
     </LinearLayout>

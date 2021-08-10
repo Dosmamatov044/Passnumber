@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isGone
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
@@ -39,10 +40,20 @@ class CheckingPassFragment : Fragment(R.layout.fragment_checking_pass) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         rvPassNumbers.adapter = adapter
-        if (fromFragment!=null){
-          cont_pass.visibility=View.GONE
-        }else cont_pass.visibility=View.VISIBLE
-        fromFragment=null
+        if (fromFragment != null) {
+            cont_pass.visibility = View.GONE
+            llSubscribe.visibility = View.GONE
+        } else {
+            cont_pass.visibility = View.VISIBLE
+            llSubscribe.visibility = View.VISIBLE
+        }
+        fromFragment = null
+        etNameUser.addTextChangedListener {
+            chekNamePhone()
+        }
+        phone_input.addTextChangedListener {
+            chekNamePhone()
+        }
         btn_back_checking_pass.setOnClickListener {
             hideKeyboard()
             requireActivity().onBackPressed()
@@ -54,22 +65,37 @@ class CheckingPassFragment : Fragment(R.layout.fragment_checking_pass) {
             )
         }
         ivTopTruck1.setOnClickListener {
-            ivTopTruck1.isClickable = false
-            ivTopTruck1.isGone = true
-            ivTopTruck.isClickable = true
-            ivTopTruck.isGone = false
-            llSubscribe.isGone = prefs.restoreToken() != null
+            ivTopTruck1()
         }
         ivTopTruck.setOnClickListener {
-            ivTopTruck.isClickable = false
-            ivTopTruck.isGone = true
-            ivTopTruck1.isClickable = true
-            ivTopTruck1.isGone = false
-            llSubscribe.isGone = true
+            ivTopTruck()
         }
 
         data.observe(this, passData)
         adapter.btnHelpClicked.observe(this, btnHelpClicked)
+    }
+
+    fun ivTopTruck1() {
+        ivTopTruck1.isClickable = false
+        ivTopTruck1.isGone = true
+        ivTopTruck.isClickable = true
+        ivTopTruck.isGone = false
+        llSubscribe.isGone = prefs.restoreToken() != null
+    }
+
+    fun ivTopTruck() {
+        ivTopTruck.isClickable = false
+        ivTopTruck.isGone = true
+        ivTopTruck1.isClickable = true
+        ivTopTruck1.isGone = false
+        llSubscribe.isGone = true
+    }
+
+
+    fun chekNamePhone() {
+        if (!etNameUser.text.isNullOrEmpty() && phone_input.text?.length == 16) {
+            btnRegister.isEnabled = true
+        } else btnRegister.isEnabled = false
     }
 
     private val btnHelpClicked = Observer<Boolean> {
