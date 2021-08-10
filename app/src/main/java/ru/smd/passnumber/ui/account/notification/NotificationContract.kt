@@ -21,6 +21,6 @@ interface NotificationContract {
 
         fun onClickBack()
 
-        fun sendReadNotifications(notifications: List<Notification>)
+        fun sendReadNotifications(notifications: Notification)
     }
 }

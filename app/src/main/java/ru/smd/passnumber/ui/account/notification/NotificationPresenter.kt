@@ -6,7 +6,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import org.json.JSONObject
+import ru.smd.passnumber.data.entities.Notification
 import ru.smd.passnumber.data.service.PassNumberRepo
+import ru.smd.passnumber.ui.activities.main.MainActivity
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -30,6 +32,20 @@ class NotificationPresenter @Inject constructor(val repo: PassNumberRepo) :
 
     override fun onClickBack() {
         view?.onBack()
+    }
+
+    override fun sendReadNotifications(notifications: Notification) {
+        repo.readNotification(notifications.id).compose(applySchedulers()).subscribe {
+                response, error ->
+            when {
+                error == null -> {
+                 toString()
+                }
+                else -> {
+                    MainActivity.handleError.value = error.toString()
+                }
+            }
+        }.also(compositeDisposable::add)
     }
 
     fun getNotifications() {

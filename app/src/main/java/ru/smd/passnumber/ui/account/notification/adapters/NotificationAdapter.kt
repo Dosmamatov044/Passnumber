@@ -7,11 +7,15 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.smd.passnumber.data.core.Constants
 import ru.smd.passnumber.data.entities.Notification
 import ru.smd.passnumber.databinding.ItemNotificationBinding
+import ru.smd.passnumber.ui.account.my_cars.data_car.docs.adapters.DocsAdapter
 import java.text.SimpleDateFormat
 import java.util.*
 
-class NotificationAdapter() : RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
+class NotificationAdapter(val onReadListner: OnReadListner) : RecyclerView.Adapter<NotificationAdapter.ViewHolder>(){
 
+    interface OnReadListner {
+        fun readNotification(notification: Notification)
+    }
 
     var items = mutableListOf<Notification>()
     var itemsRead = mutableListOf<Notification>()
@@ -24,7 +28,9 @@ class NotificationAdapter() : RecyclerView.Adapter<NotificationAdapter.ViewHolde
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Notification) {
             binding.run {
-                if (data.readAt==null) itemsRead.add(data)
+                if (data.readAt==null){
+                    onReadListner.readNotification(data)
+                }
                 val regNumber = data.data.body.subSequence(0, 6)
                 txtNotificationRegNumber.setText(regNumber.toString().toLowerCase())
                 val lenghtRegion = data.data.body.substringBefore(':')

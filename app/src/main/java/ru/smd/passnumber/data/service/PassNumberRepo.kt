@@ -59,6 +59,8 @@ interface PassNumberRepo {
     @GET("vehicle/{vehicle_id}/documents")
     fun getDocs(@Path("vehicle_id") vehicle_id: Int): Single<ResponseData<List<Docs>>>
 
+    @POST("notifications/{id}/read")
+    fun readNotification(@Path("id") id: String):Single<ResponseData<Any>>
 
     @Multipart
     @POST("vehicle/{vehicle_id}/documents")
