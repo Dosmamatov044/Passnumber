@@ -15,7 +15,8 @@ import ru.smd.passnumber.ui.account.notification.adapters.NotificationAdapter
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class NotificationFragment : Fragment(), NotificationContract.View,NotificationAdapter.OnReadListner {
+class NotificationFragment : Fragment(), NotificationContract.View,
+    NotificationAdapter.OnReadListner {
 
     @Inject
     lateinit var presenter: NotificationContract.Presenter
@@ -37,8 +38,17 @@ class NotificationFragment : Fragment(), NotificationContract.View,NotificationA
         super.onViewCreated(view, savedInstanceState)
         adapter = NotificationAdapter(this)
         binding.run {
-            recycleNotification.adapter=adapter
+            recycleNotification.adapter = adapter
             btnBackMyNotification.setOnClickListener { presenter.onClickBack() }
+            contFilterNotification.setOnClickListener {
+                if (txtFilter.text.contains(getString(R.string.all))) {
+                    txtFilter.setText(getString(R.string.unread))
+                    presenter.getUnreadNotifications()
+                } else {
+                    txtFilter.setText(getString(R.string.all))
+                    presenter.getNotifications()
+                }
+            }
         }
     }
 

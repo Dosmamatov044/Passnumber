@@ -35,20 +35,38 @@ class NotificationPresenter @Inject constructor(val repo: PassNumberRepo) :
     }
 
     override fun sendReadNotifications(notifications: Notification) {
-        repo.readNotification(notifications.id).compose(applySchedulers()).subscribe {
-                response, error ->
-            when {
-                error == null -> {
-                 toString()
+        repo.readNotification(notifications.id).compose(applySchedulers())
+            .subscribe { response, error ->
+                when {
+                    error == null -> {
+                        toString()
+                    }
+                    else -> {
+                        MainActivity.handleError.value = error.toString()
+                    }
                 }
-                else -> {
-                    MainActivity.handleError.value = error.toString()
-                }
-            }
-        }.also(compositeDisposable::add)
+            }.also(compositeDisposable::add)
     }
 
-    fun getNotifications() {
+    override fun getUnreadNotifications() {
+       repo.getUnreadNotifications().compose(applySchedulers()).subscribe {  response, error ->
+           when {
+               error == null -> {
+                   view?.showNotifications(response.data)
+               }
+               error is HttpException -> {
+                   handleResponseError(error) {
+                   }
+               }
+               else -> {
+                   view?.showErrorInternet()
+               }
+           }
+       }.also(compositeDisposable::add)
+
+    }
+
+    override fun getNotifications() {
         repo.getNotifications().compose(applySchedulers()).subscribe { response, error ->
             when {
                 error == null -> {

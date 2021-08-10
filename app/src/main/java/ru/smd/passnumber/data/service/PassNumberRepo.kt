@@ -62,6 +62,8 @@ interface PassNumberRepo {
     @POST("notifications/{id}/read")
     fun readNotification(@Path("id") id: String):Single<ResponseData<Any>>
 
+    @GET("notifications/unread")
+fun getUnreadNotifications():Single<ResponseNotifications>
     @Multipart
     @POST("vehicle/{vehicle_id}/documents")
     fun storeDocs(
