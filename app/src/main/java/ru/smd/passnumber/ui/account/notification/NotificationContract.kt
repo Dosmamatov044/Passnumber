@@ -20,5 +20,7 @@ interface NotificationContract {
         fun onStop()
 
         fun onClickBack()
+
+        fun sendReadNotifications(notifications: List<Notification>)
     }
 }

@@ -33,24 +33,32 @@ class CheckingPassFragment : Fragment(R.layout.fragment_checking_pass) {
     private val viewModel: CheckingPassViewModel by viewModels()
     private val adapter = PassNumbersAdapter()
     val data = MutableLiveData<PassData>()
+    var fromFragment: String? = null
 
     @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         rvPassNumbers.adapter = adapter
+        if (fromFragment!=null){
+          cont_pass.visibility=View.GONE
+        }else cont_pass.visibility=View.VISIBLE
+        fromFragment=null
         btn_back_checking_pass.setOnClickListener {
             hideKeyboard()
             requireActivity().onBackPressed()
         }
         btnRegister.setOnClickListener {
-            (requireActivity() as MainActivity).openRegistrationFragment(phone_input.text.toString(),etNameUser.text.toString())
+            (requireActivity() as MainActivity).openRegistrationFragment(
+                phone_input.text.toString(),
+                etNameUser.text.toString()
+            )
         }
         ivTopTruck1.setOnClickListener {
             ivTopTruck1.isClickable = false
             ivTopTruck1.isGone = true
             ivTopTruck.isClickable = true
             ivTopTruck.isGone = false
-            llSubscribe.isGone = prefs.restoreToken()!=null
+            llSubscribe.isGone = prefs.restoreToken() != null
         }
         ivTopTruck.setOnClickListener {
             ivTopTruck.isClickable = false
@@ -71,7 +79,7 @@ class CheckingPassFragment : Fragment(R.layout.fragment_checking_pass) {
             .replace(R.id.mainContainer, HelpRegistrationFragment()).commit()
     }
     private val passData = Observer<PassData> {
-        adapter.regNumber = it.regNumber?:""
+        adapter.regNumber = it.regNumber ?: ""
         if (it.passes.isNullOrEmpty())
             adapter.submitList(
                 mutableListOf(

@@ -4,7 +4,6 @@ import android.os.CountDownTimer
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException
 import io.reactivex.SingleTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import org.json.JSONObject
 import ru.smd.passnumber.data.service.PassNumberRepo
@@ -41,19 +40,13 @@ class RegistrationPresenter @Inject constructor(
         timer.start()
     }
 
-    override fun onClickEnter(
-        androidId: String,
-        code: String,
-        text: String,
-        userNameFromCheckPass: String
-    ) {
-        val phone = text.replace(regex = Regex("\\D"), "")
+    override fun onClickEnter(androidId: String, code: String, userNameFromCheckPass: String) {
         MainActivity.handleLoad.postValue(true)
         repo.registration(
             mutableMapOf<String, String>().apply {
                 if (userNameFromCheckPass.isNotEmpty())
                 this["name"] = userNameFromCheckPass
-                this["phone"] = phone
+                this["phone"] = phone.toString()
                 this["code"] = code
                 this["device_name"] = androidId
             }
@@ -81,11 +74,11 @@ class RegistrationPresenter @Inject constructor(
 
     }
 
-    override fun sendSms(text: String) {
+    override fun sendSms(phone: String) {
         if (this.phone==null){
-            val phone = text.replace(regex = Regex("\\D"), "")
-            this.phone=phone
-        }else
+            val newPhone = phone.replace(regex = Regex("\\D"), "")
+            this.phone=newPhone
+        }
         repo.getCode(this.phone!!).compose(applySchedulers())
             .subscribe { response, error ->
                 when {

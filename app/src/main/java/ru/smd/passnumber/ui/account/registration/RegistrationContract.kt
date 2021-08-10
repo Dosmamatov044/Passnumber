@@ -28,7 +28,6 @@ interface RegistrationContract {
         fun onClickEnter(
             androidId: String,
             code: String,
-            phone: String,
             userNameFromCheckPass: String
         )
 

@@ -93,6 +93,7 @@ class DataCarFragment : Fragment(), DataCarContract.View {
         parentFragmentManager.beginTransaction()
             .replace(R.id.mainContainer, CheckingPassFragment().apply {
                 data.value = passData
+                fromFragment="from_data_car"
             }).addToBackStack(null).commit()
     }
 
@@ -108,6 +109,7 @@ class DataCarFragment : Fragment(), DataCarContract.View {
                     edtNameDriverDataCar.text.toString(),
                     edtRegNumberDataCar.text.toString()
                 )
+                hideKeyboard()
             }
         }
     }

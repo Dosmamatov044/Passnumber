@@ -119,7 +119,7 @@ class RegistrationFragment : Fragment(), RegistrationContract.View {
                 Settings.Secure.getString(
                     requireActivity().getContentResolver(),
                     Settings.Secure.ANDROID_ID
-                ), edtRegistrationCode.text.toString(), edtRegistrationPhone.text.toString(),userNameFromCheckPass
+                ), edtRegistrationCode.text.toString(), edtRegistrationPhone.text.toString()
             )
         }
     }
