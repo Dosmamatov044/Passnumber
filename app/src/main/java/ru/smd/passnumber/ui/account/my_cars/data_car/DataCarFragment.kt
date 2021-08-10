@@ -70,6 +70,7 @@ class DataCarFragment : Fragment(), DataCarContract.View {
             dataCar.setOnClickListener { presenter.onClickDataCar() }
             docsCar.setOnClickListener { presenter.onClickDocs() }
             btnNotifications.setOnClickListener {  showNotifications()}
+            btnDataCarRecommendation.setOnClickListener { presenter.onClickDocs() }
         }
     }
 
@@ -136,6 +137,15 @@ class DataCarFragment : Fragment(), DataCarContract.View {
     override fun showDocs(idVehicle: Int) {
         parentFragmentManager.beginTransaction()
             .replace(R.id.mainContainer, DocsFragment.create(idVehicle)).addToBackStack(null).commit()
+    }
+
+    override fun showRecommendation(show: Boolean) {
+        binding.run {
+            if (show){
+                contRecommendations.visibility=View.VISIBLE
+            } else contRecommendations.visibility=View.GONE
+
+        }
     }
 
     companion object {

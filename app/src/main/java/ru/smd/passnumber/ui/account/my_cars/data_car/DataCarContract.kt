@@ -16,6 +16,8 @@ interface DataCarContract {
         fun showData(mark: String,driverName: String,regNumber: String)
 
         fun showDocs(idVehicle:Int)
+
+        fun showRecommendation(show:Boolean)
     }
 
     interface Presenter{
@@ -27,6 +29,8 @@ interface DataCarContract {
         fun getData(regNumber: String)
 
         fun onStop()
+
+        fun getDocs(idVehicle:Int)
 
         fun onClickBack()
 

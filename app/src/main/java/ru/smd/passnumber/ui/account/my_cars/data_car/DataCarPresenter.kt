@@ -41,6 +41,7 @@ class DataCarPresenter @Inject constructor(val repo: PassNumberRepo) : DataCarCo
                     val driverName=response.data?.driverName?:""
                     view?.showData(mark,driverName,response.data?.regNumber!!)
                     idVehicle= response.data?.id ?: 0
+                    getDocs(idVehicle)
                 }
                 else -> {
                     MainActivity.handleError.value = error.toString()
@@ -52,6 +53,22 @@ class DataCarPresenter @Inject constructor(val repo: PassNumberRepo) : DataCarCo
     override fun onStop() {
         view = null
         compositeDisposable.dispose()
+    }
+
+    override fun getDocs(idVehicle: Int) {
+        repo.getDocs(idVehicle).compose(applySchedulers()).subscribe { response, error ->
+            MainActivity.handleLoad.value = false
+            when {
+                error == null -> {
+                   if (response.data.isNullOrEmpty()){
+                       view?.showRecommendation(true)
+                   }else view?.showRecommendation(false)
+                }
+                else -> {
+                    MainActivity.handleError.value = error.toString()
+                }
+            }
+        }.also(compositeDisposable::add)
     }
 
     override fun onClickBack() {
