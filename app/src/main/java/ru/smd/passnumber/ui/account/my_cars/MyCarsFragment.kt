@@ -17,6 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.alert_view.view.*
 import kotlinx.android.synthetic.main.bottom_menu.*
 import ru.smd.passnumber.R
+import ru.smd.passnumber.data.core.hideKeyboard
 import ru.smd.passnumber.data.entities.PassData
 import ru.smd.passnumber.data.tools.PreferencesHelper
 import ru.smd.passnumber.databinding.FragmentMyCarsBinding
@@ -106,7 +107,9 @@ class MyCarsFragment : Fragment(), MyCarsContract.View, MyCarsSwipeAdapter.OnCli
                         edtRegNumberMyCars.text.toString(),
                         edtLabelModelMyCars.text.toString(),
                         edtNameDriverMyCars.text.toString()
+
                     )
+                    hideKeyboard()
                 } else
                     presenter.onClickAdd()
             }
