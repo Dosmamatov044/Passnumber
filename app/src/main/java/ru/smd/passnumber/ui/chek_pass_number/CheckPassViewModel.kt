@@ -14,6 +14,7 @@ import ru.smd.passnumber.data.service.ApiService
 import ru.smd.passnumber.data.service.PassNumberRepo
 import ru.smd.passnumber.data.service.applySchedulers
 import ru.smd.passnumber.data.service.enqueue
+import ru.smd.passnumber.ui.activities.main.MainActivity
 
 
 /**
@@ -37,12 +38,15 @@ class CheckPassViewModel @ViewModelInject constructor(private val repo: PassNumb
     }
 
     fun checkPassData(number: String) {
+        MainActivity.handleLoad.postValue(true)
         repo.checkPassNumber(number).compose(applySchedulers()).subscribe { response, error ->
+            MainActivity.handleLoad.value=false
             when {
                 error == null -> {
                     data.value = response.data
                 }
                 else -> {
+                    MainActivity.handleError.value = error.toString()
                 }
             }
         }.also(compositeDisposable::add)
