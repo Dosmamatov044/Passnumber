@@ -13,13 +13,16 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.bottom_menu.*
+import kotlinx.android.synthetic.main.fragment_check_pass.*
 import ru.smd.passnumber.ui.chek_pass_number.CheckPassFragment
 import ru.smd.passnumber.R
+import ru.smd.passnumber.data.core.showKeyBoard
 import ru.smd.passnumber.data.tools.PreferencesHelper
 import ru.smd.passnumber.ui.account.AccountFragment
 import ru.smd.passnumber.ui.account.registration.RegistrationFragment
 import ru.smd.passnumber.ui.help_registration.HelpRegistrationFragment
 import ru.smd.passnumber.ui.splash.SplashFragment
+import ru.smd.passnumber.utils.showKeyBoard
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -55,7 +58,6 @@ class MainActivity : AppCompatActivity() {
         btnBottom1.bottomSelelected()
         supportFragmentManager.beginTransaction().replace(R.id.mainContainer, CheckPassFragment())
             .commit()
-
         btnBottom1.setOnClickListener {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.mainContainer, CheckPassFragment())
@@ -83,16 +85,17 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun openRegistrationFragment(userNumber:String,userName:String){
+    fun openRegistrationFragment(userNumber: String, userName: String) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.mainContainer, RegistrationFragment().apply {
-                userNumberFromCheckPass=userNumber
-                userNameFromCheckPass=userName
+                userNumberFromCheckPass = userNumber
+                userNameFromCheckPass = userName
             }).commit()
         btnBottom2.bottomSelelected()
     }
-    fun hideBottomMenu(hide:Boolean=false){
-        lvBottomMenu.isGone=hide
+
+    fun hideBottomMenu(hide: Boolean = false) {
+        lvBottomMenu.isGone = hide
     }
 
     fun bottomSelected(view: View) {

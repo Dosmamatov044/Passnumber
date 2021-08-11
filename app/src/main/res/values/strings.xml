@@ -24,6 +24,7 @@
     <string name="reg_number">Регистрационный номер</string>
     <string name="reg_number_with_point">Регистрационный номер *</string>
     <string name="label_model_auto">Марка и модель автомобиля</string>
+    <string name="enter_number">Введите гос номер</string>
     <string name="name_driver">Имя водителя</string>
     <string name="rus">RUS</string>
     <string name="driver">Водитель: </string>

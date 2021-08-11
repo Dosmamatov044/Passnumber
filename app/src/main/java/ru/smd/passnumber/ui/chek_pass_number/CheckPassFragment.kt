@@ -21,6 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_check_pass.*
 import ru.smd.passnumber.R
 import ru.smd.passnumber.data.core.hideKeyboard
+import ru.smd.passnumber.data.core.showKeyBoard
 import ru.smd.passnumber.data.entities.PassData
 import ru.smd.passnumber.databinding.FragmentCheckPassBinding
 import ru.smd.passnumber.databinding.FragmentRegistrationBinding
@@ -39,6 +40,7 @@ class CheckPassFragment : Fragment(R.layout.fragment_check_pass) {
 
     lateinit var binding: FragmentCheckPassBinding
 
+    var isNoEmpty=false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,6 +51,7 @@ class CheckPassFragment : Fragment(R.layout.fragment_check_pass) {
         root
     }
 
+
     @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -57,25 +60,30 @@ class CheckPassFragment : Fragment(R.layout.fragment_check_pass) {
             requireActivity().window.statusBarColor =
                 ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark)
             main.hideBottomMenu()
-            var boolean=true
+            showKeyBoard(etStartNumber)
+            var correctChar=true
             var chars= arrayListOf('й','ц','г','ш','щ','з','ъ','ф','ы','п','л','д','ж','э','я','ч','и','ь','б','ю','ё')
             btnCheckPassNumber.setOnClickListener {
-                etStartNumber.text.toString().forEach {it1->
-                    chars.forEach {it2->
-                        if (
-                            it1.equals(it2) ||
-                            it1.equals(it2.toUpperCase())) {
-                            boolean = false
+                if (isNoEmpty){
+                    etStartNumber.text.toString().forEach { it1 ->
+                        chars.forEach { it2 ->
+                            if (
+                                it1.equals(it2) ||
+                                it1.equals(it2.toUpperCase())
+                            ) {
+                                correctChar = false
+                            }
                         }
                     }
-                }
-                if (boolean){
-                viewModel.composite()
-                viewModel.checkPassData(etStartNumber.text.toString() + etEndNumber.text.toString())
+                if (correctChar) {
+                    viewModel.composite()
+                    viewModel.checkPassData(etStartNumber.text.toString() + etEndNumber.text.toString())
                 } else {
-                    Toast.makeText(requireContext(), R.string.fail_reg_number, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), R.string.fail_reg_number, Toast.LENGTH_SHORT)
+                        .show()
                 }
-                boolean=true
+                correctChar = true
+            }else  Toast.makeText(requireContext(), R.string.enter_number, Toast.LENGTH_SHORT).show()
             }
             viewModel.data.observe(this@CheckPassFragment, passData)
             etStartNumber.doOnTextChanged { text, start, before, count ->
@@ -119,8 +127,10 @@ class CheckPassFragment : Fragment(R.layout.fragment_check_pass) {
                 )
             )
             btnCheckPassNumber.setBackgroundResource(R.drawable.ic_rectangle_round_4_blue)
+            isNoEmpty=true
         } else {
-            btnCheckPassNumber.isClickable = false
+            isNoEmpty=false
+            btnCheckPassNumber.isClickable = true
             btnCheckPassNumber.setTextColor(
                 ContextCompat.getColor(
                     requireContext(),
