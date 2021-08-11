@@ -76,6 +76,8 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
             "Не действует",
             "Закончился",
             "Аннулирован",
+            "День",
+            "Ночь",
             "Не найден"
         )
         val listPass = arrayListOf("Все", "Постоянный (БА)", "Разовый (ББ)")

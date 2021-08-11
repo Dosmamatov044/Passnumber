@@ -275,7 +275,25 @@
                     android:text="Рассказать друзьям"
                     android:textColor="#fff"
                     android:textSize="13sp" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="21dp"
+                    android:layout_marginBottom="25dp"
+                    android:background="#38383A" />
 
+                <TextView
+                    android:id="@+id/btnExit"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:drawableStart="@drawable/ic_external_link"
+                    android:drawableEnd="@drawable/ic_next_small"
+                    android:drawablePadding="13dp"
+                    android:fontFamily="@font/sf_ui_display_bold"
+                    android:gravity="center_vertical"
+                    android:text="Выход"
+                    android:textColor="#fff"
+                    android:textSize="13sp" />
 
             </LinearLayout>
 

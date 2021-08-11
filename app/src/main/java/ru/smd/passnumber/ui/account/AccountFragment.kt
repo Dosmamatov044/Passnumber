@@ -1,6 +1,7 @@
 package ru.smd.passnumber.ui.account
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -20,6 +21,7 @@ import ru.smd.passnumber.data.tools.PreferencesHelper
 import ru.smd.passnumber.ui.account.my_cars.MyCarsFragment
 import ru.smd.passnumber.ui.account.my_data.MyDataFragment
 import ru.smd.passnumber.ui.account.notification.NotificationFragment
+import ru.smd.passnumber.ui.account.registration.RegistrationFragment
 import ru.smd.passnumber.ui.account.settings_notification.SettingsNotificationFragment
 import ru.smd.passnumber.ui.activities.main.MainActivity
 import javax.inject.Inject
@@ -80,7 +82,23 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
                 putExtra(Intent.EXTRA_TEXT, message)
             }, "Поделиться"))
         }
+btnExit.setOnClickListener {
+    val builder = AlertDialog.Builder(requireContext())
+    builder.setTitle("Вы уверены, что хотите выйти из аккаунта?")
+    builder.setPositiveButton("Да") { dialog, id ->
+        preferencesHelper.clearCompany()
+        preferencesHelper.clearEmail()
+        preferencesHelper.clearFio()
+        preferencesHelper.clearToken()
+        preferencesHelper.clearPhone()
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.mainContainer, RegistrationFragment()).commit()
+    }
+    builder.setNegativeButton("Нет"){dialog,id->
+    }
+    builder.show()
 
+}
         setAlert()
         tvCompany.setText(preferencesHelper.restoreCompany())
         tvPhone.setText(preferencesHelper.restorePhone())

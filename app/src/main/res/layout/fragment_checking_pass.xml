@@ -111,7 +111,7 @@
         android:fontFamily="@font/sf_ui_display_light"
         android:gravity="end"
         android:paddingVertical="5dp"
-        android:text="Подписаться на уведомления\nоб изменениях, ануляции и\nокончании срока дейсвия\nпропуска"
+        android:text="Подписаться на уведомления\nоб изменениях, аннуляции и\nокончании срока действия\nпропуска"
         android:textColor="#fff"
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="@+id/ivTopCard"

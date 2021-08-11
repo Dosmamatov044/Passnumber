@@ -158,6 +158,12 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                         "Закончился" -> {
                             passes.first().status?.contains("Закончился")==true
                         }
+                        "День"->{
+                            passes.first().validityPeriod?.contains("Дневной")==true
+                        }
+                        "Ночь"->{
+                            passes.first().validityPeriod?.contains("Ночной")==true
+                        }
                         "Все" -> {
                             true
                         }
