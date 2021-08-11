@@ -114,7 +114,6 @@
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/ic_rectangle_round_34_gradient_solid"
                 android:orientation="vertical"
-                android:paddingHorizontal="24dp"
                 android:paddingVertical="40dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -124,6 +123,7 @@
                     android:id="@+id/btn_profile_my_data"
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
+                    android:paddingHorizontal="24dp"
                     android:drawableStart="@drawable/ic_my_docs"
                     android:drawableEnd="@drawable/ic_next_small"
                     android:drawablePadding="13dp"
@@ -138,16 +138,18 @@
                     android:layout_height="1dp"
                     android:layout_marginTop="21dp"
                     android:layout_marginBottom="25dp"
+                    android:layout_marginHorizontal="24dp"
                     android:background="#38383A" />
 
                 <LinearLayout
+                    android:id="@+id/btn_my_cars_profile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
+                    android:paddingHorizontal="24dp"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/btn_my_cars_profile"
                         android:layout_width="wrap_content"
                         android:layout_height="44dp"
                         android:layout_weight="1"
@@ -183,16 +185,18 @@
                     android:layout_height="1dp"
                     android:layout_marginTop="21dp"
                     android:layout_marginBottom="25dp"
+                    android:layout_marginHorizontal="24dp"
                     android:background="#38383A" />
 
                 <LinearLayout
+                    android:id="@+id/btn_notification"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
+                    android:paddingHorizontal="24dp"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/btn_notification"
                         android:layout_width="wrap_content"
                         android:layout_height="44dp"
                         android:layout_weight="1"
@@ -224,6 +228,7 @@
                     android:layout_height="1dp"
                     android:layout_marginTop="21dp"
                     android:layout_marginBottom="25dp"
+                    android:layout_marginHorizontal="24dp"
                     android:background="#38383A" />
                 <!--                <TextView-->
                 <!--                    android:id="@+id/btnSettings"-->
@@ -253,6 +258,7 @@
                     android:fontFamily="@font/sf_ui_display_bold"
                     android:gravity="center_vertical"
                     android:text="Обратная связь"
+                    android:paddingHorizontal="24dp"
                     android:textColor="#fff"
                     android:textSize="13sp" />
 
@@ -260,6 +266,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="21dp"
+                    android:layout_marginHorizontal="24dp"
                     android:layout_marginBottom="25dp"
                     android:background="#38383A" />
 
@@ -270,6 +277,7 @@
                     android:drawableStart="@drawable/ic_like_up"
                     android:drawableEnd="@drawable/ic_next_small"
                     android:drawablePadding="13dp"
+                    android:paddingHorizontal="24dp"
                     android:fontFamily="@font/sf_ui_display_bold"
                     android:gravity="center_vertical"
                     android:text="Рассказать друзьям"
@@ -280,12 +288,14 @@
                     android:layout_height="1dp"
                     android:layout_marginTop="21dp"
                     android:layout_marginBottom="25dp"
+                    android:layout_marginHorizontal="24dp"
                     android:background="#38383A" />
 
                 <TextView
                     android:id="@+id/btnExit"
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
+                    android:paddingHorizontal="24dp"
                     android:drawableStart="@drawable/ic_external_link"
                     android:drawableEnd="@drawable/ic_next_small"
                     android:drawablePadding="13dp"

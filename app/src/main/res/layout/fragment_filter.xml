@@ -123,6 +123,30 @@
             app:layout_constraintTop_toBottomOf="@+id/textChooseCard"
             tools:listitem="@layout/item_select_card" />
 
+        <TextView
+            android:id="@+id/tvThird"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_ui_display_regular"
+            android:text="@string/period"
+            android:textColor="@color/blue"
+            android:textSize="17sp" />
+
+        <Spinner
+            android:id="@+id/spinnerSelectPeriod"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginVertical="10dp"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:dropDownVerticalOffset="-10dp"
+            android:overlapAnchor="false"
+            android:popupBackground="@drawable/bg_my_data"
+            android:spinnerMode="dropdown"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textChooseCard"
+            tools:listitem="@layout/item_select_card" />
         <!--        <View-->
         <!--            android:layout_width="match_parent"-->
         <!--            android:layout_height="1dp"-->

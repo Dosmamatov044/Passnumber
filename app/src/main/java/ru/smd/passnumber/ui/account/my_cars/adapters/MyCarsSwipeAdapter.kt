@@ -143,7 +143,7 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
             items = unfilteredItems.filter {
                 var passes = it.passData.passes
                 if (passes.isNullOrEmpty()) {
-                    (filterCars.filterByStatus == "Не найден" || filterCars.filterByStatus == "Все") && filterCars.filterByTypePass.isNullOrEmpty()
+                    (filterCars.filterByStatus == "Не найден" || filterCars.filterByStatus == "Все") && filterCars.filterByTypePass.isNullOrEmpty()&&filterCars.filterByPeriod.isNullOrEmpty()
                 } else {
                     var status: Boolean = when (filterCars.filterByStatus) {
                         "Действует" -> {
@@ -158,12 +158,6 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                         "Закончился" -> {
                             passes.first().status?.contains("Закончился")==true
                         }
-                        "День"->{
-                            passes.first().validityPeriod?.contains("Дневной")==true
-                        }
-                        "Ночь"->{
-                            passes.first().validityPeriod?.contains("Ночной")==true
-                        }
                         "Все" -> {
                             true
                         }
@@ -174,7 +168,12 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                             "" -> true
                             else -> passes.first().number?.contains(filterCars.filterByTypePass) == true
                         }
-                    status && typePass
+                    var period=
+                        when(filterCars.filterByPeriod){
+                            ""->true
+                            else->passes.first().validityPeriod?.contains(filterCars.filterByPeriod)==true
+                        }
+                    status && typePass && period
                 }
 
             }.toMutableList()

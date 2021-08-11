@@ -36,16 +36,23 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
                 spinnerSelectPass.selectedItem.toString().contains("БА") -> "БА"
                 else -> ""
             }
+            val filterByPeriod= when {
+                spinnerSelectPeriod.selectedItem.toString().contains("День") -> "Дневной"
+                spinnerSelectPeriod.selectedItem.toString().contains("Ночь") -> "Ночной"
+                else->""
+            }
             val sort = spinnerSelectSorts.selectedItemPosition % 2 == 0
             filterCars.value = FilterCars(
                 true,
                 filterByStatus = spinnerSelectStatus.selectedItem.toString(),
                 filterByTypePass = filterByTypePass,
+                filterByPeriod=filterByPeriod,
                 filterBySort = Pair(spinnerSelectSorts.selectedItem.toString(), sort)
             )
             filterCarsPosition.value = FilterCarsPosition(
                 filterByStatus = spinnerSelectStatus.selectedItemPosition,
                 filterByTypePass = spinnerSelectPass.selectedItemPosition,
+                filterByPeriod=spinnerSelectPeriod.selectedItemPosition,
                 filterBySort = spinnerSelectSorts.selectedItemPosition
             )
             requireActivity().onBackPressed()
@@ -76,11 +83,10 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
             "Не действует",
             "Закончился",
             "Аннулирован",
-            "День",
-            "Ночь",
             "Не найден"
         )
-        val listPass = arrayListOf("Все", "Постоянный (БА)", "Разовый (ББ)")
+        val listPass = arrayListOf("Все", "Годовой (БА)", "Разовый (ББ)")
+        val listPeriod= arrayListOf("Все","День","Ночь")
         val listSort =
             arrayListOf(
                 "Проверен",
@@ -105,7 +111,9 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
         spinnerSelectStatus.adapter = SpinnerCardlistAdapter(requireContext(), listStatus)
         spinnerSelectPass.adapter = SpinnerCardlistAdapter(requireContext(), listPass)
         spinnerSelectSorts.adapter = SpinnerCardlistAdapter(requireContext(), listSort)
+        spinnerSelectPeriod.adapter=SpinnerCardlistAdapter(requireContext(),listPeriod)
         filterCarsPosition.observe(this, Observer {
+            spinnerSelectPeriod.setSelection(it.filterByPeriod)
             spinnerSelectStatus.setSelection(it.filterByStatus)
             spinnerSelectPass.setSelection(it.filterByTypePass)
             spinnerSelectSorts.setSelection(it.filterBySort)

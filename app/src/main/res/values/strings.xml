@@ -65,6 +65,7 @@
     <string name="delete">Удалить</string>
     <string name="text_status">Статус</string>
     <string name="text_type_pass">Тип пропуска</string>
+    <string name="period">Период</string>
     <string name="text_sort">Сортировка</string>
     <string name="info_pass_su">info@pass.su</string>
     <string name="inclusively">(включительно)</string>
