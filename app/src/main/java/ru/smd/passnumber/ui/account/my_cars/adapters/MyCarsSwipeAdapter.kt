@@ -190,6 +190,9 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                         data.passData.id.toString()
                     )
                     viewBinderHelper.closeLayout(data.passData.id.toString())
+                    if (data.passData.mark.isNullOrEmpty()){
+                        imgTruck.visibility=View.GONE
+                    }else  imgTruck.visibility=View.VISIBLE
                     contEdit.setOnClickListener {
                         var regNumber = ""
                         var driverName = ""
@@ -202,7 +205,7 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                         }
                         if (!data.passData.mark.isNullOrEmpty()) {
                             mark = data.passData.mark
-                        } else imgTruck.visibility=View.GONE
+                        }
                         onClick.onClickEdit(regNumber, driverName, mark)
                     }
                     contDelete.setOnClickListener {
@@ -290,6 +293,9 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                         data.passData.id.toString()
                     )
                     viewBinderHelper.closeLayout(data.passData.id.toString())
+                    if (data.passData.mark.isNullOrEmpty()){
+                        imgTruck.visibility=View.GONE
+                    }else  imgTruck.visibility=View.VISIBLE
                     contEdit.setOnClickListener {
                         var regNumber = ""
                         var driverName = ""
@@ -302,7 +308,7 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                         }
                         if (!data.passData.mark.isNullOrEmpty()) {
                             mark = data.passData.mark
-                        }else imgTruck.visibility=View.GONE
+                        }
                         onClick.onClickEdit(regNumber, driverName, mark)
                     }
                     mainContCardCar.setOnClickListener {
@@ -387,6 +393,9 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                         data.passData.id.toString()
                     )
                     viewBinderHelper.closeLayout(data.passData.id.toString())
+                    if (data.passData.mark.isNullOrEmpty()){
+                        imgTruck.visibility=View.GONE
+                    }else  imgTruck.visibility=View.VISIBLE
                     contEdit.setOnClickListener {
                         var regNumber = ""
                         var driverName = ""
@@ -399,7 +408,7 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                         }
                         if (!data.passData.mark.isNullOrEmpty()) {
                             mark = data.passData.mark
-                        }else imgTruck.visibility=View.GONE
+                        }
                         onClick.onClickEdit(regNumber, driverName, mark)
                     }
                     mainContCardCar.setOnClickListener {
@@ -484,6 +493,9 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                         data.passData.id.toString()
                     )
                     viewBinderHelper.closeLayout(data.passData.id.toString())
+                    if (data.passData.mark.isNullOrEmpty()){
+                        imgTruck.visibility=View.GONE
+                    }else  imgTruck.visibility=View.VISIBLE
                     contEdit.setOnClickListener {
                         var regNumber = ""
                         var driverName = ""
@@ -496,7 +508,7 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                         }
                         if (!data.passData.mark.isNullOrEmpty()) {
                             mark = data.passData.mark
-                        }else imgTruck.visibility=View.GONE
+                        }else
                         onClick.onClickEdit(regNumber, driverName, mark)
                     }
                     mainContCardCar.setOnClickListener {
@@ -578,6 +590,9 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                         data.passData.id.toString()
                     )
                     viewBinderHelper.closeLayout(data.passData.id.toString())
+                    if (data.passData.mark.isNullOrEmpty()){
+                        imgTruck.visibility=View.GONE
+                    }else  imgTruck.visibility=View.VISIBLE
                     contEdit.setOnClickListener {
                         var regNumber = ""
                         var driverName = ""
@@ -590,7 +605,7 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                         }
                         if (!data.passData.mark.isNullOrEmpty()) {
                             mark = data.passData.mark
-                        }else imgTruck.visibility=View.GONE
+                        }
                         onClick.onClickEdit(regNumber, driverName, mark)
                     }
                     mainContCardCar.setOnClickListener {
@@ -616,7 +631,7 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
             }
         }
         if (isFirstAdded)
-            viewBinderHelper.openLayout(items.get(position).passData.id.toString())
+            viewBinderHelper.openLayout(items.get(0).passData.id.toString())
     }
 
     override fun getItemCount() = items.size

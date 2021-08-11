@@ -13,12 +13,16 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.bottom_menu.*
 import kotlinx.android.synthetic.main.fragment_checking_pass.*
 import ru.smd.passnumber.R
+import ru.smd.passnumber.data.core.Constants
 import ru.smd.passnumber.data.core.hideKeyboard
 import ru.smd.passnumber.data.entities.PassData
 import ru.smd.passnumber.data.entities.PassesData
 import ru.smd.passnumber.data.tools.PreferencesHelper
 import ru.smd.passnumber.ui.activities.main.MainActivity
 import ru.smd.passnumber.ui.help_registration.HelpRegistrationFragment
+import ru.tinkoff.decoro.MaskImpl
+import ru.tinkoff.decoro.watchers.FormatWatcher
+import ru.tinkoff.decoro.watchers.MaskFormatWatcher
 import javax.inject.Inject
 
 
@@ -39,6 +43,9 @@ class CheckingPassFragment : Fragment(R.layout.fragment_checking_pass) {
     @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val mask = MaskImpl.createTerminated(Constants.PHONE_RUS)
+        val watcher: FormatWatcher = MaskFormatWatcher(mask)
+        watcher.installOn(phone_input)
         rvPassNumbers.adapter = adapter
         if (fromFragment != null) {
             cont_pass.visibility = View.GONE

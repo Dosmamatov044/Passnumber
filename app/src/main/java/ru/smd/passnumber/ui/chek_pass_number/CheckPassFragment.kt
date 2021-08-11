@@ -40,8 +40,8 @@ class CheckPassFragment : Fragment(R.layout.fragment_check_pass) {
 
     lateinit var binding: FragmentCheckPassBinding
 
-    var isNoEmpty=false
-
+    var isNoEmpty = false
+    var correctChar = false
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -61,29 +61,61 @@ class CheckPassFragment : Fragment(R.layout.fragment_check_pass) {
                 ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark)
             main.hideBottomMenu()
             showKeyBoard(etStartNumber)
-            var correctChar=true
-            var chars= arrayListOf('й','ц','г','ш','щ','з','ъ','ф','ы','п','л','д','ж','э','я','ч','и','ь','б','ю','ё')
+            var chars = arrayListOf(
+                '0',
+                '1',
+                '2',
+                '3',
+                '4',
+                '5',
+                '6',
+                '7',
+                '8',
+                '9',
+                'у',
+                'к',
+                'е',
+                'н',
+                'в',
+                'а',
+                'р',
+                'о',
+                'с',
+                'м',
+                'т'
+            )
             btnCheckPassNumber.setOnClickListener {
-                if (isNoEmpty){
-                    etStartNumber.text.toString().forEach { it1 ->
-                        chars.forEach { it2 ->
-                            if (
-                                it1.equals(it2) ||
-                                it1.equals(it2.toUpperCase())
-                            ) {
-                                correctChar = false
+                if (isNoEmpty) {
+                    var a = arrayListOf(1)
+                    a.forEach a@{
+                        etStartNumber.text.toString().forEach number@{ it1 ->
+                            chars.forEach chars@{ it2 ->
+                                if (
+                                    it1.equals(it2) ||
+                                    it1.equals(it2.toUpperCase())
+                                ) {
+                                    correctChar = true
+                                    return@number
+                                } else correctChar = false
+                            }
+                            if (!correctChar) {
+                                return@a
                             }
                         }
                     }
-                if (correctChar) {
-                    viewModel.composite()
-                    viewModel.checkPassData(etStartNumber.text.toString() + etEndNumber.text.toString())
-                } else {
-                    Toast.makeText(requireContext(), R.string.fail_reg_number, Toast.LENGTH_SHORT)
-                        .show()
-                }
-                correctChar = true
-            }else  Toast.makeText(requireContext(), R.string.enter_number, Toast.LENGTH_SHORT).show()
+                    if (correctChar) {
+                        viewModel.composite()
+                        viewModel.checkPassData(etStartNumber.text.toString() + etEndNumber.text.toString())
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            R.string.fail_reg_number,
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                    }
+                } else Toast.makeText(requireContext(), R.string.enter_number, Toast.LENGTH_SHORT)
+                    .show()
             }
             viewModel.data.observe(this@CheckPassFragment, passData)
             etStartNumber.doOnTextChanged { text, start, before, count ->
@@ -117,6 +149,7 @@ class CheckPassFragment : Fragment(R.layout.fragment_check_pass) {
 
         }
     }
+
     fun checkNumberField() {
         if (etStartNumber.length() == 6 && etEndNumber.length() >= 2) {
             btnCheckPassNumber.isClickable = true
@@ -127,9 +160,9 @@ class CheckPassFragment : Fragment(R.layout.fragment_check_pass) {
                 )
             )
             btnCheckPassNumber.setBackgroundResource(R.drawable.ic_rectangle_round_4_blue)
-            isNoEmpty=true
+            isNoEmpty = true
         } else {
-            isNoEmpty=false
+            isNoEmpty = false
             btnCheckPassNumber.isClickable = true
             btnCheckPassNumber.setTextColor(
                 ContextCompat.getColor(

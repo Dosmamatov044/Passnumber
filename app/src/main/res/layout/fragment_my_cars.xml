@@ -278,7 +278,7 @@
                     android:background="#1D1D1D"
                     android:backgroundTint="#1D1D1D"
                     android:fontFamily="@font/sf_ui_display_regular"
-                    android:hint="Поиск по номеру, марке модели, водителю"
+                    android:hint="Поиск по номеру, марке и водителю"
                     android:textAlignment="viewStart"
                     android:textColor="@color/color_gray_text"
                     android:textColorHint="@color/color_gray_text"

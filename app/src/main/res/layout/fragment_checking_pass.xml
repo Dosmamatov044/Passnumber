@@ -144,9 +144,9 @@
             android:layout_height="wrap_content"
             android:backgroundTint="#C8C7CC"
             android:fontFamily="@font/sf_ui_display_light"
-            android:hint="Петр"
+            android:hint=""
             android:imeOptions="actionNext"
-            android:inputType="textPersonName"
+            android:inputType="textCapSentences"
             android:textColor="#fff"
             android:textColorHint="#B9B9B9"
             android:textSize="15sp" />
@@ -158,20 +158,18 @@
             android:text="Телефон"
             android:textColor="#fff"
             android:textSize="17sp" />
-        <com.vicmikhailau.maskededittext.MaskedEditText
+        <EditText
             android:id="@+id/phone_input"
             android:imeOptions="actionDone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#C8C7CC"
+            android:hint="+7"
             android:fontFamily="@font/sf_ui_display_light"
-            android:hint="+7 901 234 56 78"
-            android:inputType="number"
             android:maxLength="17"
             android:textColor="#fff"
             android:textColorHint="#B9B9B9"
-            android:textSize="15sp"
-            app:mask="+7 ### ### ## ##" />
+            android:textSize="15sp" />
 
 <!--        <EditText-->
 <!--            android:layout_width="match_parent"-->

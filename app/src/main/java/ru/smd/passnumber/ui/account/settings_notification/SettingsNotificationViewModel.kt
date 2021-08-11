@@ -44,7 +44,7 @@ class SettingsNotificationViewModel @ViewModelInject constructor(
             ).compose(applySchedulers())
                 .subscribe { response, error ->
                     handleRxErrors(error) {
-                        MainActivity.handleError.value = "Настройка изменено"
+                        MainActivity.handleError.value = "Настройка изменена"
                     }
 
                 }.also(mainCompositeDisposable::add)
