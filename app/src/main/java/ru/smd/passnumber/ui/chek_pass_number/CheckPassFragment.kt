@@ -4,10 +4,15 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.InputFilter
 import android.text.InputType
+import android.text.method.DigitsKeyListener
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.text.isDigitsOnly
+import androidx.core.text.set
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -17,8 +22,11 @@ import kotlinx.android.synthetic.main.fragment_check_pass.*
 import ru.smd.passnumber.R
 import ru.smd.passnumber.data.core.hideKeyboard
 import ru.smd.passnumber.data.entities.PassData
+import ru.smd.passnumber.databinding.FragmentCheckPassBinding
+import ru.smd.passnumber.databinding.FragmentRegistrationBinding
 import ru.smd.passnumber.ui.activities.main.MainActivity
 import ru.smd.passnumber.ui.checking_pass.CheckingPassFragment
+import java.util.*
 
 
 /**
@@ -29,37 +37,78 @@ class CheckPassFragment : Fragment(R.layout.fragment_check_pass) {
 
     private val viewModel: CheckPassViewModel by viewModels()
 
+    lateinit var binding: FragmentCheckPassBinding
+
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ) = FragmentCheckPassBinding.inflate(inflater).run {
+        binding = this
+        root
+    }
 
     @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val main = requireActivity() as MainActivity
-        requireActivity().window.statusBarColor=ContextCompat.getColor(requireContext(),R.color.colorPrimaryDark)
-        main.hideBottomMenu()
-        btnCheckPassNumber.setOnClickListener {
-            viewModel.composite()
-            viewModel.checkPassData(etStartNumber.text.toString() + etEndNumber.text.toString())
-        }
-        viewModel.data.observe(this, passData)
-        etStartNumber.doOnTextChanged { text, start, before, count ->
-            when(etStartNumber.text.length){
-                0->etStartNumber.inputType=InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
-                1->etStartNumber.inputType=InputType.TYPE_CLASS_NUMBER
-                2->etStartNumber.inputType=InputType.TYPE_CLASS_NUMBER
-                3->etStartNumber.inputType=InputType.TYPE_CLASS_NUMBER
-                4->etStartNumber.inputType=InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
-                5->etStartNumber.inputType=InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
+        binding.run {
+            val main = requireActivity() as MainActivity
+            requireActivity().window.statusBarColor =
+                ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark)
+            main.hideBottomMenu()
+            var boolean=true
+            var chars= arrayListOf('й','ц','г','ш','щ','з','ъ','ф','ы','п','л','д','ж','э','я','ч','и','ь','б','ю','ё')
+            btnCheckPassNumber.setOnClickListener {
+                etStartNumber.text.toString().forEach {it1->
+                    chars.forEach {it2->
+                        if (
+                            it1.equals(it2) ||
+                            it1.equals(it2.toUpperCase())) {
+                            boolean = false
+                        }
+                    }
+                }
+                if (boolean){
+                viewModel.composite()
+                viewModel.checkPassData(etStartNumber.text.toString() + etEndNumber.text.toString())
+                } else {
+                    Toast.makeText(requireContext(), R.string.fail_reg_number, Toast.LENGTH_SHORT).show()
+                }
+                boolean=true
             }
-            if (etStartNumber.length() >= 6)
-                etEndNumber.requestFocus()
-            checkNumberField()
-        }
-        etEndNumber.doOnTextChanged { text, start, before, count ->
-            checkNumberField()
-        }
+            viewModel.data.observe(this@CheckPassFragment, passData)
+            etStartNumber.doOnTextChanged { text, start, before, count ->
+                when (etStartNumber.text.toString().length) {
+                    0 -> {
+                        etStartNumber.inputType = InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
+                    }
+                    1 -> {
+                        etStartNumber.inputType = InputType.TYPE_CLASS_NUMBER
+                    }
+                    2 -> {
+                        etStartNumber.inputType = InputType.TYPE_CLASS_NUMBER
+                    }
+                    3 -> {
+                        etStartNumber.inputType = InputType.TYPE_CLASS_NUMBER
+                    }
+                    4 -> {
+                        etStartNumber.inputType = InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
+                    }
+                    5 -> {
+                        etStartNumber.inputType = InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
+                    }
+                }
+                if (etStartNumber.length() >= 6)
+                    etEndNumber.requestFocus()
+                checkNumberField()
+            }
+            etEndNumber.doOnTextChanged { text, start, before, count ->
+                checkNumberField()
+            }
 
+        }
     }
-
     fun checkNumberField() {
         if (etStartNumber.length() == 6 && etEndNumber.length() >= 2) {
             btnCheckPassNumber.isClickable = true

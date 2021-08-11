@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isGone
+import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
@@ -33,10 +34,10 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MyCarsFragment : Fragment(), MyCarsContract.View, MyCarsSwipeAdapter.OnClickListner {
 
-   companion object{
-       val filterCars=MutableLiveData<FilterCars>()
-       val filterCarsPosition=MutableLiveData<FilterCarsPosition>()
-   }
+    companion object {
+        val filterCars = MutableLiveData<FilterCars>()
+        val filterCarsPosition = MutableLiveData<FilterCarsPosition>()
+    }
 
     @Inject
     lateinit var presenter: MyCarsContract.Presenter
@@ -49,15 +50,15 @@ class MyCarsFragment : Fragment(), MyCarsContract.View, MyCarsSwipeAdapter.OnCli
     lateinit var adapter: MyCarsSwipeAdapter
 
     //setup Listening audio
-    lateinit var speechRecognizer : SpeechRecognizer
+    lateinit var speechRecognizer: SpeechRecognizer
 
-    fun initSpeech(){
+    fun initSpeech() {
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(context).apply {
-            setRecognitionListener(addRecognitionListener(binding.microphone,binding.edtSearch))
+            setRecognitionListener(addRecognitionListener(binding.microphone, binding.edtSearch))
         }
 
         binding.microphone.setOnClickListener {
-            recognizeSpeech(binding.microphone,speechRecognizer)
+            recognizeSpeech(binding.microphone, speechRecognizer)
         }
     }
 
@@ -101,6 +102,9 @@ class MyCarsFragment : Fragment(), MyCarsContract.View, MyCarsSwipeAdapter.OnCli
                 Html.fromHtml(requireContext().getString(R.string.you_havent_cars))
             btnBackMyCars.setOnClickListener { presenter.onClickBack() }
             btnAddMyCarsPlus.setOnClickListener { presenter.onClickAdd() }
+            edtRegNumberMyCars.addTextChangedListener {
+                if (edtRegNumberMyCars.text?.length==12) btnAddMyCars.isEnabled=true else btnAddMyCars.isEnabled=false
+            }
             btnAddMyCars.setOnClickListener {
                 if (contAddMyCars.visibility == View.VISIBLE) {
                     presenter.addCar(
@@ -111,6 +115,7 @@ class MyCarsFragment : Fragment(), MyCarsContract.View, MyCarsSwipeAdapter.OnCli
                     )
                     hideKeyboard()
                 } else
+                    btnAddMyCars.isEnabled=false
                     presenter.onClickAdd()
             }
             btnFilter.setOnClickListener {
@@ -122,12 +127,13 @@ class MyCarsFragment : Fragment(), MyCarsContract.View, MyCarsSwipeAdapter.OnCli
             }
         }
         initSpeech()
-        filterCars.observe(this,applyFilter)
+        filterCars.observe(this, applyFilter)
     }
-    private val applyFilter=Observer<FilterCars>{
-        adapter.filterCars=it
+
+    private val applyFilter = Observer<FilterCars> {
+        adapter.filterCars = it
         adapter.notifyDataSetChanged()
-        binding.btnFilter.text="Фильтр: все (${adapter.items.size})"
+        binding.btnFilter.text = "Фильтр: все (${adapter.items.size})"
     }
 
     override fun onCreateView(
@@ -186,13 +192,14 @@ class MyCarsFragment : Fragment(), MyCarsContract.View, MyCarsSwipeAdapter.OnCli
             }
         } else
             binding.alertUsingSwipe.isGone = true
-        binding.btnFilter.text="Фильтр: все (${adapter.items.size})"
+        binding.btnFilter.text = "Фильтр: все (${adapter.items.size})"
     }
 
     override fun showEmptyList() {
         binding.alertUsingSwipe.isGone = true
         binding.contImgMyCars.visibility = View.VISIBLE
         binding.btnAddMyCars.visibility = View.VISIBLE
+        binding.btnAddMyCars.isEnabled = true
         binding.contAddMyCars.visibility = View.GONE
         binding.btnAddMyCarsPlus.visibility = View.VISIBLE
         binding.tvTitleMyCars.setText(getString(R.string.cars))

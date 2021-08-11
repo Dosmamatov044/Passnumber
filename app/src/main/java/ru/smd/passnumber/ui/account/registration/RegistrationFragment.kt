@@ -15,6 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_registration.*
 import ru.smd.passnumber.R
 import ru.smd.passnumber.data.core.Constants
+import ru.smd.passnumber.data.core.showKeyBoard
 import ru.smd.passnumber.databinding.FragmentRegistrationBinding
 import ru.smd.passnumber.ui.account.AccountFragment
 import ru.smd.passnumber.utils.openLink
@@ -73,6 +74,7 @@ class RegistrationFragment : Fragment(), RegistrationContract.View {
             val watcher: FormatWatcher = MaskFormatWatcher(mask)
             watcher.installOn(edtRegistrationPhone)
             edtRegistrationPhone.isFocusable=true
+            showKeyBoard(edtRegistrationPhone)
             edtRegistrationPhone.addTextChangedListener {
                 if (edtRegistrationPhone.text.length == 16 && registrationSwitch.isChecked) {
                     btnRegistrationEnter.isEnabled=true
@@ -104,22 +106,16 @@ class RegistrationFragment : Fragment(), RegistrationContract.View {
     @SuppressLint("HardwareIds")
     private fun FragmentRegistrationBinding.handleClickBtnRegistration() {
         if (block2RegistrationCont.visibility == View.GONE) {
-            block1RegistrationCont.visibility = View.GONE
-            block2RegistrationCont.visibility = View.VISIBLE
-            btnDidntGetSms.visibility = View.VISIBLE
-            btnDidntGetSms.setOnClickListener {
-                openMail(getString(R.string.info_pass_su),"не пришло смс "+edtRegistrationPhone.text.toString())
-
-            }
-            btnRegistrationEnter.isEnabled = false
             presenter.startTimer()
             presenter.sendSms(edtRegistrationPhone.text.toString())
+
+
         } else {
             presenter.onClickEnter(
                 Settings.Secure.getString(
                     requireActivity().getContentResolver(),
                     Settings.Secure.ANDROID_ID
-                ), edtRegistrationCode.text.toString(), edtRegistrationPhone.text.toString()
+                ), edtRegistrationCode.text.toString(), edtRegistrationPhone.text.toString(),requireContext()
             )
         }
     }
@@ -153,6 +149,23 @@ class RegistrationFragment : Fragment(), RegistrationContract.View {
                 presenter.sendSms("")
                 presenter.startTimer()
             }
+        }
+    }
+
+    override fun showBlock2() {
+        binding.run {
+
+        block1RegistrationCont.visibility = View.GONE
+        block2RegistrationCont.visibility = View.VISIBLE
+        edtRegistrationCode.isFocusable=true
+        showKeyBoard(edtRegistrationCode)
+        btnDidntGetSms.visibility = View.VISIBLE
+        btnDidntGetSms.setOnClickListener {
+            openMail(getString(R.string.info_pass_su),"не пришло смс "+edtRegistrationPhone.text.toString())
+
+        }
+        btnRegistrationEnter.isEnabled = false
+
         }
     }
 

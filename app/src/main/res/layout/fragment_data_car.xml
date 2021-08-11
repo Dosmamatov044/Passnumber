@@ -462,6 +462,7 @@
                 android:layout_marginTop="10dp"
                 android:background="#2C2C2E"
                 android:padding="0dp"
+                android:inputType="textCapSentences"
                 android:textColor="#60EBEBF5"
                 android:textSize="17sp" />
 
@@ -487,6 +488,7 @@
                 android:layout_marginTop="10dp"
                 android:background="#2C2C2E"
                 android:padding="0dp"
+                android:inputType="textCapSentences"
                 android:textColor="#60EBEBF5"
                 android:textSize="17sp" />
 

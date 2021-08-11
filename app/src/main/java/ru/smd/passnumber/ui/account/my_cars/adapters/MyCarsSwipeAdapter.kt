@@ -197,7 +197,7 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                         }
                         if (!data.passData.mark.isNullOrEmpty()) {
                             mark = data.passData.mark
-                        }
+                        } else imgTruck.visibility=View.GONE
                         onClick.onClickEdit(regNumber, driverName, mark)
                     }
                     contDelete.setOnClickListener {
@@ -297,7 +297,7 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                         }
                         if (!data.passData.mark.isNullOrEmpty()) {
                             mark = data.passData.mark
-                        }
+                        }else imgTruck.visibility=View.GONE
                         onClick.onClickEdit(regNumber, driverName, mark)
                     }
                     mainContCardCar.setOnClickListener {
@@ -394,7 +394,7 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                         }
                         if (!data.passData.mark.isNullOrEmpty()) {
                             mark = data.passData.mark
-                        }
+                        }else imgTruck.visibility=View.GONE
                         onClick.onClickEdit(regNumber, driverName, mark)
                     }
                     mainContCardCar.setOnClickListener {
@@ -491,7 +491,7 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                         }
                         if (!data.passData.mark.isNullOrEmpty()) {
                             mark = data.passData.mark
-                        }
+                        }else imgTruck.visibility=View.GONE
                         onClick.onClickEdit(regNumber, driverName, mark)
                     }
                     mainContCardCar.setOnClickListener {
@@ -585,7 +585,7 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                         }
                         if (!data.passData.mark.isNullOrEmpty()) {
                             mark = data.passData.mark
-                        }
+                        }else imgTruck.visibility=View.GONE
                         onClick.onClickEdit(regNumber, driverName, mark)
                     }
                     mainContCardCar.setOnClickListener {

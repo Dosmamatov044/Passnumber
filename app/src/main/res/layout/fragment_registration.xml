@@ -86,7 +86,7 @@
                     android:padding="0dp"
                     android:text="+7"
                     android:inputType="phone"
-                    android:background="#000"
+                    android:background="#00000000"
                     android:textColor="@color/white"
                     android:textSize="15sp" />
 
@@ -170,6 +170,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/sf_ui_display_light"
+                    android:background="#00000000"
                     android:hint="----"
                     android:maxLength="4"
                     android:padding="0dp"
