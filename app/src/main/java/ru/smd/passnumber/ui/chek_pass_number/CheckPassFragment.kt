@@ -20,6 +20,7 @@ import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_check_pass.*
 import ru.smd.passnumber.R
+import ru.smd.passnumber.data.core.Constants
 import ru.smd.passnumber.data.core.hideKeyboard
 import ru.smd.passnumber.data.core.showKeyBoard
 import ru.smd.passnumber.data.entities.PassData
@@ -41,7 +42,6 @@ class CheckPassFragment : Fragment(R.layout.fragment_check_pass) {
     lateinit var binding: FragmentCheckPassBinding
 
     var isNoEmpty = false
-    var correctChar = false
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -61,49 +61,9 @@ class CheckPassFragment : Fragment(R.layout.fragment_check_pass) {
                 ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark)
             main.hideBottomMenu()
             showKeyBoard(etStartNumber)
-            var chars = arrayListOf(
-                '0',
-                '1',
-                '2',
-                '3',
-                '4',
-                '5',
-                '6',
-                '7',
-                '8',
-                '9',
-                'у',
-                'к',
-                'е',
-                'н',
-                'в',
-                'а',
-                'р',
-                'о',
-                'с',
-                'м',
-                'т'
-            )
             btnCheckPassNumber.setOnClickListener {
                 if (isNoEmpty) {
-                    var a = arrayListOf(1)
-                    a.forEach a@{
-                        etStartNumber.text.toString().forEach number@{ it1 ->
-                            chars.forEach chars@{ it2 ->
-                                if (
-                                    it1.equals(it2) ||
-                                    it1.equals(it2.toUpperCase())
-                                ) {
-                                    correctChar = true
-                                    return@number
-                                } else correctChar = false
-                            }
-                            if (!correctChar) {
-                                return@a
-                            }
-                        }
-                    }
-                    if (correctChar) {
+                    if (etStartNumber.text.matches(Constants.MASK_REG_NUMBER.toRegex())) {
                         viewModel.composite()
                         viewModel.checkPassData(etStartNumber.text.toString() + etEndNumber.text.toString())
                     } else {
@@ -119,7 +79,7 @@ class CheckPassFragment : Fragment(R.layout.fragment_check_pass) {
             }
             viewModel.data.observe(this@CheckPassFragment, passData)
             etStartNumber.doOnTextChanged { text, start, before, count ->
-                when (etStartNumber.text.toString().length) {
+                when (etStartNumber.selectionStart) {
                     0 -> {
                         etStartNumber.inputType = InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
                     }
