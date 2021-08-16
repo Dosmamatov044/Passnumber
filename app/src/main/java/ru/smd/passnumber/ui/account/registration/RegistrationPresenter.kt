@@ -47,7 +47,8 @@ class RegistrationPresenter @Inject constructor(
         androidId: String,
         code: String,
         userNameFromCheckPass: String,
-        context: Context
+        context: Context,
+        regNumber: String
     ) {
         MainActivity.handleLoad.postValue(true)
         repo.registration(
@@ -68,8 +69,12 @@ class RegistrationPresenter @Inject constructor(
                         preferencesHelper.storeFio(response.data.name)
                         preferencesHelper.storeEmail(response.data.email)
                         preferencesHelper.storeCompany(response.data.client.name)
-                        view?.showAccountFragment()
-                        view?.exit()
+                        if (!regNumber.isNullOrEmpty()){
+                            addCar(regNumber,"","")
+                        }else{
+                            view?.showAccountFragment()
+                            view?.exit()
+                        }
                     }
                     else -> {
                         if (error.toString()
@@ -81,6 +86,29 @@ class RegistrationPresenter @Inject constructor(
                 }
             }.also(mainCompositeDisposable::add)
 
+    }
+
+    fun addCar(regNumber: String, labelModel: String, nameDriver: String) {
+        MainActivity.handleLoad.postValue(true)
+        repo.addCar(
+            mutableMapOf<String, String>().apply {
+                this["reg_numbers"] = regNumber
+                this["mark"] = labelModel
+                this["driver_name"] = nameDriver
+            }
+        ).compose(applySchedulers())
+            .subscribe {  response, error ->
+                MainActivity.handleLoad.value=false
+                when {
+                    error == null -> {
+                        view?.showAccountFragment()
+                        view?.exit()
+                    }
+                    else -> {
+                        MainActivity.handleError.value = error.toString()
+                    }
+                }
+            }.also(mainCompositeDisposable::add)
     }
 
     override fun sendSms(phone: String) {

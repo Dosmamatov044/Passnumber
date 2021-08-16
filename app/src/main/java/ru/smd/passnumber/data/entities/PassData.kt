@@ -10,7 +10,7 @@ import ru.smd.passnumber.utils.getStringTimeStampWithDate
  */
 
 data class PassData(
-    @SerializedName("id") val id:Int,
+    @SerializedName("id") val id:Int?,
     @SerializedName("reg_number") val regNumber:String?,
     @SerializedName("mark") val mark:String?,
     @SerializedName("driver_name") val driverName:String?,

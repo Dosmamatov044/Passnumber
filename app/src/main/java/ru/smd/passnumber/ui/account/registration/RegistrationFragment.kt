@@ -34,6 +34,7 @@ class RegistrationFragment : Fragment(), RegistrationContract.View {
 
     var userNumberFromCheckPass=""
     var userNameFromCheckPass=""
+    var regNumber=""
     override fun onStart() {
         super.onStart()
         presenter.onStart(this)
@@ -101,6 +102,7 @@ class RegistrationFragment : Fragment(), RegistrationContract.View {
         super.onDestroy()
         userNumberFromCheckPass=""
         userNameFromCheckPass=""
+        var regNumber=""
     }
 
     @SuppressLint("HardwareIds")
@@ -115,7 +117,7 @@ class RegistrationFragment : Fragment(), RegistrationContract.View {
                 Settings.Secure.getString(
                     requireActivity().getContentResolver(),
                     Settings.Secure.ANDROID_ID
-                ), edtRegistrationCode.text.toString(), edtRegistrationPhone.text.toString(),requireContext()
+                ), edtRegistrationCode.text.toString(), edtRegistrationPhone.text.toString(),requireContext(),regNumber
             )
         }
     }

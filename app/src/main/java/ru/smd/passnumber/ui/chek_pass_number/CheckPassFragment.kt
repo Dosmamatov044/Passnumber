@@ -1,5 +1,6 @@
 package ru.smd.passnumber.ui.chek_pass_number
 
+import android.accessibilityservice.AccessibilityService
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.InputFilter
@@ -9,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
+import android.widget.ScrollView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.text.isDigitsOnly
@@ -19,11 +21,15 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_check_pass.*
+import kotlinx.android.synthetic.main.fragment_check_pass.view.*
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 import ru.smd.passnumber.R
 import ru.smd.passnumber.data.core.Constants
 import ru.smd.passnumber.data.core.hideKeyboard
 import ru.smd.passnumber.data.core.showKeyBoard
 import ru.smd.passnumber.data.entities.PassData
+import ru.smd.passnumber.data.entities.PassesData
 import ru.smd.passnumber.databinding.FragmentCheckPassBinding
 import ru.smd.passnumber.databinding.FragmentRegistrationBinding
 import ru.smd.passnumber.ui.activities.main.MainActivity
@@ -42,6 +48,7 @@ class CheckPassFragment : Fragment(R.layout.fragment_check_pass) {
     lateinit var binding: FragmentCheckPassBinding
 
     var isNoEmpty = false
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -60,6 +67,15 @@ class CheckPassFragment : Fragment(R.layout.fragment_check_pass) {
             requireActivity().window.statusBarColor =
                 ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark)
             main.hideBottomMenu()
+            KeyboardVisibilityEvent.setEventListener(requireActivity(),
+                KeyboardVisibilityEventListener {
+                    if (it){
+                        tvView.visibility=View.VISIBLE
+                       scroll.post(Runnable {
+                          scroll.smoothScrollBy(0,scroll.bottom)
+                       })
+                    }else  tvView.visibility=View.GONE
+                })
             showKeyBoard(etStartNumber)
             btnCheckPassNumber.setOnClickListener {
                 if (isNoEmpty) {
@@ -104,7 +120,10 @@ class CheckPassFragment : Fragment(R.layout.fragment_check_pass) {
                 checkNumberField()
             }
             etEndNumber.doOnTextChanged { text, start, before, count ->
-                checkNumberField()
+                if (etEndNumber.length() == 0) {
+                    etStartNumber.requestFocus()
+                } else
+                    checkNumberField()
             }
 
         }
@@ -135,20 +154,26 @@ class CheckPassFragment : Fragment(R.layout.fragment_check_pass) {
 
     }
 
+
     override fun onStop() {
         super.onStop()
         viewModel.composite()
         viewModel.dispose()
+
     }
 
     private val passData = Observer<PassData> {
-        hideKeyboard()
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.checkPassContainer, CheckingPassFragment().apply {
-                data.value = it
-            }).addToBackStack(null).commit()
-    }
+        etStartNumber.text.clear()
+        etEndNumber.text.clear()
+        if (!viewModel.data.value?.regNumber.isNullOrEmpty()) {
+            hideKeyboard()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.checkPassContainer, CheckingPassFragment().apply {
+                    data.value = it
+                }).addToBackStack(null).commit()
+        }
 
+    }
 
 }
 

@@ -209,7 +209,7 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                         onClick.onClickEdit(regNumber, driverName, mark)
                     }
                     contDelete.setOnClickListener {
-                        onClick.onClickDelete(data.passData.id)
+                        data.passData.id?.let { it1 -> onClick.onClickDelete(it1) }
                     }
                     mainContCardCar.setOnClickListener {
                         data.passData.regNumber?.let { it1 -> onClick.onClickCard(it1) }

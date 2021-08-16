@@ -103,7 +103,7 @@ class MyCarsFragment : Fragment(), MyCarsContract.View, MyCarsSwipeAdapter.OnCli
             btnBackMyCars.setOnClickListener { presenter.onClickBack() }
             btnAddMyCarsPlus.setOnClickListener { presenter.onClickAdd() }
             edtRegNumberMyCars.addTextChangedListener {
-                if (edtRegNumberMyCars.text?.length==12) btnAddMyCars.isEnabled=true else btnAddMyCars.isEnabled=false
+                if (edtRegNumberMyCars.text?.length!!>10) btnAddMyCars.isEnabled=true else btnAddMyCars.isEnabled=false
             }
             btnAddMyCars.setOnClickListener {
                 if (contAddMyCars.visibility == View.VISIBLE) {

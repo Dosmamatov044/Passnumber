@@ -10,6 +10,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import ru.smd.passnumber.data.entities.PassData
+import ru.smd.passnumber.data.entities.PassesData
 import ru.smd.passnumber.data.service.ApiService
 import ru.smd.passnumber.data.service.PassNumberRepo
 import ru.smd.passnumber.data.service.applySchedulers
@@ -25,25 +26,38 @@ class CheckPassViewModel @ViewModelInject constructor(private val repo: PassNumb
     ViewModel() {
 
 
-    val data = MutableLiveData<PassData>()
+    var data = MutableLiveData<PassData>()
 
     lateinit var compositeDisposable: CompositeDisposable
 
-    fun composite(){
+    fun composite() {
         compositeDisposable = CompositeDisposable()
     }
 
-    fun dispose(){
+    fun dispose() {
         compositeDisposable.dispose()
     }
 
     fun checkPassData(number: String) {
         MainActivity.handleLoad.postValue(true)
         repo.checkPassNumber(number).compose(applySchedulers()).subscribe { response, error ->
-            MainActivity.handleLoad.value=false
+            MainActivity.handleLoad.value = false
             when {
                 error == null -> {
                     data.value = response.data
+                    data.value=PassData(null,"","","", mutableListOf(
+                        PassesData(
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null
+                        )
+                    ))
                 }
                 else -> {
                     MainActivity.handleError.value = error.toString()

@@ -119,4 +119,6 @@ dependencies {
     implementation 'id.zelory:compressor:2.1.0'
     // AppMetrica SDK.
     implementation 'com.yandex.android:mobmetricalib:3.21.0'
+    // Keyboard
+    implementation 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:2.1.0'
 }

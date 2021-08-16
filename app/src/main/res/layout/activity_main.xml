@@ -27,6 +27,7 @@
     <include
         android:visibility="gone"
         android:id="@+id/lvBottomMenu"
+        android:fitsSystemWindows="true"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -103,6 +103,7 @@ btnExit.setOnClickListener {
         tvCompany.setText(preferencesHelper.restoreCompany())
         tvPhone.setText(preferencesHelper.restorePhone())
         tvFio.setText(preferencesHelper.restoreFio())
+        tvEmail.setText(preferencesHelper.restoreEmail())
     }
 
     private fun setAlert() {

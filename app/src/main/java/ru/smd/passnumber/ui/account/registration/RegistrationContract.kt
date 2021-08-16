@@ -30,7 +30,8 @@ interface RegistrationContract {
             androidId: String,
             code: String,
             userNameFromCheckPass: String,
-            context: Context
+            context: Context,
+            regNumber: String
         )
 
         fun startTimer()

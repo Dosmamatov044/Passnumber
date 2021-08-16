@@ -35,6 +35,7 @@ interface MyCarsContract {
         fun getMyCars()
 
         fun addCar(regNumber:String,labelModel:String,nameDriver:String)
+
         fun deleteCar(regNumber: Int)
     }
 }

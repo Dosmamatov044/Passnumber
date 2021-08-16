@@ -35,6 +35,7 @@
     <string name="docs">Документы</string>
     <string name="to_date">%s %s</string>
     <string name="pts">ПТС</string>
+    <string name="success_add_car">Автомобиль успешно добавлен</string>
     <string name="sts">СТС</string>
     <string name="dk">ДК</string>
     <string name="dont_may_is_empty">Поле не может быть пустым</string>
