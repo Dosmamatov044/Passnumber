@@ -144,6 +144,11 @@ btnExit.setOnClickListener {
         compositeDisposable = CompositeDisposable()
         getMyCars()
         getUnreadNotification()
+        if (!preferencesHelper.restoreCarRegistrationRegNumber().isNullOrEmpty()){
+            addCar(preferencesHelper.restoreCarRegistrationRegNumber()?:"",preferencesHelper.restoreCarRegistrationMark()?:"",
+                preferencesHelper.restoreCarRegistrationDriverName()?:""
+            )
+        }
     }
 
     override fun onStop() {
@@ -168,16 +173,38 @@ btnExit.setOnClickListener {
         }.also(compositeDisposable::add)
     }
 
+    fun addCar(regNumber: String, labelModel: String, nameDriver: String) {
+        MainActivity.handleLoad.postValue(true)
+        repo.addCar(
+            mutableMapOf<String, String>().apply {
+                this["reg_numbers"] = regNumber
+                this["mark"] = labelModel
+                this["driver_name"] = nameDriver
+            }
+        ).compose(applySchedulers())
+            .subscribe { response, error ->
+                MainActivity.handleLoad.value = false
+                when {
+                    error == null -> {
+                        preferencesHelper.clearCarRegistration()
+                    }
+                    else -> {
+                        MainActivity.handleError.value = error.toString()
+                    }
+                }
+            }.also(compositeDisposable::add)
+    }
+
     fun getMyCars() {
         MainActivity.handleLoad.postValue(true)
-        repo.getCarList().compose(applySchedulers())
+        repo.getCarList(1).compose(applySchedulers())
             .subscribe { response, error ->
                 MainActivity.handleLoad.value = false
                 when {
                     error == null -> {
                         if (response.data.size > 0) {
                             countCar.visibility = View.VISIBLE
-                            countCar.setText(response.data.size.toString())
+                            countCar.setText(response.meta.total)
                         } else countCar.visibility = View.INVISIBLE
                     }
                     else -> {

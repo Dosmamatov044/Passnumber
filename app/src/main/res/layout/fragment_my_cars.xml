@@ -331,7 +331,7 @@
                 layout="@layout/alert_view"
                 android:visibility="gone" />
 
-            <androidx.recyclerview.widget.RecyclerView
+            <ru.smd.passnumber.data.core.PaginationRecyclerView
                 android:id="@+id/recycle_my_cars"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

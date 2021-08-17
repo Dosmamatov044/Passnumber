@@ -52,7 +52,7 @@ class CheckingPassViewModel @ViewModelInject constructor(private val repo: PassN
 
     fun checkCar(regNumber: String) {
         MainActivity.handleLoad.postValue(true)
-        repo.getCarList().compose(applySchedulers())
+        repo.getCarList(1).compose(applySchedulers())
             .subscribe { response, error ->
                 MainActivity.handleLoad.value = false
                 when {

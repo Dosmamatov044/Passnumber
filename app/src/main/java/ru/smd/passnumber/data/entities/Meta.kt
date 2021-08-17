@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class Meta(
     @SerializedName("current_page") val currentPage: String,
     @SerializedName("from") val from: String,
-    @SerializedName("last_page") val lastPage: String,
+    @SerializedName("last_page") val lastPage: Int,
     @SerializedName("links") val links: List<LinksMeta>,
     @SerializedName("path") val path: String,
     @SerializedName("per_page") val perPage: String,

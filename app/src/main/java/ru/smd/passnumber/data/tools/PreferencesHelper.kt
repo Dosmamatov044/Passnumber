@@ -26,6 +26,26 @@ class PreferencesHelper @Inject constructor(@ApplicationContext val context: Con
         sharedPreferences.edit().putString("token",token).apply()
     }
 
+    fun storeCarRegistration(regNumber: String,mark:String,driverName:String){
+        sharedPreferences.edit().putString("regNumber",regNumber).apply()
+        sharedPreferences.edit().putString("mark",mark).apply()
+        sharedPreferences.edit().putString("driverName",driverName).apply()
+    }
+
+    fun restoreCarRegistrationRegNumber()=sharedPreferences.getString("regNumber","")
+
+    fun restoreCarRegistrationMark()=sharedPreferences.getString("mark","")
+
+    fun restoreCarRegistrationDriverName()=sharedPreferences.getString("driverName","")
+
+
+
+    fun clearCarRegistration(){
+        sharedPreferences.edit().putString("regNumber","").apply()
+        sharedPreferences.edit().putString("mark","").apply()
+        sharedPreferences.edit().putString("driverName","").apply()
+    }
+
     fun restoreToken()=sharedPreferences.getString("token",null)
 
     fun clearToken()=sharedPreferences.edit().putString("token",null).apply()

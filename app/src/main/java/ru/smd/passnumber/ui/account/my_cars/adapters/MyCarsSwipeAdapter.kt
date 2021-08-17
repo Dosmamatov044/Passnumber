@@ -93,6 +93,31 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
     }
 
     var unfilteredItems = items
+
+    fun  addData(data: List<PassData>){
+        var cardCarWrapper: CardCarWrapper
+        data.forEach {
+            var days = 0
+            if (!it.passes.isNullOrEmpty()) {
+                it.passes[0].daysLeft?.let { days = it }
+            }
+            if (it.passes.isEmpty()) {
+                cardCarWrapper = CardCarWrapper(Type.Gray, it)
+            } else if (it.passes[0].number?.equals("ББ") == true) {
+                cardCarWrapper = CardCarWrapper(Type.Blue, it)
+            } else if (days > 60) {
+                cardCarWrapper = CardCarWrapper(Type.Green, it)
+            } else if (days > 0 && days < 60) {
+                cardCarWrapper = CardCarWrapper(Type.Yellow, it)
+            } else {
+                cardCarWrapper = CardCarWrapper(Type.Red, it)
+            }
+            items.add(cardCarWrapper)
+        }
+        filterItems()
+        notifyDataSetChanged()
+    }
+
     fun setData(data: List<PassData>) {
         items.clear()
         var cardCarWrapper: CardCarWrapper

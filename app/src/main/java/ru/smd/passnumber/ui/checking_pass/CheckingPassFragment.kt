@@ -69,13 +69,15 @@ class CheckingPassFragment : Fragment(R.layout.fragment_checking_pass) {
             requireActivity().onBackPressed()
         }
         btnRegister.setOnClickListener {
-            data.value?.regNumber?.let { it1 ->
-                (requireActivity() as MainActivity).openRegistrationFragment(
-                    phone_input.text.toString(),
-                    etNameUser.text.toString(),
-                    it1
+            (requireActivity() as MainActivity).openRegistrationFragment(
+                phone_input.text.toString(),
+                etNameUser.text.toString(),
                 )
-            }
+            prefs.storeCarRegistration(
+                data.value?.regNumber ?: "",
+                data.value?.mark ?: "",
+                data.value?.driverName ?: ""
+            )
         }
         ivTopTruck1.setOnClickListener {
             ivTopTruck1()
@@ -137,11 +139,7 @@ class CheckingPassFragment : Fragment(R.layout.fragment_checking_pass) {
             cont_pass.visibility = View.GONE
             contAdd.visibility = View.VISIBLE
             btnAdd.setOnClickListener {
-                viewModel.addCar(
-                    data.value?.regNumber ?: "",
-                    data.value?.mark ?: "",
-                    data.value?.driverName ?: ""
-                )
+
             }
         } else contAdd.isGone
     }

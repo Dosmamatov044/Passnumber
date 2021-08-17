@@ -45,7 +45,7 @@ interface PassNumberRepo {
     fun getNotifications(): Single<ResponseNotifications>
 
     @GET("vehicle")
-    fun getCarList(): Single<ResponseVehicle>
+    fun getCarList(@Query("page")page:Int): Single<ResponseVehicle>
 
     @DELETE("vehicle/{vehicle_id}")
     fun deleteCard(@Path("vehicle_id") vehicle_id: Int): Single<Unit>

@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun openRegistrationFragment(userNumber: String, userName: String,regNumber:String) {
+    fun openRegistrationFragment(userNumber: String, userName: String) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.mainContainer, RegistrationFragment().apply {
                 userNumberFromCheckPass = userNumber

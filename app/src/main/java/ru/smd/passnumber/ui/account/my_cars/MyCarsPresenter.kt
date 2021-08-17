@@ -9,20 +9,25 @@ import ru.smd.passnumber.data.tools.PreferencesHelper
 import ru.smd.passnumber.ui.activities.main.MainActivity
 import javax.inject.Inject
 
-class MyCarsPresenter @Inject constructor(val repo: PassNumberRepo,val prefs: PreferencesHelper):MyCarsContract.Presenter {
+class MyCarsPresenter @Inject constructor(val repo: PassNumberRepo, val prefs: PreferencesHelper) :
+    MyCarsContract.Presenter {
 
-    private var view: MyCarsContract.View?=null
+    private var view: MyCarsContract.View? = null
 
     lateinit var compositeDisposable: CompositeDisposable
 
+    private var page: Int = 1
+
+    private var totalPages = 1
+
     override fun onStart(view: MyCarsContract.View) {
-        this.view=view
+        this.view = view
         compositeDisposable = CompositeDisposable()
         getMyCars()
     }
 
     override fun onStop() {
-        view=null
+        view = null
         compositeDisposable.dispose()
     }
 
@@ -31,22 +36,41 @@ class MyCarsPresenter @Inject constructor(val repo: PassNumberRepo,val prefs: Pr
     }
 
     override fun onClickAdd() {
-      view?.showAddCarBlock()
+        view?.showAddCarBlock()
     }
 
     override fun getMyCars() {
         MainActivity.handleLoad.postValue(true)
-        repo.getCarList().compose(applySchedulers())
+        repo.getCarList(page).compose(applySchedulers())
             .subscribe { response, error ->
-                MainActivity.handleLoad.value=false
+                MainActivity.handleLoad.value = false
                 when {
                     error == null -> {
-                     if (response.data.isEmpty()){
-                         view?.showEmptyList()
-                     }else{
-                         view?.showCarList(response.data,!prefs.getFirstAddedCar())
+                        if (page == 1) {
+                            if (response.data.isEmpty()) {
+                                view?.showEmptyList()
+                            } else {
+                                view?.showCarList(response.data, !prefs.getFirstAddedCar())
+                            }
+                        }
+                        view?.setLastPage(response.meta.lastPage)
+                    }
+                    else -> {
+                        view?.showErrorInternet()
+                    }
+                }
+            }.also(compositeDisposable::add)
+    }
 
-                     }
+    override fun getMoreCars(page: Int) {
+        MainActivity.handleLoad.postValue(true)
+        repo.getCarList(page).compose(applySchedulers())
+            .subscribe { response, error ->
+                MainActivity.handleLoad.value = false
+                when {
+                    error == null -> {
+                        view?.setLastPage(response.meta.lastPage)
+                        view?.showMoreCars(response.data)
                     }
                     else -> {
                         view?.showErrorInternet()
@@ -64,8 +88,8 @@ class MyCarsPresenter @Inject constructor(val repo: PassNumberRepo,val prefs: Pr
                 this["driver_name"] = nameDriver
             }
         ).compose(applySchedulers())
-            .subscribe {  response, error ->
-                MainActivity.handleLoad.value=false
+            .subscribe { response, error ->
+                MainActivity.handleLoad.value = false
                 when {
                     error == null -> {
                         view?.enableEdtRegNum()
@@ -82,15 +106,15 @@ class MyCarsPresenter @Inject constructor(val repo: PassNumberRepo,val prefs: Pr
     override fun deleteCar(regNumber: Int) {
         MainActivity.handleLoad.postValue(true)
         repo.deleteCard(regNumber).compose(applySchedulers())
-            .subscribe {  response, error ->
-                MainActivity.handleLoad.value=false
+            .subscribe { response, error ->
+                MainActivity.handleLoad.value = false
                 when (error) {
                     null -> {
                         getMyCars()
                     }
                     else -> {
                         MainActivity.handleError.value = error.toString()
-            //                        view?.showErrorInternet()
+                        //                        view?.showErrorInternet()
                     }
                 }
             }.also(compositeDisposable::add)

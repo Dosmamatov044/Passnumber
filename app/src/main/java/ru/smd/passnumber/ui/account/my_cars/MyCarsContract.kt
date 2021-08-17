@@ -17,9 +17,13 @@ interface MyCarsContract {
 
         fun showCarList(cars: List<PassData>, firstAddedCar: Boolean)
 
+        fun showMoreCars(cars: List<PassData>)
+
         fun showEmptyList()
 
         fun enableEdtRegNum()
+
+        fun setLastPage(lastPage:Int)
     }
 
     interface Presenter{
@@ -33,6 +37,8 @@ interface MyCarsContract {
         fun onClickAdd()
 
         fun getMyCars()
+
+        fun getMoreCars(page:Int)
 
         fun addCar(regNumber:String,labelModel:String,nameDriver:String)
 

@@ -1,20 +1,16 @@
 package ru.smd.passnumber.ui.chek_pass_number
 
-import android.accessibilityservice.AccessibilityService
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.text.InputFilter
 import android.text.InputType
-import android.text.method.DigitsKeyListener
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.ScrollView
-import android.widget.Toast
+import android.view.inputmethod.EditorInfo
+import android.widget.*
+import android.widget.TextView.OnEditorActionListener
 import androidx.core.content.ContextCompat
-import androidx.core.text.isDigitsOnly
-import androidx.core.text.set
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -29,9 +25,7 @@ import ru.smd.passnumber.data.core.Constants
 import ru.smd.passnumber.data.core.hideKeyboard
 import ru.smd.passnumber.data.core.showKeyBoard
 import ru.smd.passnumber.data.entities.PassData
-import ru.smd.passnumber.data.entities.PassesData
 import ru.smd.passnumber.databinding.FragmentCheckPassBinding
-import ru.smd.passnumber.databinding.FragmentRegistrationBinding
 import ru.smd.passnumber.ui.activities.main.MainActivity
 import ru.smd.passnumber.ui.checking_pass.CheckingPassFragment
 import java.util.*
@@ -69,30 +63,46 @@ class CheckPassFragment : Fragment(R.layout.fragment_check_pass) {
             main.hideBottomMenu()
             KeyboardVisibilityEvent.setEventListener(requireActivity(),
                 KeyboardVisibilityEventListener {
-                    if (it){
-                        tvView.visibility=View.VISIBLE
-                       scroll.post(Runnable {
-                          scroll.smoothScrollBy(0,scroll.bottom)
-                       })
-                    }else  tvView.visibility=View.GONE
+                    if (it) {
+                        tvView.visibility = View.VISIBLE
+                        scroll.post(Runnable {
+                            scroll.smoothScrollBy(0, scroll.bottom)
+                        })
+                    } else tvView.visibility = View.GONE
                 })
             showKeyBoard(etStartNumber)
-            btnCheckPassNumber.setOnClickListener {
-                if (isNoEmpty) {
-                    if (etStartNumber.text.matches(Constants.MASK_REG_NUMBER.toRegex())) {
-                        viewModel.composite()
-                        viewModel.checkPassData(etStartNumber.text.toString() + etEndNumber.text.toString())
-                    } else {
-                        Toast.makeText(
-                            requireContext(),
-                            R.string.fail_reg_number,
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
+            etStartNumber.setOnEditorActionListener(object : OnEditorActionListener {
+                override fun onEditorAction(
+                    v: TextView?,
+                    actionId: Int,
+                    event: KeyEvent?
+                ): Boolean {
+                    if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
+                        checkCorrectNumber()
                     }
-                } else Toast.makeText(requireContext(), R.string.enter_number, Toast.LENGTH_SHORT)
-                    .show()
+                    return false
+                }
+
+            })
+            etEndNumber.setOnEditorActionListener(object : OnEditorActionListener {
+                override fun onEditorAction(
+                    v: TextView?,
+                    actionId: Int,
+                    event: KeyEvent?
+                ): Boolean {
+                    if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
+                        checkCorrectNumber()
+                    }
+                    return false
+                }
+
+            })
+            btnCheckPassNumber.setOnClickListener {
+                checkCorrectNumber()
             }
+
+
+
             viewModel.data.observe(this@CheckPassFragment, passData)
             etStartNumber.doOnTextChanged { text, start, before, count ->
                 when (etStartNumber.selectionStart) {
@@ -154,6 +164,22 @@ class CheckPassFragment : Fragment(R.layout.fragment_check_pass) {
 
     }
 
+    fun checkCorrectNumber() {
+        if (isNoEmpty) {
+            if (etStartNumber.text.matches(Constants.MASK_REG_NUMBER.toRegex())) {
+                viewModel.composite()
+                viewModel.checkPassData(etStartNumber.text.toString() + etEndNumber.text.toString())
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    R.string.fail_reg_number,
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+            }
+        } else Toast.makeText(requireContext(), R.string.enter_number, Toast.LENGTH_SHORT)
+            .show()
+    }
 
     override fun onStop() {
         super.onStop()

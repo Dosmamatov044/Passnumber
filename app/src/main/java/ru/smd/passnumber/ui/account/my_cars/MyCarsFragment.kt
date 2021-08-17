@@ -2,6 +2,8 @@ package ru.smd.passnumber.ui.account.my_cars
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.speech.SpeechRecognizer
 import android.text.Html
 import android.view.LayoutInflater
@@ -14,10 +16,13 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.alert_view.view.*
 import kotlinx.android.synthetic.main.bottom_menu.*
 import ru.smd.passnumber.R
+import ru.smd.passnumber.data.core.PaginationRecyclerView
+import ru.smd.passnumber.data.core.PaginationRecyclerView.PaginationRecyclerEvents
 import ru.smd.passnumber.data.core.hideKeyboard
 import ru.smd.passnumber.data.entities.PassData
 import ru.smd.passnumber.data.tools.PreferencesHelper
@@ -48,6 +53,13 @@ class MyCarsFragment : Fragment(), MyCarsContract.View, MyCarsSwipeAdapter.OnCli
     lateinit var binding: FragmentMyCarsBinding
 
     lateinit var adapter: MyCarsSwipeAdapter
+
+    private var page: Int=1
+
+    private var lastPage:Int=1
+    override fun setLastPage(lastPage: Int) {
+        this.lastPage=lastPage
+    }
 
     //setup Listening audio
     lateinit var speechRecognizer: SpeechRecognizer
@@ -98,12 +110,21 @@ class MyCarsFragment : Fragment(), MyCarsContract.View, MyCarsSwipeAdapter.OnCli
 //            glass.setOnClickListener {  }//TODO поиск
 //            microphone.setOnClickListener {  } //TODO микрофон
             recycleMyCars.adapter = adapter
+            recycleMyCars.setListener(object : PaginationRecyclerEvents {
+                override fun loadMore() {
+                    if (lastPage>=page){
+                        page++
+                        presenter.getMoreCars(page)
+                    }
+                }
+            })
             txtMyCarsHavent.text =
                 Html.fromHtml(requireContext().getString(R.string.you_havent_cars))
             btnBackMyCars.setOnClickListener { presenter.onClickBack() }
             btnAddMyCarsPlus.setOnClickListener { presenter.onClickAdd() }
             edtRegNumberMyCars.addTextChangedListener {
-                if (edtRegNumberMyCars.text?.length!!>10) btnAddMyCars.isEnabled=true else btnAddMyCars.isEnabled=false
+                if (edtRegNumberMyCars.text?.length!! > 10) btnAddMyCars.isEnabled =
+                    true else btnAddMyCars.isEnabled = false
             }
             btnAddMyCars.setOnClickListener {
                 if (contAddMyCars.visibility == View.VISIBLE) {
@@ -115,8 +136,8 @@ class MyCarsFragment : Fragment(), MyCarsContract.View, MyCarsSwipeAdapter.OnCli
                     )
                     hideKeyboard()
                 } else
-                    btnAddMyCars.isEnabled=false
-                    presenter.onClickAdd()
+                    btnAddMyCars.isEnabled = false
+                presenter.onClickAdd()
             }
             btnFilter.setOnClickListener {
                 parentFragmentManager.beginTransaction()
@@ -173,6 +194,7 @@ class MyCarsFragment : Fragment(), MyCarsContract.View, MyCarsSwipeAdapter.OnCli
         binding.contListCars.visibility = View.GONE
     }
 
+
     override fun showCarList(cars: List<PassData>, firstAddedCar: Boolean) {
         binding.contImgMyCars.visibility = View.GONE
         binding.btnAddMyCars.visibility = View.GONE
@@ -193,6 +215,10 @@ class MyCarsFragment : Fragment(), MyCarsContract.View, MyCarsSwipeAdapter.OnCli
         } else
             binding.alertUsingSwipe.isGone = true
         binding.btnFilter.text = "Фильтр: все (${adapter.items.size})"
+    }
+
+    override fun showMoreCars(cars: List<PassData>) {
+        adapter.addData(cars)
     }
 
     override fun showEmptyList() {
