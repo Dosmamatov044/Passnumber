@@ -221,6 +221,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#C8C7CC"
+            android:inputType="phone"
             android:hint="+7"
             android:fontFamily="@font/sf_ui_display_light"
             android:maxLength="17"

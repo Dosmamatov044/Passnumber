@@ -1,2 +1,5 @@
+include ':sdk'
+include ':sdk'
+include ':opencv'
 include ':app'
 rootProject.name = "Passnumber"
