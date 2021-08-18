@@ -103,9 +103,9 @@ class MyCarsPresenter @Inject constructor(val repo: PassNumberRepo, val prefs: P
             }.also(compositeDisposable::add)
     }
 
-    override fun deleteCar(regNumber: Int) {
+    override fun deleteCar(id: Int) {
         MainActivity.handleLoad.postValue(true)
-        repo.deleteCard(regNumber).compose(applySchedulers())
+        repo.deleteCard(id).compose(applySchedulers())
             .subscribe { response, error ->
                 MainActivity.handleLoad.value = false
                 when (error) {

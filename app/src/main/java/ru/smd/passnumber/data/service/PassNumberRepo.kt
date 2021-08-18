@@ -45,10 +45,13 @@ interface PassNumberRepo {
     fun getNotifications(): Single<ResponseNotifications>
 
     @GET("vehicle")
-    fun getCarList(@Query("page")page:Int): Single<ResponseVehicle>
+    fun getCarList(@Query("page") page: Int): Single<ResponseVehicle>
 
     @DELETE("vehicle/{vehicle_id}")
     fun deleteCard(@Path("vehicle_id") vehicle_id: Int): Single<Unit>
+
+    @DELETE("document/{document_id}")
+    fun deleteDoc(@Path("document_id") document_id: Int): Single<Unit>
 
     @POST("vehicle")
     fun addCar(@QueryMap params: MutableMap<String, String>): Single<PassData>
@@ -59,11 +62,15 @@ interface PassNumberRepo {
     @GET("vehicle/{vehicle_id}/documents")
     fun getDocs(@Path("vehicle_id") vehicle_id: Int): Single<ResponseData<List<Docs>>>
 
+    @GET("notifications/vehicle/{vehicle_id}")
+    fun getNotificationForCar(@Path("vehicle_id") vehicle_id: Int): Single<ResponseNotifications>
+
     @POST("notifications/{id}/read")
-    fun readNotification(@Path("id") id: String):Single<ResponseData<Any>>
+    fun readNotification(@Path("id") id: String): Single<ResponseData<Any>>
 
     @GET("notifications/unread")
-fun getUnreadNotifications():Single<ResponseNotifications>
+    fun getUnreadNotifications(): Single<ResponseNotifications>
+
     @Multipart
     @POST("vehicle/{vehicle_id}/documents")
     fun storeDocs(

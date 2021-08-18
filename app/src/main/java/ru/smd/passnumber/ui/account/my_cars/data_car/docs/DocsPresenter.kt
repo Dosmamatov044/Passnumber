@@ -89,6 +89,7 @@ class DocsPresenter @Inject constructor(
     }
 
     override fun getDocs(idVehicle: Int) {
+        MainActivity.handleLoad.postValue(true)
         repo.getDocs(idVehicle).compose(applySchedulers()).subscribe { response, error ->
             MainActivity.handleLoad.value = false
             when {
@@ -108,20 +109,20 @@ class DocsPresenter @Inject constructor(
     }
 
 
-
     override fun addPhoto(file: File, context: Context) {
-        val reqFile:RequestBody
+        val reqFile: RequestBody
         val part: MultipartBody.Part
-        if (file.toURI().toString().contains(".jpg")||file.toURI().toString().contains(".png")){
+        if (file.toURI().toString().contains(".jpg") || file.toURI().toString().contains(".png")) {
             compressedFile = Compressor(context).compressToFile(file)
             reqFile = compressedFile.asRequestBody("image/*".toMediaTypeOrNull())
             part = MultipartBody.Part.createFormData("file", "file.png", reqFile)
-        }else{
+        } else {
             reqFile = file.asRequestBody("application/json".toMediaTypeOrNull())
             part = MultipartBody.Part.createFormData("file", "file", reqFile)
         }
         val map = mutableMapOf<String, RequestBody>()
         map.put("type_id", toRequestBody(type.toString()))
+        MainActivity.handleLoad.postValue(true)
         repo.storeDocs(idVehicle, part, map).compose(applySchedulers())
             .subscribe { response, error ->
                 MainActivity.handleLoad.value = false
@@ -143,7 +144,23 @@ class DocsPresenter @Inject constructor(
     }
 
     override fun storeId(idVehicle: Int) {
-         this.idVehicle = idVehicle
+        this.idVehicle = idVehicle
+    }
+
+    override fun deleteDoc(id: Int) {
+        MainActivity.handleLoad.postValue(true)
+        repo.deleteDoc(id).compose(applySchedulers())
+            .subscribe { response, error ->
+                MainActivity.handleLoad.value = false
+                when {
+                    error == null -> {
+                        getDocs(idVehicle)
+                    }
+                    else -> {
+                        MainActivity.handleError.value = error.toString()
+                    }
+                }
+            }.also(compositeDisposable::add)
     }
 
     fun <T> applySchedulers(): SingleTransformer<T, T> {

@@ -26,5 +26,7 @@ interface NotificationContract {
         fun getUnreadNotifications()
 
         fun getNotifications()
+
+        fun getNotificationsForCar(id:Int)
     }
 }

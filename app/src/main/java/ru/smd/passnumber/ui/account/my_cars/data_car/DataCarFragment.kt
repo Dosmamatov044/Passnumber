@@ -67,10 +67,18 @@ class DataCarFragment : Fragment(), DataCarContract.View {
             passesCar.setOnClickListener { regNumber?.let { it1 -> presenter.getPasses(it1) } }
             recommendation.text= Html.fromHtml(requireContext().getString(R.string.add_docs_car))
             btnBackMyDataCar.setOnClickListener { presenter.onClickBack() }
-            dataCar.setOnClickListener { presenter.onClickDataCar() }
-            docsCar.setOnClickListener { presenter.onClickDocs() }
-            btnNotifications.setOnClickListener {  showNotifications()}
-            btnDataCarRecommendation.setOnClickListener { presenter.onClickDocs() }
+            dataCar.setOnClickListener {
+                presenter.onClickDataCar()
+            }
+            docsCar.setOnClickListener {
+                presenter.onClickDocs()
+            }
+            notificationsCar.setOnClickListener {
+                presenter.onClickNotifications()
+            }
+            btnDataCarRecommendation.setOnClickListener {
+                presenter.onClickDocs()
+            }
         }
     }
 
@@ -131,10 +139,7 @@ class DataCarFragment : Fragment(), DataCarContract.View {
             txtDataCarMark.setText(mark)
         }
     }
-    fun showNotifications(){
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.mainContainer, NotificationFragment()).addToBackStack(null).commit()
-    }
+
 
     override fun showDocs(idVehicle: Int) {
         parentFragmentManager.beginTransaction()
@@ -148,6 +153,11 @@ class DataCarFragment : Fragment(), DataCarContract.View {
             } else contRecommendations.visibility=View.GONE
 
         }
+    }
+
+    override fun showNotificationsForCar(id: Int) {
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.mainContainer, NotificationFragment.create(id)).addToBackStack(null).commit()
     }
 
     companion object {

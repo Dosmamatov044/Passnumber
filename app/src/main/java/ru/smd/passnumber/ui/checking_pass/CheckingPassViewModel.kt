@@ -23,7 +23,7 @@ class CheckingPassViewModel @ViewModelInject constructor(private val repo: PassN
 
     val check = MutableLiveData<Boolean>()
 
-    val addCar = MutableLiveData<Boolean>()
+    val addCarData = MutableLiveData<Boolean>()
 
     var correct: Boolean = false
 
@@ -40,10 +40,10 @@ class CheckingPassViewModel @ViewModelInject constructor(private val repo: PassN
                 MainActivity.handleLoad.value = false
                 when {
                     error == null -> {
-                        addCar.value = true
+                        addCarData.value = true
                     }
                     else -> {
-                        addCar.value = false
+                        addCarData.value = false
                         MainActivity.handleError.value = error.toString()
                     }
                 }

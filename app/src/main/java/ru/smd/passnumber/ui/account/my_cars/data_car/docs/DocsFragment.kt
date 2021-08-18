@@ -1,6 +1,7 @@
 package ru.smd.passnumber.ui.account.my_cars.data_car.docs
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -16,10 +17,12 @@ import android.view.ViewGroup
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
+import ru.smd.passnumber.R
 import ru.smd.passnumber.data.core.Constants
 import ru.smd.passnumber.data.entities.Docs
 import ru.smd.passnumber.databinding.FragmentDocsBinding
 import ru.smd.passnumber.ui.account.my_cars.data_car.docs.adapters.DocsAdapter
+import ru.smd.passnumber.ui.account.registration.RegistrationFragment
 import java.io.File
 import java.io.FileOutputStream
 import java.util.*
@@ -325,8 +328,15 @@ class DocsFragment : Fragment(), DocsContract.View, DocsAdapter.OnClickListner {
         return list
     }
 
-    override fun onClickDelete() {
-        TODO("Not yet implemented")
+    override fun onClickDelete(idDoc: Int) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Вы уверены, что хотите удалить документ?")
+        builder.setPositiveButton("Да") { dialog, id ->
+            presenter.deleteDoc(idDoc)
+        }
+        builder.setNegativeButton("Нет"){dialog,id->
+        }
+        builder.show()
     }
     object DocumentUtils {
         fun getFile(mContext: Context, documentUri: Uri): File {

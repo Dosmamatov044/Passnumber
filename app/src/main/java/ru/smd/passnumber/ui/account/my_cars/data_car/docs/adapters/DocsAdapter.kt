@@ -20,15 +20,16 @@ class DocsAdapter(val onClick: OnClickListner) : RecyclerView.Adapter<DocsAdapte
     enum class TypeOpen(val type: Int) {
         Photo(0), PDF(1), DOC(2),
     }
+
     var items = mutableListOf<DocsWrapper>()
 
-    var type=0
+    var type = 0
 
     interface OnClickListner {
 
-        fun onClickAdd(type:Int)
-        fun onClickDelete()
-        fun onClickOpen(url:String?, type: TypeOpen)
+        fun onClickAdd(type: Int)
+        fun onClickDelete(id:Int)
+        fun onClickOpen(url: String?, type: TypeOpen)
 
 
     }
@@ -70,7 +71,7 @@ class DocsAdapter(val onClick: OnClickListner) : RecyclerView.Adapter<DocsAdapte
         items.clear()
         var docsWrapper: DocsWrapper
         data.forEach {
-            docsWrapper= DocsWrapper(TypeItem.Loaded, it)
+            docsWrapper = DocsWrapper(TypeItem.Loaded, it)
             items.add(docsWrapper)
         }
         items.add(DocsWrapper(TypeItem.Add, null))
@@ -85,14 +86,16 @@ class DocsAdapter(val onClick: OnClickListner) : RecyclerView.Adapter<DocsAdapte
             TypeItem.Add.type -> {
                 (holder as ViewHolder.AddViewHolder).run {
                     binding.run {
-                    txtDocs.setOnClickListener { onClick.onClickAdd(type) }
+                        txtDocs.setOnClickListener { onClick.onClickAdd(type) }
                     }
                 }
             }
             else -> {
                 (holder as ViewHolder.LoadedViewHolder).run {
                     binding.run {
-
+                        imgDelete.setOnClickListener {
+                            data.docs?.id?.let { it1 -> onClick.onClickDelete(it1) }
+                        }
                         when (data.docs?.status?.toInt()) {
                             1 -> imgAccepted.visibility = View.GONE
                             2 -> {
@@ -114,24 +117,36 @@ class DocsAdapter(val onClick: OnClickListner) : RecyclerView.Adapter<DocsAdapte
                                 )
                             }
                         }
-                        var typeOpen:TypeOpen
-                        if (data.docs?.thumb?.contains(".jpg", ignoreCase = true)==true
-                            ||data.docs?.thumb?.contains(".png",ignoreCase = true)==true
-                            ||data.docs?.thumb?.contains(".jpeg",ignoreCase = true)==true) {
+                        var typeOpen: TypeOpen
+                        if (data.docs?.thumb?.contains(".jpg", ignoreCase = true) == true
+                            || data.docs?.thumb?.contains(".png", ignoreCase = true) == true
+                            || data.docs?.thumb?.contains(".jpeg", ignoreCase = true) == true
+                        ) {
                             txtDocs.visibility = View.GONE
-                            mainImg.visibility=View.VISIBLE
+                            mainImg.visibility = View.VISIBLE
                             Picasso.get().load(data.docs.thumb).into(mainImg)
                             typeOpen = TypeOpen.Photo
                         } else {
                             txtDocs.visibility = View.VISIBLE
-                            mainImg.visibility=View.GONE
+                            mainImg.visibility = View.GONE
                             txtDocs.setText(itemView.context.getString(R.string.open))
                             typeOpen = TypeOpen.DOC
                             if (data.docs?.file?.contains(".PDF", ignoreCase = true) == true)
                                 typeOpen = TypeOpen.PDF
                         }
                         //логика открытия файла через интент
-                        mainContDocs.setOnClickListener { onClick.onClickOpen(data.docs?.file, typeOpen) }
+                       mainImg.setOnClickListener {
+                            onClick.onClickOpen(
+                                data.docs?.file,
+                                typeOpen
+                            )
+                        }
+                        txtDocs.setOnClickListener {
+                            onClick.onClickOpen(
+                                data.docs?.file,
+                                typeOpen
+                            )
+                        }
 
                     }
                 }

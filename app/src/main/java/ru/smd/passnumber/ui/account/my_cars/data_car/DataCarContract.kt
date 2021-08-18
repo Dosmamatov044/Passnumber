@@ -18,6 +18,8 @@ interface DataCarContract {
         fun showDocs(idVehicle:Int)
 
         fun showRecommendation(show:Boolean)
+
+        fun showNotificationsForCar(id:Int)
     }
 
     interface Presenter{
@@ -39,5 +41,7 @@ interface DataCarContract {
         fun onClickSaveData(mark:String,driverName:String,regNumber:String)
 
         fun onClickDocs()
+
+        fun onClickNotifications()
     }
 }

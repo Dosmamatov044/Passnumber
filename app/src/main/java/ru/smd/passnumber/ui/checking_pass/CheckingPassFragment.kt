@@ -14,7 +14,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.bottom_menu.*
 import kotlinx.android.synthetic.main.fragment_checking_pass.*
 import kotlinx.android.synthetic.main.fragment_checking_pass.ivTopTruck
-import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import ru.smd.passnumber.R
 import ru.smd.passnumber.data.core.Constants
 import ru.smd.passnumber.data.core.hideKeyboard
@@ -85,7 +84,7 @@ class CheckingPassFragment : Fragment(R.layout.fragment_checking_pass) {
         ivTopTruck.setOnClickListener {
             ivTopTruck()
         }
-        viewModel.addCar.observe(this, addCar)
+        viewModel.addCarData.observe(this, addCar)
         viewModel.check.observe(this, check)
         data.observe(this, passData)
         adapter.btnHelpClicked.observe(this, btnHelpClicked)
@@ -138,8 +137,8 @@ class CheckingPassFragment : Fragment(R.layout.fragment_checking_pass) {
         if (!it) {
             cont_pass.visibility = View.GONE
             contAdd.visibility = View.VISIBLE
-            btnAdd.setOnClickListener {
-
+            btnAddChekingPass.setOnClickListener {
+                viewModel.addCar(data.value?.regNumber?:"",data.value?.mark?:"",data.value?.driverName?:"")
             }
         } else contAdd.isGone
     }

@@ -37,8 +37,11 @@ interface DocsContract {
         fun getDocs(idVehicle:Int)
 
         fun addPhoto(file:File,context: Context)
+
         fun storeType(type:Int)
 
         fun storeId(idVehicle:Int)
+
+        fun deleteDoc(id:Int)
     }
 }

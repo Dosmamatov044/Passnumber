@@ -77,7 +77,7 @@
             app:layout_constraintTop_toTopOf="parent"
             />
         <TextView
-            android:id="@+id/btnAdd"
+            android:id="@+id/btnAddChekingPass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -107,7 +107,7 @@
             android:text="Добавить этот авто в мои автомобили?"
             android:textColor="#fff"
             android:textSize="17sp"
-            app:layout_constraintStart_toEndOf="@+id/btnAdd"
+            app:layout_constraintStart_toEndOf="@+id/btnAddChekingPass"
             app:layout_constraintTop_toTopOf="@id/ivAddCard"
             app:layout_constraintBottom_toBottomOf="@id/ivAddCard"
             app:layout_constraintEnd_toEndOf="@id/ivAddCard"

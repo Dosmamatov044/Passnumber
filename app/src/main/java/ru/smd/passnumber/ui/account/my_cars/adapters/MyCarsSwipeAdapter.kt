@@ -28,7 +28,7 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
 
     interface OnClickListner {
         fun onClickEdit(regNumber: String, driverName: String, mark: String)
-        fun onClickDelete(regNumber: Int)
+        fun onClickDelete(id: Int)
         fun onClickCard(regNumber: String)
         fun onClickHelp()
     }
@@ -339,6 +339,9 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                     mainContCardCar.setOnClickListener {
                         data.passData.regNumber?.let { it1 -> onClick.onClickCard(it1) }
                     }
+                    contDelete.setOnClickListener {
+                        data.passData.id?.let { it1 -> onClick.onClickDelete(it1) }
+                    }
                     btnCardCarHelp.setOnClickListener {
                         onClick.onClickHelp()
                     }
@@ -438,6 +441,9 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                     }
                     mainContCardCar.setOnClickListener {
                         data.passData.regNumber?.let { it1 -> onClick.onClickCard(it1) }
+                    }
+                    contDelete.setOnClickListener {
+                        data.passData.id?.let { it1 -> onClick.onClickDelete(it1) }
                     }
                     btnCardCarHelp.setOnClickListener {
                         onClick.onClickHelp()
@@ -539,6 +545,9 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                     mainContCardCar.setOnClickListener {
                         data.passData.regNumber?.let { it1 -> onClick.onClickCard(it1) }
                     }
+                    contDelete.setOnClickListener {
+                        data.passData.id?.let { it1 -> onClick.onClickDelete(it1) }
+                    }
                     val number = data.passData.regNumber?.subSequence(0, 6)
                     val editNumber = (number?.get(0)
                         ?.plus(" ")) + (number?.get(1)) + (number?.get(2)) + (number?.get(3)
@@ -635,6 +644,9 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                     }
                     mainContCardCar.setOnClickListener {
                         data.passData.regNumber?.let { it1 -> onClick.onClickCard(it1) }
+                    }
+                    contDelete.setOnClickListener {
+                        data.passData.id?.let { it1 -> onClick.onClickDelete(it1) }
                     }
                     btnCardCarHelp.setOnClickListener {
                         onClick.onClickHelp()

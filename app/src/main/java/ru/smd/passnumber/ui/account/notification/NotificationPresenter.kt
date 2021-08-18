@@ -22,7 +22,6 @@ class NotificationPresenter @Inject constructor(val repo: PassNumberRepo) :
     override fun onStart(view: NotificationContract.View) {
         this.view = view
         compositeDisposable = CompositeDisposable()
-        getNotifications()
     }
 
     override fun onStop() {
@@ -39,7 +38,7 @@ class NotificationPresenter @Inject constructor(val repo: PassNumberRepo) :
             .subscribe { response, error ->
                 when {
                     error == null -> {
-                        toString()
+
                     }
                     else -> {
                         MainActivity.handleError.value = error.toString()
@@ -66,6 +65,8 @@ class NotificationPresenter @Inject constructor(val repo: PassNumberRepo) :
 
     }
 
+
+
     override fun getNotifications() {
         repo.getNotifications().compose(applySchedulers()).subscribe { response, error ->
             when {
@@ -81,6 +82,24 @@ class NotificationPresenter @Inject constructor(val repo: PassNumberRepo) :
                 }
             }
         }.also(compositeDisposable::add)
+    }
+
+    override fun getNotificationsForCar(id: Int) {
+        repo.getNotificationForCar(id).compose(applySchedulers())
+            .subscribe { response, error ->
+                when {
+                    error == null -> {
+                        view?.showNotifications(response.data)
+                    }
+                    error is HttpException -> {
+                        handleResponseError(error) {
+                        }
+                    }
+                    else -> {
+                        view?.showErrorInternet()
+                    }
+                }
+            }.also(compositeDisposable::add)
     }
 
     fun <T> applySchedulers(): SingleTransformer<T, T> {

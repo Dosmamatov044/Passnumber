@@ -15,6 +15,7 @@ class DataCarPresenter @Inject constructor(val repo: PassNumberRepo) : DataCarCo
     lateinit var compositeDisposable: CompositeDisposable
 
     var idVehicle:Int = 0
+
     override fun getPasses(regNumber: String) {
         repo.checkPassNumber(regNumber).compose(ru.smd.passnumber.data.service.applySchedulers()).subscribe { response, error ->
             when {
@@ -102,6 +103,10 @@ class DataCarPresenter @Inject constructor(val repo: PassNumberRepo) : DataCarCo
 
     override fun onClickDocs() {
         view?.showDocs(idVehicle)
+    }
+
+    override fun onClickNotifications() {
+        if (idVehicle!=0)view?.showNotificationsForCar(idVehicle)
     }
 
     fun <T> applySchedulers(): SingleTransformer<T, T> {

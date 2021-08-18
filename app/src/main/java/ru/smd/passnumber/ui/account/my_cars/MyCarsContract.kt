@@ -42,6 +42,6 @@ interface MyCarsContract {
 
         fun addCar(regNumber:String,labelModel:String,nameDriver:String)
 
-        fun deleteCar(regNumber: Int)
+        fun deleteCar(id: Int)
     }
 }

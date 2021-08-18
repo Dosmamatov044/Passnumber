@@ -275,6 +275,7 @@
                             android:id="@+id/flag"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
                             android:drawableEnd="@drawable/ic_flag_ru"
                             android:drawablePadding="3dp"
                             android:fontFamily="@font/sf_ui_display_light"
