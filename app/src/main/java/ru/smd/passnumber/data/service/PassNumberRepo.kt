@@ -62,6 +62,9 @@ interface PassNumberRepo {
     @GET("vehicle/{vehicle_id}/documents")
     fun getDocs(@Path("vehicle_id") vehicle_id: Int): Single<ResponseData<List<Docs>>>
 
+    @GET("user/counters")
+    fun getCounters():Single<Counters>
+
     @GET("notifications/vehicle/{vehicle_id}")
     fun getNotificationForCar(@Path("vehicle_id") vehicle_id: Int): Single<ResponseNotifications>
 

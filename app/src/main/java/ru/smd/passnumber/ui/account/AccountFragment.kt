@@ -142,8 +142,7 @@ btnExit.setOnClickListener {
     override fun onStart() {
         super.onStart()
         compositeDisposable = CompositeDisposable()
-        getMyCars()
-        getUnreadNotification()
+        getCounters()
         if (!preferencesHelper.restoreCarRegistrationRegNumber().isNullOrEmpty()){
             addCar(preferencesHelper.restoreCarRegistrationRegNumber()?:"",preferencesHelper.restoreCarRegistrationMark()?:"",
                 preferencesHelper.restoreCarRegistrationDriverName()?:""
@@ -154,23 +153,6 @@ btnExit.setOnClickListener {
     override fun onStop() {
         super.onStop()
         compositeDisposable.dispose()
-    }
-
-    fun getUnreadNotification() {
-        MainActivity.handleLoad.postValue(true)
-        repo.getUnreadNotifications().compose(applySchedulers()).subscribe { response, error ->
-            MainActivity.handleLoad.value = false
-            when {
-                error == null -> {
-                    if (!response.data.isEmpty()) {
-                        alertNotifications.visibility = View.VISIBLE
-                    } else alertNotifications.visibility = View.GONE
-                }
-                else -> {
-
-                }
-            }
-        }.also(compositeDisposable::add)
     }
 
     fun addCar(regNumber: String, labelModel: String, nameDriver: String) {
@@ -195,17 +177,20 @@ btnExit.setOnClickListener {
             }.also(compositeDisposable::add)
     }
 
-    fun getMyCars() {
+    fun getCounters() {
         MainActivity.handleLoad.postValue(true)
-        repo.getCarList(1).compose(applySchedulers())
+        repo.getCounters().compose(applySchedulers())
             .subscribe { response, error ->
                 MainActivity.handleLoad.value = false
                 when {
                     error == null -> {
-                        if (response.data.size > 0) {
+                        if (response.vehicles > 0) {
                             countCar.visibility = View.VISIBLE
-                            countCar.setText(response.meta.total)
+                            countCar.setText(response.vehicles.toString())
                         } else countCar.visibility = View.INVISIBLE
+                        if (response.unreadNotifications!=0) {
+                            alertNotifications.visibility = View.VISIBLE
+                        } else alertNotifications.visibility = View.GONE
                     }
                     else -> {
 

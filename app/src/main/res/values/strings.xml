@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Passnumber</string>
-    <string name="text_help_registration">Помощь в оформление</string>
+    <string name="text_help_registration">Помощь в оформлении</string>
     <string name="notifications">Уведомления</string>
     <string name="registration">Регистрация</string>
     <string name="to_enter_number_tel"> Введите номер мобильного телефона</string>
