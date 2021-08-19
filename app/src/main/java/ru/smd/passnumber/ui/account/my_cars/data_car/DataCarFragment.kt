@@ -64,7 +64,7 @@ class DataCarFragment : Fragment(), DataCarContract.View {
             notificationsCar.isEnabled=false
             docsCar.isEnabled=false
             tvTitle.setText(regNumber)
-            passesCar.setOnClickListener { regNumber?.let { it1 -> presenter.getPasses(it1) } }
+            passesCar.setOnClickListener { regNumber?.let { showPasses(regNumber!!)} }
             recommendation.text= Html.fromHtml(requireContext().getString(R.string.add_docs_car))
             btnBackMyDataCar.setOnClickListener { presenter.onClickBack() }
             dataCar.setOnClickListener {
@@ -97,10 +97,10 @@ class DataCarFragment : Fragment(), DataCarContract.View {
         activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
     }
 
-    override fun showPasses(passData: PassData) {
+    override fun showPasses(regNumber: String) {
         parentFragmentManager.beginTransaction()
             .replace(R.id.mainContainer, CheckingPassFragment().apply {
-                data.value = passData
+                regNumberData=regNumber
                 fromFragment="from_data_car"
             }).addToBackStack(null).commit()
     }

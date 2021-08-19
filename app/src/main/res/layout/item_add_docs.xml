@@ -10,8 +10,8 @@
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="169dp"
-            android:layout_height="162dp"
+            android:layout_width="152dp"
+            android:layout_height="145dp"
             android:background="@drawable/bg_docs"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_docs_type">
@@ -28,7 +28,7 @@
                 android:fontFamily="@font/sf_ui_display_regular"
                 android:textColor="#1FA6F1"
                 android:paddingVertical="12dp"
-                android:paddingHorizontal="30dp"
+                android:paddingHorizontal="20dp"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

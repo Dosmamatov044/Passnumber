@@ -9,7 +9,7 @@ interface DataCarContract {
 
         fun exit()
 
-        fun showPasses(passData: PassData)
+        fun showPasses(regNumber: String)
 
         fun showDataCar()
 
@@ -24,7 +24,7 @@ interface DataCarContract {
 
     interface Presenter{
 
-        fun getPasses(regNumber: String)
+
 
         fun onStart(view:View)
 

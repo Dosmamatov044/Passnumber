@@ -39,8 +39,8 @@ class CheckingPassFragment : Fragment(R.layout.fragment_checking_pass) {
 
     private val viewModel: CheckingPassViewModel by viewModels()
     private val adapter = PassNumbersAdapter()
-    val data = MutableLiveData<PassData>()
     var fromFragment: String? = null
+    var regNumberData: String?=null
 
     @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,7 +49,6 @@ class CheckingPassFragment : Fragment(R.layout.fragment_checking_pass) {
         val watcher: FormatWatcher = MaskFormatWatcher(mask)
         watcher.installOn(phone_input)
         rvPassNumbers.adapter = adapter
-
         if (fromFragment != null) {
             cont_pass.visibility = View.GONE
             llSubscribe.visibility = View.GONE
@@ -67,17 +66,7 @@ class CheckingPassFragment : Fragment(R.layout.fragment_checking_pass) {
             hideKeyboard()
             requireActivity().onBackPressed()
         }
-        btnRegister.setOnClickListener {
-            (requireActivity() as MainActivity).openRegistrationFragment(
-                phone_input.text.toString(),
-                etNameUser.text.toString(),
-                )
-            prefs.storeCarRegistration(
-                data.value?.regNumber ?: "",
-                data.value?.mark ?: "",
-                data.value?.driverName ?: ""
-            )
-        }
+
         ivTopTruck1.setOnClickListener {
             ivTopTruck1()
         }
@@ -86,7 +75,7 @@ class CheckingPassFragment : Fragment(R.layout.fragment_checking_pass) {
         }
         viewModel.addCarData.observe(this, addCar)
         viewModel.check.observe(this, check)
-        data.observe(this, passData)
+        viewModel.data.observe(this, passData)
         adapter.btnHelpClicked.observe(this, btnHelpClicked)
     }
 
@@ -121,10 +110,10 @@ class CheckingPassFragment : Fragment(R.layout.fragment_checking_pass) {
 
     override fun onStart() {
         super.onStart()
-        if (!prefs.restoreToken().isNullOrEmpty()) {
-            viewModel.checkCar(data.value?.regNumber.toString())
-        }
+        regNumberData?.let { viewModel.checkPassData(it) }
+
     }
+
 
     private val addCar = Observer<Boolean> {
         if (it) {
@@ -138,12 +127,30 @@ class CheckingPassFragment : Fragment(R.layout.fragment_checking_pass) {
             cont_pass.visibility = View.GONE
             contAdd.visibility = View.VISIBLE
             btnAddChekingPass.setOnClickListener {
-                viewModel.addCar(data.value?.regNumber?:"",data.value?.mark?:"",data.value?.driverName?:"")
+                viewModel.addCar(
+                    viewModel.data.value?.regNumber ?: "",
+                    viewModel.data.value?.mark ?: "",
+                    viewModel.data.value?.driverName ?: ""
+                )
             }
         } else contAdd.isGone
     }
 
     private val passData = Observer<PassData> {
+        btnRegister.setOnClickListener {
+            (requireActivity() as MainActivity).openRegistrationFragment(
+                phone_input.text.toString(),
+                etNameUser.text.toString(),
+            )
+            prefs.storeCarRegistration(
+                viewModel.data.value?.regNumber ?: "",
+                viewModel.data.value?.mark ?: "",
+                viewModel.data.value?.driverName ?: ""
+            )
+        }
+        if (!prefs.restoreToken().isNullOrEmpty()) {
+            regNumberData?.let { viewModel.checkCar(it) }
+        }
         adapter.regNumber = it.regNumber ?: ""
         if (it.passes.isNullOrEmpty())
             adapter.submitList(

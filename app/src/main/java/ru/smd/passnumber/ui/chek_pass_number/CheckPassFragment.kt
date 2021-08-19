@@ -37,7 +37,6 @@ import java.util.*
 @AndroidEntryPoint
 class CheckPassFragment : Fragment(R.layout.fragment_check_pass) {
 
-    private val viewModel: CheckPassViewModel by viewModels()
 
     lateinit var binding: FragmentCheckPassBinding
 
@@ -102,8 +101,6 @@ class CheckPassFragment : Fragment(R.layout.fragment_check_pass) {
             }
 
 
-
-            viewModel.data.observe(this@CheckPassFragment, passData)
             etStartNumber.doOnTextChanged { text, start, before, count ->
                 when (etStartNumber.selectionStart) {
                     0 -> {
@@ -166,9 +163,15 @@ class CheckPassFragment : Fragment(R.layout.fragment_check_pass) {
 
     fun checkCorrectNumber() {
         if (isNoEmpty) {
-            if (etStartNumber.text.matches(Constants.MASK_REG_NUMBER.toRegex())) {
-                viewModel.composite()
-                viewModel.checkPassData(etStartNumber.text.toString() + etEndNumber.text.toString())
+            if (etStartNumber.text.matches(Constants.MASK_REG_NUMBER.toRegex())&&etEndNumber.text.length>=2) {
+                val regNumber=etStartNumber.text.toString()+etEndNumber.text.toString()
+                hideKeyboard()
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.checkPassContainer, CheckingPassFragment().apply {
+                        regNumberData=regNumber
+                    }).addToBackStack(null).commit()
+                etStartNumber.text.clear()
+                etEndNumber.text.clear()
             } else {
                 Toast.makeText(
                     requireContext(),
@@ -181,25 +184,7 @@ class CheckPassFragment : Fragment(R.layout.fragment_check_pass) {
             .show()
     }
 
-    override fun onStop() {
-        super.onStop()
-        viewModel.composite()
-        viewModel.dispose()
 
-    }
-
-    private val passData = Observer<PassData> {
-        etStartNumber.text.clear()
-        etEndNumber.text.clear()
-        if (!viewModel.data.value?.regNumber.isNullOrEmpty()) {
-            hideKeyboard()
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.checkPassContainer, CheckingPassFragment().apply {
-                    data.value = it
-                }).addToBackStack(null).commit()
-        }
-
-    }
 
 }
 

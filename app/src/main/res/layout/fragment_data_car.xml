@@ -170,9 +170,11 @@
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/data_car"
+                            android:paddingTop="21dp"
+                            android:paddingBottom="25dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="40dp">
+                            android:layout_marginTop="30dp">
 
                             <ImageView
                                 android:id="@+id/img_data_car"
@@ -223,12 +225,12 @@
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:layout_marginHorizontal="24dp"
-                            android:layout_marginTop="21dp"
-                            android:layout_marginBottom="25dp"
                             android:background="#38383A" />
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/passes_car"
+                            android:paddingTop="21dp"
+                            android:paddingBottom="25dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
@@ -281,13 +283,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:layout_marginHorizontal="24dp"
-                            android:layout_marginTop="21dp"
-                            android:layout_marginBottom="25dp"
                             android:background="#38383A" />
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/notifications_car"
                             android:layout_width="match_parent"
+                            android:paddingTop="21dp"
+                            android:paddingBottom="25dp"
                             android:layout_height="wrap_content">
 
                             <ImageView
@@ -340,12 +342,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:layout_marginHorizontal="24dp"
-                            android:layout_marginTop="21dp"
-                            android:layout_marginBottom="25dp"
+
                             android:background="#38383A" />
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/docs_car"
+                            android:paddingTop="21dp"
+                            android:paddingBottom="25dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
@@ -398,8 +401,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:layout_marginHorizontal="24dp"
-                            android:layout_marginTop="21dp"
-                            android:layout_marginBottom="25dp"
+                            android:layout_marginBottom="15dp"
                             android:background="#38383A" />
                     </LinearLayout>
                 </LinearLayout>

@@ -29,8 +29,11 @@ class DocsPresenter @Inject constructor(
 
     override var file: File? = null
     override lateinit var context: Context
+
     var type = 0
+
     var idVehicle = 0
+
     lateinit var compositeDisposable: CompositeDisposable
     lateinit var compressedFile: File
     val docsSts = mutableListOf<Docs>()
@@ -129,7 +132,6 @@ class DocsPresenter @Inject constructor(
                 when {
                     error == null -> {
                         getDocs(idVehicle)
-                        toString()
                     }
                     else -> {
                         MainActivity.handleError.value = error.toString()

@@ -30,7 +30,7 @@
     <string name="driver">Водитель: </string>
     <string name="data_car">Данные автомобиля</string>
     <string name="fail_code">Не верный код из СМС</string>
-    <string name="fail_reg_number">Введите корректный гос номер</string>
+    <string name="fail_reg_number">Введите корректный госномер</string>
     <string name="passes">Пропуска</string>
     <string name="docs">Документы</string>
     <string name="to_date">%s %s</string>

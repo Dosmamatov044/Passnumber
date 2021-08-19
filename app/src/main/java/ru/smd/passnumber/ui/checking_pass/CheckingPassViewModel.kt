@@ -6,6 +6,7 @@ import io.reactivex.SingleTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import ru.smd.passnumber.data.entities.PassData
+import ru.smd.passnumber.data.entities.PassesData
 import ru.smd.passnumber.data.service.PassNumberRepo
 import ru.smd.passnumber.ui.activities.main.MainActivity
 import ru.smd.passnumber.ui.activities.main.MainActivity.Companion.mainCompositeDisposable
@@ -69,6 +70,21 @@ class CheckingPassViewModel @ViewModelInject constructor(private val repo: PassN
                     }
                 }
             }.also(mainCompositeDisposable::add)
+    }
+
+    fun checkPassData(number: String) {
+        MainActivity.handleLoad.postValue(true)
+        repo.checkPassNumber(number).compose(ru.smd.passnumber.data.service.applySchedulers()).subscribe { response, error ->
+            MainActivity.handleLoad.value = false
+            when {
+                error == null -> {
+                    data.value = response.data
+                }
+                else -> {
+                    MainActivity.handleError.value = error.toString()
+                }
+            }
+        }.also(mainCompositeDisposable::add)
     }
 
     fun <T> applySchedulers(): SingleTransformer<T, T> {
