@@ -34,8 +34,10 @@ class NotificationPresenter @Inject constructor(val repo: PassNumberRepo) :
     }
 
     override fun sendReadNotifications(notifications: Notification) {
+        MainActivity.handleLoad.postValue(true)
         repo.readNotification(notifications.id).compose(applySchedulers())
             .subscribe { response, error ->
+                MainActivity.handleLoad.value=false
                 when {
                     error == null -> {
 
@@ -48,7 +50,9 @@ class NotificationPresenter @Inject constructor(val repo: PassNumberRepo) :
     }
 
     override fun getUnreadNotifications() {
+        MainActivity.handleLoad.postValue(true)
        repo.getUnreadNotifications().compose(applySchedulers()).subscribe {  response, error ->
+           MainActivity.handleLoad.value=false
            when {
                error == null -> {
                    view?.showNotifications(response.data)
@@ -68,7 +72,9 @@ class NotificationPresenter @Inject constructor(val repo: PassNumberRepo) :
 
 
     override fun getNotifications() {
+        MainActivity.handleLoad.postValue(true)
         repo.getNotifications().compose(applySchedulers()).subscribe { response, error ->
+            MainActivity.handleLoad.value=false
             when {
                 error == null -> {
                     view?.showNotifications(response.data)
@@ -85,8 +91,10 @@ class NotificationPresenter @Inject constructor(val repo: PassNumberRepo) :
     }
 
     override fun getNotificationsForCar(id: Int) {
+        MainActivity.handleLoad.postValue(true)
         repo.getNotificationForCar(id).compose(applySchedulers())
             .subscribe { response, error ->
+                MainActivity.handleLoad.value=false
                 when {
                     error == null -> {
                         view?.showNotifications(response.data)

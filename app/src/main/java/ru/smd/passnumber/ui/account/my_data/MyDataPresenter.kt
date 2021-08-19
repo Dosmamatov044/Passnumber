@@ -39,8 +39,10 @@ class MyDataPresenter @Inject constructor(
     }
 
     fun restoreData(){
+        MainActivity.handleLoad.postValue(true)
         repo.getUser().compose(applySchedulers())
             .subscribe { response, error ->
+                MainActivity.handleLoad.value = false
                 when {
                     error == null -> {
                         preferencesHelper.storePhone(response.data.phone)
@@ -54,6 +56,7 @@ class MyDataPresenter @Inject constructor(
                         }
                     }
                     else -> {
+
                         view?.showErrorInternet()
                     }
                 }

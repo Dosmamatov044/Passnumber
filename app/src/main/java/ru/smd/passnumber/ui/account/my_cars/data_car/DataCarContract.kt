@@ -1,7 +1,5 @@
 package ru.smd.passnumber.ui.account.my_cars.data_car
 
-import ru.smd.passnumber.data.entities.PassData
-
 interface DataCarContract {
     interface View{
 
@@ -20,6 +18,8 @@ interface DataCarContract {
         fun showRecommendation(show:Boolean)
 
         fun showNotificationsForCar(id:Int)
+
+        fun showAlertNotification(show: Boolean)
     }
 
     interface Presenter{

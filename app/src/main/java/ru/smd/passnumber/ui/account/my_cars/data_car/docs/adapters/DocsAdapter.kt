@@ -9,7 +9,6 @@ import com.squareup.picasso.Picasso
 import ru.smd.passnumber.R
 import ru.smd.passnumber.data.entities.Docs
 import ru.smd.passnumber.data.entities.DocsWrapper
-import ru.smd.passnumber.data.entities.Type
 import ru.smd.passnumber.data.entities.TypeItem
 import ru.smd.passnumber.databinding.ItemAddDocsBinding
 import ru.smd.passnumber.databinding.ItemDocsBinding

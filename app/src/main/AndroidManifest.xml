@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
-        android:name=".App"
+        android:name=".PASS"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -26,7 +26,7 @@
         </meta-data>
         </provider>
 
-        <activity android:name=".ui.activities.main.SplashActivity"
+        <activity android:name="ru.smd.passnumber.ui.activities.main.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
@@ -36,13 +36,13 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.activities.main.MainActivity"
+        <activity android:name="ru.smd.passnumber.ui.activities.main.MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
         </activity>
 
         <service
-            android:name=".service.firebase.FirebaseMessageReceiver"
+            android:name="ru.smd.passnumber.service.firebase.FirebaseMessageReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

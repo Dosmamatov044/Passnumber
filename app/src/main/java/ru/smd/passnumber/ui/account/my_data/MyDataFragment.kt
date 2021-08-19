@@ -80,13 +80,13 @@ class MyDataFragment:Fragment(),MyDataContract.View {
 
     override fun showMyData(fio: String?, phone: String?, email: String?, company: String?) {
         binding.run {
-            if (fio!=null)edtMyDataFio.setText(fio)
+            if (fio!=null)edtMyDataFio.setHint(fio)
             if (phone!=null){
-                edtMyDataPhone.setText(phone)
+                edtMyDataPhone.setHint(phone)
                 edtMyDataPhone.isEnabled=false
             }
-            if (email!=null)edtMyDataEmail.setText(email)
-            if (company!=null)edtMyDataCompany.setText(company)
+            if (email!=null)edtMyDataEmail.setHint(email)
+            if (company!=null)edtMyDataCompany.setHint(company)
         }
     }
 

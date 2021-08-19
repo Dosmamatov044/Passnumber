@@ -143,12 +143,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:inputType="textCapCharacters"
                     android:background="#2C2C2E"
-                    android:inputType="textAutoCorrect"
                     android:padding="0dp"
-                    android:textColor="#60EBEBF5"
+                    android:textColor="@color/white"
                     android:textSize="17sp"
-                    app:mask="* ### ** ###" />
+                    app:mask="* ### ** ###"
+                    />
 
                 <View
                     android:layout_width="match_parent"
@@ -173,7 +174,7 @@
                     android:inputType="textCapSentences"
                     android:background="#2C2C2E"
                     android:padding="0dp"
-                    android:textColor="#60EBEBF5"
+                    android:textColor="@color/white"
                     android:textSize="17sp" />
 
                 <View
@@ -199,7 +200,7 @@
                     android:layout_marginTop="10dp"
                     android:background="#2C2C2E"
                     android:padding="0dp"
-                    android:textColor="#60EBEBF5"
+                    android:textColor="@color/white"
                     android:textSize="17sp" />
 
                 <View

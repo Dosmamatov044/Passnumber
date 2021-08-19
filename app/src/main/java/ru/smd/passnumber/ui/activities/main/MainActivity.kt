@@ -13,16 +13,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.bottom_menu.*
-import kotlinx.android.synthetic.main.fragment_check_pass.*
 import ru.smd.passnumber.ui.chek_pass_number.CheckPassFragment
 import ru.smd.passnumber.R
-import ru.smd.passnumber.data.core.showKeyBoard
 import ru.smd.passnumber.data.tools.PreferencesHelper
 import ru.smd.passnumber.ui.account.AccountFragment
 import ru.smd.passnumber.ui.account.registration.RegistrationFragment
 import ru.smd.passnumber.ui.help_registration.HelpRegistrationFragment
-import ru.smd.passnumber.ui.splash.SplashFragment
-import ru.smd.passnumber.utils.showKeyBoard
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -50,7 +46,7 @@ class MainActivity : AppCompatActivity() {
             progressBarMain.isGone = !it
         })
         handleError.observe(this, Observer {
-            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.error_server), Toast.LENGTH_SHORT).show()
         })
     }
 

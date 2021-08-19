@@ -1,13 +1,11 @@
 package ru.smd.passnumber.ui.account.my_cars.data_car.docs
 
 import android.content.Context
-import android.graphics.Bitmap
 import id.zelory.compressor.Compressor
 import io.reactivex.SingleTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody

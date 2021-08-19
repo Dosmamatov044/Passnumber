@@ -17,12 +17,10 @@ import android.view.ViewGroup
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
-import ru.smd.passnumber.R
 import ru.smd.passnumber.data.core.Constants
 import ru.smd.passnumber.data.entities.Docs
 import ru.smd.passnumber.databinding.FragmentDocsBinding
 import ru.smd.passnumber.ui.account.my_cars.data_car.docs.adapters.DocsAdapter
-import ru.smd.passnumber.ui.account.registration.RegistrationFragment
 import java.io.File
 import java.io.FileOutputStream
 import java.util.*

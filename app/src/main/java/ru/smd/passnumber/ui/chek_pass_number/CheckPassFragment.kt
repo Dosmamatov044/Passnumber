@@ -13,22 +13,17 @@ import android.widget.TextView.OnEditorActionListener
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_check_pass.*
-import kotlinx.android.synthetic.main.fragment_check_pass.view.*
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 import ru.smd.passnumber.R
 import ru.smd.passnumber.data.core.Constants
 import ru.smd.passnumber.data.core.hideKeyboard
 import ru.smd.passnumber.data.core.showKeyBoard
-import ru.smd.passnumber.data.entities.PassData
 import ru.smd.passnumber.databinding.FragmentCheckPassBinding
 import ru.smd.passnumber.ui.activities.main.MainActivity
 import ru.smd.passnumber.ui.checking_pass.CheckingPassFragment
-import java.util.*
 
 
 /**

@@ -321,7 +321,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="21dp"
                                 android:background="@drawable/ic_group_62"
-                                android:visibility="gone"
+                                android:visibility="invisible"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toStartOf="@+id/img_next_notifications_car"
                                 app:layout_constraintTop_toTopOf="parent" />
@@ -438,7 +438,8 @@
                 android:background="#2C2C2E"
                 android:inputType="textAutoCorrect"
                 android:padding="0dp"
-                android:textColor="#60EBEBF5"
+                android:textColorHint="#60EBEBF5"
+                android:textColor="@color/white"
                 android:textSize="17sp"
                 app:mask="* ### ** ###" />
 
@@ -465,7 +466,8 @@
                 android:background="#2C2C2E"
                 android:padding="0dp"
                 android:inputType="textCapSentences"
-                android:textColor="#60EBEBF5"
+                android:textColorHint="#60EBEBF5"
+                android:textColor="@color/white"
                 android:textSize="17sp" />
 
             <View
@@ -491,7 +493,8 @@
                 android:background="#2C2C2E"
                 android:padding="0dp"
                 android:inputType="textCapSentences"
-                android:textColor="#60EBEBF5"
+                android:textColorHint="#60EBEBF5"
+                android:textColor="@color/white"
                 android:textSize="17sp" />
 
             <View

@@ -11,7 +11,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.smd.passnumber.R
 import ru.smd.passnumber.data.entities.Notification
 import ru.smd.passnumber.databinding.FragmentNotificationBinding
-import ru.smd.passnumber.ui.account.my_cars.data_car.DataCarFragment
 import ru.smd.passnumber.ui.account.notification.adapters.NotificationAdapter
 import javax.inject.Inject
 

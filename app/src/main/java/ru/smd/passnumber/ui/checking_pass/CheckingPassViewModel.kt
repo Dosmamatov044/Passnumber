@@ -1,15 +1,16 @@
 package ru.smd.passnumber.ui.checking_pass
 
+import android.util.JsonReader
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import io.reactivex.SingleTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import ru.smd.passnumber.data.entities.PassData
-import ru.smd.passnumber.data.entities.PassesData
 import ru.smd.passnumber.data.service.PassNumberRepo
 import ru.smd.passnumber.ui.activities.main.MainActivity
 import ru.smd.passnumber.ui.activities.main.MainActivity.Companion.mainCompositeDisposable
+import java.io.Reader
 
 
 /**
@@ -81,7 +82,7 @@ class CheckingPassViewModel @ViewModelInject constructor(private val repo: PassN
                     data.value = response.data
                 }
                 else -> {
-                    MainActivity.handleError.value = error.toString()
+                    MainActivity.handleError.value = error.message
                 }
             }
         }.also(mainCompositeDisposable::add)

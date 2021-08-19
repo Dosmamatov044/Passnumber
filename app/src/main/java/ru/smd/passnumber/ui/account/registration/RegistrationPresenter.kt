@@ -2,7 +2,6 @@ package ru.smd.passnumber.ui.account.registration
 
 import android.content.Context
 import android.os.CountDownTimer
-import androidx.core.content.ContextCompat
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException
 import io.reactivex.SingleTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -116,8 +115,10 @@ class RegistrationPresenter @Inject constructor(
             val newPhone = phone.replace(regex = Regex("\\D"), "")
             this.phone = newPhone
         }
+        MainActivity.handleLoad.postValue(true)
         repo.getCode(this.phone!!).compose(applySchedulers())
             .subscribe { response, error ->
+                MainActivity.handleLoad.value=false
                 when {
                     error == null -> {
                         view?.showBlock2()

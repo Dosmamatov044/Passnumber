@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.smd.passnumber.data.core.Constants
 import ru.smd.passnumber.data.entities.Notification
 import ru.smd.passnumber.databinding.ItemNotificationBinding
-import ru.smd.passnumber.ui.account.my_cars.data_car.docs.adapters.DocsAdapter
 import java.text.SimpleDateFormat
 import java.util.*
 

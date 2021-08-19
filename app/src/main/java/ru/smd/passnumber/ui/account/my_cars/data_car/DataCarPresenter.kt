@@ -24,6 +24,7 @@ class DataCarPresenter @Inject constructor(val repo: PassNumberRepo) : DataCarCo
     }
 
     override fun getData(regNumber: String) {
+        MainActivity.handleLoad.postValue(true)
         repo.checkPassNumber(regNumber).compose(applySchedulers()).subscribe { response, error ->
             MainActivity.handleLoad.value = false
             when {
@@ -32,6 +33,9 @@ class DataCarPresenter @Inject constructor(val repo: PassNumberRepo) : DataCarCo
                     val driverName=response.data?.driverName?:""
                     view?.showData(mark,driverName,response.data?.regNumber!!)
                     idVehicle= response.data?.id ?: 0
+                    if (idVehicle!=0){
+                        getUnreadNotifications(idVehicle)
+                    }
                     getDocs(idVehicle)
                 }
                 else -> {
@@ -47,6 +51,7 @@ class DataCarPresenter @Inject constructor(val repo: PassNumberRepo) : DataCarCo
     }
 
     override fun getDocs(idVehicle: Int) {
+        MainActivity.handleLoad.postValue(true)
         repo.getDocs(idVehicle).compose(applySchedulers()).subscribe { response, error ->
             MainActivity.handleLoad.value = false
             when {
@@ -71,6 +76,7 @@ class DataCarPresenter @Inject constructor(val repo: PassNumberRepo) : DataCarCo
     }
 
     override fun onClickSaveData(mark: String, driverName: String, regNumber: String) {
+        MainActivity.handleLoad.postValue(true)
         repo.addCar(
             mutableMapOf<String, String>().apply {
                 this["reg_numbers"] = regNumber
@@ -89,6 +95,25 @@ class DataCarPresenter @Inject constructor(val repo: PassNumberRepo) : DataCarCo
                     }
                 }
             }.also(compositeDisposable::add)
+    }
+
+    fun getUnreadNotifications(idVehicle: Int){
+        MainActivity.handleLoad.postValue(true)
+        repo.getUnreadNotificationsForCar(idVehicle).compose(applySchedulers())
+            .subscribe {
+                response, error ->
+            MainActivity.handleLoad.value = false
+            when {
+                error == null -> {
+                    if (response.meta.total.toInt()!=0){
+                      view?.showAlertNotification(true)
+                    }else view?.showAlertNotification(false)
+                }
+                else -> {
+                    MainActivity.handleError.value = error.toString()
+                }
+            }
+        }.also(compositeDisposable::add)
     }
 
     override fun onClickDocs() {

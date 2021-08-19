@@ -26,6 +26,7 @@ class SettingsNotificationViewModel @ViewModelInject constructor(
         MainActivity.handleLoad.value = true
         repo.getUser().compose(applySchedulers())
             .subscribe { response, error ->
+                MainActivity.handleLoad.value=false
                 handleRxErrors(error) {
                     user.value = response.data
                 }
@@ -34,15 +35,16 @@ class SettingsNotificationViewModel @ViewModelInject constructor(
     }
 
 
-    fun saveNotifications(time: String, notifications_email: Boolean, notifications_push: Boolean) {
+    fun saveNotifications( notifications_email: Boolean, notifications_push: Boolean) {
         viewModelScope.launch {
             MainActivity.handleLoad.value = true
             repo.saveNotifications(
-                time,
+            //    time,
                 notifications_email = notifications_email.toInt(),
                 notifications_push = notifications_push.toInt()
             ).compose(applySchedulers())
                 .subscribe { response, error ->
+                    MainActivity.handleLoad.value=false
                     handleRxErrors(error) {
                         MainActivity.handleError.value = "Настройка изменена"
                     }

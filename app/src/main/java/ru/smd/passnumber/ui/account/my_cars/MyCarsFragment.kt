@@ -2,26 +2,26 @@ package ru.smd.passnumber.ui.account.my_cars
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.speech.SpeechRecognizer
 import android.text.Html
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.text.set
 import androidx.core.view.isGone
 import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.alert_view.view.*
 import kotlinx.android.synthetic.main.bottom_menu.*
+import kotlinx.android.synthetic.main.fragment_checking_pass.*
 import ru.smd.passnumber.R
-import ru.smd.passnumber.data.core.PaginationRecyclerView
+import ru.smd.passnumber.data.core.Constants
 import ru.smd.passnumber.data.core.PaginationRecyclerView.PaginationRecyclerEvents
 import ru.smd.passnumber.data.core.hideKeyboard
 import ru.smd.passnumber.data.entities.PassData
@@ -34,6 +34,9 @@ import ru.smd.passnumber.ui.account.my_cars.filter.FilterFragment
 import ru.smd.passnumber.ui.account.my_cars.data_car.DataCarFragment
 import ru.smd.passnumber.ui.activities.main.MainActivity
 import ru.smd.passnumber.ui.help_registration.HelpRegistrationFragment
+import ru.tinkoff.decoro.MaskImpl
+import ru.tinkoff.decoro.watchers.FormatWatcher
+import ru.tinkoff.decoro.watchers.MaskFormatWatcher
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -54,11 +57,11 @@ class MyCarsFragment : Fragment(), MyCarsContract.View, MyCarsSwipeAdapter.OnCli
 
     lateinit var adapter: MyCarsSwipeAdapter
 
-    private var page: Int=1
+    private var page: Int = 1
 
-    private var lastPage:Int=1
+    private var lastPage: Int = 1
     override fun setLastPage(lastPage: Int) {
-        this.lastPage=lastPage
+        this.lastPage = lastPage
     }
 
     //setup Listening audio
@@ -112,7 +115,7 @@ class MyCarsFragment : Fragment(), MyCarsContract.View, MyCarsSwipeAdapter.OnCli
             recycleMyCars.adapter = adapter
             recycleMyCars.setListener(object : PaginationRecyclerEvents {
                 override fun loadMore() {
-                    if (lastPage>=page){
+                    if (lastPage >= page) {
                         page++
                         presenter.getMoreCars(page)
                     }
@@ -123,18 +126,31 @@ class MyCarsFragment : Fragment(), MyCarsContract.View, MyCarsSwipeAdapter.OnCli
             btnBackMyCars.setOnClickListener { presenter.onClickBack() }
             btnAddMyCarsPlus.setOnClickListener { presenter.onClickAdd() }
             edtRegNumberMyCars.addTextChangedListener {
-                if (edtRegNumberMyCars.text?.length!! > 10) btnAddMyCars.isEnabled =
-                    true else btnAddMyCars.isEnabled = false
+                if (edtRegNumberMyCars.length() >= 11) {
+                    btnAddMyCars.isEnabled = true
+                } else btnAddMyCars.isEnabled = false
             }
             btnAddMyCars.setOnClickListener {
                 if (contAddMyCars.visibility == View.VISIBLE) {
-                    presenter.addCar(
-                        edtRegNumberMyCars.text.toString(),
-                        edtLabelModelMyCars.text.toString(),
-                        edtNameDriverMyCars.text.toString()
+                    val text=edtRegNumberMyCars.text.toString().replace(" ","")
+                    if (text.matches(Constants.MASK_REG_NUMBERADD8.toRegex())
+                        || text.matches(Constants.MASK_REG_NUMBERADD9.toRegex())) {
+                        presenter.addCar(
+                            text,
+                            edtLabelModelMyCars.text.toString(),
+                            edtNameDriverMyCars.text.toString()
 
-                    )
-                    hideKeyboard()
+                        )
+                        edtRegNumberMyCars.text?.clear()
+                        hideKeyboard()
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            R.string.fail_reg_number,
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                    }
                 } else
                     btnAddMyCars.isEnabled = false
                 presenter.onClickAdd()

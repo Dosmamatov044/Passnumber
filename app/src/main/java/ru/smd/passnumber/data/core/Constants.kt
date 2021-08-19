@@ -22,6 +22,21 @@ object Constants {
         PredefinedSlots.digit(),
         PredefinedSlots.digit())
 
+    val NUMBER_CAR = arrayOf(
+        PredefinedSlots.any(),
+        PredefinedSlots.hardcodedSlot(' ').withTags(Slot.TAG_DECORATION),
+        PredefinedSlots.digit(),
+        PredefinedSlots.digit(),
+        PredefinedSlots.digit(),
+        PredefinedSlots.hardcodedSlot(' ').withTags(Slot.TAG_DECORATION),
+        PredefinedSlots.any(),
+        PredefinedSlots.any(),
+        PredefinedSlots.hardcodedSlot(' ').withTags(Slot.TAG_DECORATION),
+        PredefinedSlots.digit(),
+        PredefinedSlots.digit(),
+        PredefinedSlots.digit(),
+    )
+
     const val CAMERA_PERMISSION_CODE = 100
     const val CAMERA_REQUEST = 1888
     const val BASE_URL = "https://pass.su/api/"
@@ -29,4 +44,6 @@ object Constants {
     const val DATE_MASK_NUMBER="dd.MM.yyyy"
     const val API_KEY_YANDEX="37dcc9a6-642b-4ee0-b0cd-503200770027"
     const val MASK_REG_NUMBER="""^[укенхваросмтУКЕНХВАРОСМТ]{1}[0-9]{3}[укенхваросмтУКЕНХВАРОСМТ]{2}$"""
+    const val MASK_REG_NUMBERADD8="""^[укенхваросмтУКЕНХВАРОСМТ]{1}[0-9]{3}[укенхваросмтУКЕНХВАРОСМТ]{2}[0-9]{2}$"""
+    const val MASK_REG_NUMBERADD9="""^[укенхваросмтУКЕНХВАРОСМТ]{1}[0-9]{3}[укенхваросмтУКЕНХВАРОСМТ]{2}[0-9]{3}$"""
 }

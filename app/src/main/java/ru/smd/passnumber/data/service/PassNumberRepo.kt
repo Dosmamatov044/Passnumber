@@ -1,6 +1,7 @@
 package ru.smd.passnumber.data.service
 
-import com.google.android.gms.common.internal.safeparcel.SafeParcelable
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import io.reactivex.Single
 import okhttp3.Interceptor
@@ -8,7 +9,6 @@ import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
@@ -16,14 +16,13 @@ import ru.smd.passnumber.BuildConfig
 import ru.smd.passnumber.data.core.Constants
 import ru.smd.passnumber.data.entities.*
 import ru.smd.passnumber.data.tools.PreferencesHelper
-import java.io.File
 import javax.inject.Inject
 
 interface PassNumberRepo {
 
     @POST("user/notifications")
     fun saveNotifications(
-        @Query("notification_time") notification_time: String,
+//        @Query("notification_time") notification_time: String,
         @Query("notifications_email") notifications_email: Int,
         @Query("notifications_push") notifications_push: Int
     ): Single<Unit>
@@ -56,6 +55,7 @@ interface PassNumberRepo {
     @POST("vehicle")
     fun addCar(@QueryMap params: MutableMap<String, String>): Single<PassData>
 
+
     @POST("vehicle/check")
     fun checkPassNumber(@Query("reg_number") reg_number: String): Single<ResponseData<PassData>>
 
@@ -63,7 +63,7 @@ interface PassNumberRepo {
     fun getDocs(@Path("vehicle_id") vehicle_id: Int): Single<ResponseData<List<Docs>>>
 
     @GET("user/counters")
-    fun getCounters():Single<Counters>
+    fun getCounters(): Single<Counters>
 
     @GET("notifications/vehicle/{vehicle_id}")
     fun getNotificationForCar(@Path("vehicle_id") vehicle_id: Int): Single<ResponseNotifications>
@@ -73,6 +73,9 @@ interface PassNumberRepo {
 
     @GET("notifications/unread")
     fun getUnreadNotifications(): Single<ResponseNotifications>
+
+    @GET("notifications/vehicle/{vehicle_id}/unread")
+    fun getUnreadNotificationsForCar(@Path("vehicle_id") vehicle_id:Int):Single<ResponseNotifications>
 
     @Multipart
     @POST("vehicle/{vehicle_id}/documents")
@@ -84,6 +87,7 @@ interface PassNumberRepo {
 
     class Factory @Inject constructor(val preferencesHelper: PreferencesHelper) {
         fun create() = Retrofit.Builder().run {
+
             val httpLoggingInterceptor = HttpLoggingInterceptor()
             httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
             val okHttpBuilder = OkHttpClient.Builder()
@@ -96,11 +100,13 @@ interface PassNumberRepo {
                                 addHeader("Authorization", "Bearer $it")
                             }
                             addHeader("User-Agent", "Android")
+
                             build()
                         }
                     )
                 }
             })
+
             if (BuildConfig.DEBUG) {
 //                client(OkHttpClient.Builder().addInterceptor(interceptor).build())
                 okHttpBuilder.addInterceptor(httpLoggingInterceptor)
@@ -119,7 +125,7 @@ interface PassNumberRepo {
 //            })
             client(okHttpBuilder.build())
             baseUrl(Constants.BASE_URL)
-            addConverterFactory(GsonConverterFactory.create())
+            addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
             addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             build().create(PassNumberRepo::class.java)
         }

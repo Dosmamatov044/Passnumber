@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Passnumber</string>
+    <string name="app_name">PASS</string>
     <string name="text_help_registration">Помощь в оформлении</string>
     <string name="notifications">Уведомления</string>
     <string name="registration">Регистрация</string>
@@ -9,6 +9,7 @@
 Введите полученный код в&lt;br>
 соответствующее поле</string>
     <string name="enter">Войти</string>
+    <string name="error_server">Ошибка сервера</string>
     <string name="didnt_get_sms">Не приходит СМС</string>
     <string name="send_code_retry">Отрпавить код повторно</string>
     <string name="retry_send_code">Выслать код повторно через %s секунд</string>

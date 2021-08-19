@@ -35,7 +35,7 @@ class SettingsNotificationFragment : Fragment(R.layout.fragment_settings_notific
 
         switchTop.isSelected = it.notifications_email
         switchBottom.isSelected = it.notifications_push
-        timeNotification.text = it.notification_time?.replace(":", " : ")
+      //  timeNotification.text = it.notification_time?.replace(":", " : ")
     }
 
     fun handleClick() {
@@ -53,12 +53,12 @@ class SettingsNotificationFragment : Fragment(R.layout.fragment_settings_notific
             saveNotification()
 
         }
-        timeNotification.setTimePicker()
+     //   timeNotification.setTimePicker()
     }
 
     private fun saveNotification() {
         viewModel.saveNotifications(
-            timeNotification.text.toString().replace(" ", ""),
+          //  timeNotification.text.toString().replace(" ", ""),
             switchTop.isSelected,
             switchBottom.isSelected
         )

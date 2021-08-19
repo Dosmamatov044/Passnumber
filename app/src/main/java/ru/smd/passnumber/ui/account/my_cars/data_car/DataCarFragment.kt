@@ -5,20 +5,14 @@ import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_data_car.*
 import ru.smd.passnumber.R
 import ru.smd.passnumber.data.core.hideKeyboard
-import ru.smd.passnumber.data.entities.PassData
 import ru.smd.passnumber.databinding.FragmentDataCarBinding
-import ru.smd.passnumber.databinding.FragmentMyCarsBinding
 import ru.smd.passnumber.ui.account.my_cars.data_car.docs.DocsFragment
 import ru.smd.passnumber.ui.account.notification.NotificationFragment
 import ru.smd.passnumber.ui.checking_pass.CheckingPassFragment
-import ru.smd.passnumber.ui.help_registration.HelpRegistrationFragment
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -112,11 +106,22 @@ class DataCarFragment : Fragment(), DataCarContract.View {
             tvTitle.setText(getString(R.string.data_car))
             btnSaveDataCar.setText(getString(R.string.save))
             btnSaveDataCar.setOnClickListener {
+                var mark=""
+                var driverName=""
+                if (edtLabelModelDataCar.text.isNullOrEmpty()){
+                    mark=edtLabelModelDataCar.hint.toString()
+                }else mark=edtLabelModelDataCar.text.toString()
+                if (edtNameDriverDataCar.text.isNullOrEmpty()){
+                    driverName=edtNameDriverDataCar.hint.toString()
+                }else driverName=edtNameDriverDataCar.text.toString()
                 presenter.onClickSaveData(
-                    edtLabelModelDataCar.text.toString(),
-                    edtNameDriverDataCar.text.toString(),
-                    edtRegNumberDataCar.text.toString()
+                    mark,
+                    driverName,
+                    edtRegNumberDataCar.hint.toString()
                 )
+                edtRegNumberDataCar.text?.clear()
+                edtNameDriverDataCar.text?.clear()
+                edtLabelModelDataCar.text?.clear()
                 hideKeyboard()
             }
         }
@@ -128,10 +133,10 @@ class DataCarFragment : Fragment(), DataCarContract.View {
             passesCar.isEnabled=true
             notificationsCar.isEnabled=true
             docsCar.isEnabled=true
-            edtLabelModelDataCar.setText(mark)
-            edtNameDriverDataCar.setText(driverName)
+            edtLabelModelDataCar.setHint(mark)
+            edtNameDriverDataCar.setHint(driverName)
             edtRegNumberDataCar.isEnabled=false
-            edtRegNumberDataCar.setText(regNumber)
+            edtRegNumberDataCar.setHint(regNumber)
             txtDataCarDriverName.setText(driverName)
             if (!mark.isEmpty()){
                 txtDataCarMark.visibility=View.VISIBLE
@@ -158,6 +163,10 @@ class DataCarFragment : Fragment(), DataCarContract.View {
     override fun showNotificationsForCar(id: Int) {
         parentFragmentManager.beginTransaction()
             .replace(R.id.mainContainer, NotificationFragment.create(id)).addToBackStack(null).commit()
+    }
+
+    override fun showAlertNotification(show: Boolean) {
+      if (show)binding.alertNotificationsCar.visibility=View.VISIBLE else binding.alertNotificationsCar.visibility=View.INVISIBLE
     }
 
     companion object {

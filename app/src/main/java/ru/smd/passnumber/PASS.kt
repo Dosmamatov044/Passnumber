@@ -10,7 +10,7 @@ import ru.smd.passnumber.data.core.Constants.API_KEY_YANDEX
  * Created by Siddikov Mukhriddin on 2/13/21
  */
 @HiltAndroidApp
-class App : Application() {
+class PASS : Application() {
 
     override fun onCreate() {
         super.onCreate()

@@ -1,7 +1,6 @@
 package ru.smd.passnumber.ui.account.my_cars.data_car.docs
 
 import android.content.Context
-import android.graphics.Bitmap
 import ru.smd.passnumber.data.entities.Docs
 import java.io.File
 

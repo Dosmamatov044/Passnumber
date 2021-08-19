@@ -7,7 +7,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.fragment_settings_notification.*
 
 fun Activity.hideKeyboard() {
     this.currentFocus?.let { view ->
