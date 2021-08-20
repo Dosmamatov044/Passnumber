@@ -39,6 +39,7 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
             val filterByPeriod= when {
                 spinnerSelectPeriod.selectedItem.toString().contains("День") -> "Дневной"
                 spinnerSelectPeriod.selectedItem.toString().contains("Ночь") -> "Ночной"
+                spinnerSelectPeriod.selectedItem.toString().contains("Круглосуточный") -> "Круглосуточный"
                 else->""
             }
             val sort = spinnerSelectSorts.selectedItemPosition % 2 == 0
@@ -79,14 +80,12 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
     private fun setupSpinners() {
         val listStatus = arrayListOf(
             "Все",
-            "Действует",
-            "Не действует",
-            "Закончился",
-            "Аннулирован",
-            "Не найден"
+            "Активный",
+            "Не активный (истек или аннулирован)",
+            "Нет пропусков"
         )
         val listPass = arrayListOf("Все", "Годовой (БА)", "Разовый (ББ)")
-        val listPeriod= arrayListOf("Все","День","Ночь")
+        val listPeriod= arrayListOf("Все","Круглосуточный","День","Ночь")
         val listSort =
             arrayListOf(
                 "Проверен",

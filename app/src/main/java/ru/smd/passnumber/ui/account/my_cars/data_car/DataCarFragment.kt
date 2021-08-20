@@ -140,7 +140,7 @@ class DataCarFragment : Fragment(), DataCarContract.View {
             txtDataCarDriverName.setText(driverName)
             if (!mark.isEmpty()){
                 txtDataCarMark.visibility=View.VISIBLE
-            }else txtDataCarMark.visibility=View.GONE
+            }else txtDataCarMark.visibility=View.INVISIBLE
             txtDataCarMark.setText(mark)
         }
     }
@@ -165,8 +165,9 @@ class DataCarFragment : Fragment(), DataCarContract.View {
             .replace(R.id.mainContainer, NotificationFragment.create(id)).addToBackStack(null).commit()
     }
 
-    override fun showAlertNotification(show: Boolean) {
-      if (show)binding.alertNotificationsCar.visibility=View.VISIBLE else binding.alertNotificationsCar.visibility=View.INVISIBLE
+    override fun showAlertNotification(show: Boolean,count:String) {
+        binding.alertNotificationsCar.setText(count)
+      if (show)binding.alertNotificationsCar.visibility=View.VISIBLE  else binding.alertNotificationsCar.visibility=View.INVISIBLE
     }
 
     companion object {

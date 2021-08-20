@@ -19,7 +19,7 @@ interface DataCarContract {
 
         fun showNotificationsForCar(id:Int)
 
-        fun showAlertNotification(show: Boolean)
+        fun showAlertNotification(show: Boolean,count:String)
     }
 
     interface Presenter{

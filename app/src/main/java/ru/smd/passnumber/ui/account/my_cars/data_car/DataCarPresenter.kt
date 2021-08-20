@@ -106,8 +106,8 @@ class DataCarPresenter @Inject constructor(val repo: PassNumberRepo) : DataCarCo
             when {
                 error == null -> {
                     if (response.meta.total.toInt()!=0){
-                      view?.showAlertNotification(true)
-                    }else view?.showAlertNotification(false)
+                      view?.showAlertNotification(true,response.meta.total)
+                    }else view?.showAlertNotification(false,"")
                 }
                 else -> {
                     MainActivity.handleError.value = error.toString()

@@ -152,7 +152,7 @@ class RegistrationPresenter @Inject constructor(
     }
 
 
-    private val timer = object : CountDownTimer(300000, 1000) {
+    private val timer = object : CountDownTimer(120000, 1000) {
         override fun onTick(millisUntilFinished: Long) {
             view?.showTimer(
                 millisUntilFinished / 1000

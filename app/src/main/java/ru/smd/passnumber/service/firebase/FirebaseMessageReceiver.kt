@@ -12,9 +12,9 @@ import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import ru.smd.passnumber.R
+import ru.smd.passnumber.data.service.PassNumberRepo
 import ru.smd.passnumber.ui.activities.main.MainActivity
-
-
+import javax.inject.Inject
 
 
 class FirebaseMessageReceiver : FirebaseMessagingService() {

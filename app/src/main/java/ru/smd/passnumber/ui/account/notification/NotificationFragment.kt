@@ -92,6 +92,7 @@ class NotificationFragment : Fragment(), NotificationContract.View,
 
     override fun readNotification(notification: Notification) {
         if (idVehicle==0){
+
             presenter.sendReadNotifications(notification)
         }
     }

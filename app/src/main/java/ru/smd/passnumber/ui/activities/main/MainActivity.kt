@@ -2,6 +2,7 @@ package ru.smd.passnumber.ui.activities.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -10,11 +11,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.SingleTransformer
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.bottom_menu.*
 import ru.smd.passnumber.ui.chek_pass_number.CheckPassFragment
 import ru.smd.passnumber.R
+import ru.smd.passnumber.data.service.PassNumberRepo
 import ru.smd.passnumber.data.tools.PreferencesHelper
 import ru.smd.passnumber.ui.account.AccountFragment
 import ru.smd.passnumber.ui.account.registration.RegistrationFragment
@@ -31,6 +36,9 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var preferencesHelper: PreferencesHelper
+
+    @Inject
+    lateinit var repo: PassNumberRepo
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -120,9 +128,31 @@ class MainActivity : AppCompatActivity() {
         FirebaseMessaging.getInstance().token.addOnCompleteListener {
             if (it.isComplete) {
                 val fbToken = it.result.toString()
+                val id=Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID).toString()
                 Log.e("TTT", "pushToken:$fbToken")
-//                firebaseDomain.sendPushToken(fbToken,  Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID))
+                handleLoad.value=true
+                repo.sendToken(mutableMapOf<String, String>().apply {
+                    this["token"] = fbToken
+                    this["uid"] =id
+                }).compose(applySchedulers()).subscribe { response, error ->
+                    handleLoad.value = false
+                    when {
+                        error == null -> {
+
+                        }
+                        else -> {
+
+                        }
+                    }
+                }.also(mainCompositeDisposable::add)
             }
+        }
+    }
+
+    fun <T> applySchedulers(): SingleTransformer<T, T> {
+        return SingleTransformer {
+            it.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
         }
     }
 }

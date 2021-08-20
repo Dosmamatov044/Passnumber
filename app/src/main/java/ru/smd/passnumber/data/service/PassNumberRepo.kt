@@ -77,6 +77,9 @@ interface PassNumberRepo {
     @GET("notifications/vehicle/{vehicle_id}/unread")
     fun getUnreadNotificationsForCar(@Path("vehicle_id") vehicle_id:Int):Single<ResponseNotifications>
 
+    @POST("firebase/token")
+    fun sendToken(@QueryMap params: MutableMap<String, String>): Single<Unit>
+
     @Multipart
     @POST("vehicle/{vehicle_id}/documents")
     fun storeDocs(

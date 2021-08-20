@@ -3,6 +3,8 @@ package ru.smd.passnumber.ui.account.notification.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ru.smd.passnumber.data.core.Constants
 import ru.smd.passnumber.data.entities.Notification
@@ -17,19 +19,32 @@ class NotificationAdapter(val onReadListner: OnReadListner) : RecyclerView.Adapt
     }
 
     var items = mutableListOf<Notification>()
-    var itemsRead = mutableListOf<Notification>()
+
+    var layoutManager:RecyclerView.LayoutManager?=null
 
     private var prevDate: String? = null
 
     private var count: Int = 0
 
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+        super.onAttachedToRecyclerView(recyclerView)
+        layoutManager=recyclerView.layoutManager
+    }
+
+
     inner class ViewHolder(val binding: ItemNotificationBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Notification) {
             binding.run {
-                if (data.readAt==null){
+                if (data.readAt==null
+                   //TODO выдимый элемент или нет
+                        ){
                     onReadListner.readNotification(data)
                 }
+                val time=data.createdAt.replaceBefore("T","")
+                    .replace("T","")
+                    .subSequence(0,5)
+                txtTime.setText(time)
                 val regNumber = data.data.body.subSequence(0, 6)
                 txtNotificationRegNumber.setText(regNumber.toString().toLowerCase())
                 val lenghtRegion = data.data.body.substringBefore(':')
@@ -42,11 +57,11 @@ class NotificationAdapter(val onReadListner: OnReadListner) : RecyclerView.Adapt
                 txtNotificationTitle.setText(result)
                 txtNotificationType.setText(data.pass.validityPeriod)
                 val year = data.createdAt.subSequence(0, 4).toString().toInt()
-                val moth = data.createdAt.subSequence(6, 7).toString().toInt()
-                val day = data.createdAt.subSequence(9, 10).toString().toInt()
+                val moth = data.createdAt.subSequence(5, 7).toString().toInt()
+                val day = data.createdAt.subSequence(8, 10).toString().toInt()
                 val dateNotificaton = (year.toString() + moth.toString() + day.toString())
                 val calendar = java.util.Calendar.getInstance()
-                calendar.set(year, moth, day)
+                calendar.set(year, moth-1, day)
                 val date =
                     SimpleDateFormat(Constants.DATE_MASK, Locale.getDefault()).run {
                         format(calendar.time)
@@ -57,8 +72,8 @@ class NotificationAdapter(val onReadListner: OnReadListner) : RecyclerView.Adapt
                 } else {
                     items.forEach {
                         val year1 = it.createdAt.subSequence(0, 4).toString().toInt()
-                        val moth1 = it.createdAt.subSequence(6, 7).toString().toInt()
-                        val day1 = it.createdAt.subSequence(9, 10).toString().toInt()
+                        val moth1 = it.createdAt.subSequence(5, 7).toString().toInt()
+                        val day1 = it.createdAt.subSequence(8, 10).toString().toInt()
                         val dateNotificaton1 =
                             (year1.toString() + moth1.toString() + day1.toString())
                         if (dateNotificaton1.equals(dateNotificaton)) {
@@ -87,6 +102,7 @@ class NotificationAdapter(val onReadListner: OnReadListner) : RecyclerView.Adapt
 
     fun setData(data: List<Notification>) {
         items = data.toMutableList()
+        prevDate=null
         notifyDataSetChanged()
     }
 

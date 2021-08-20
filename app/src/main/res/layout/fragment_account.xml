@@ -217,14 +217,17 @@
                         android:textColor="#fff"
                         android:textSize="13sp" />
 
-                    <ImageView
+                    <TextView
                         android:id="@+id/alertNotifications"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="26dp"
-                        android:layout_gravity="center"
-                        android:visibility="gone"
-                        android:background="@drawable/ic_group_62" />
+                        android:background="@drawable/ic_ellipse_text_account"
+                        android:fontFamily="@font/sf_ui_display_bold"
+                        android:gravity="center"
+                        android:textColor="#000000"
+                        android:textSize="13sp"
+                        android:visibility="gone" />
 
                     <ImageView
                         android:layout_width="wrap_content"

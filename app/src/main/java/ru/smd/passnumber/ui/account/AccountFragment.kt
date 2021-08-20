@@ -190,6 +190,7 @@ btnExit.setOnClickListener {
                         } else countCar.visibility = View.INVISIBLE
                         if (response.unreadNotifications!=0) {
                             alertNotifications.visibility = View.VISIBLE
+                            alertNotifications.setText(response.unreadNotifications.toString())
                         } else alertNotifications.visibility = View.GONE
                     }
                     else -> {

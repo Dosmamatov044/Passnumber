@@ -94,7 +94,7 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
 
     var unfilteredItems = items
 
-    fun  addData(data: List<PassData>){
+    fun addData(data: List<PassData>) {
         var cardCarWrapper: CardCarWrapper
         data.forEach {
             var days = 0
@@ -168,21 +168,22 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
             items = unfilteredItems.filter {
                 var passes = it.passData.passes
                 if (passes.isNullOrEmpty()) {
-                    (filterCars.filterByStatus == "Не найден" || filterCars.filterByStatus == "Все") && filterCars.filterByTypePass.isNullOrEmpty()&&filterCars.filterByPeriod.isNullOrEmpty()
+                    (filterCars.filterByStatus == "Все") && filterCars.filterByTypePass.isNullOrEmpty() && filterCars.filterByPeriod.isNullOrEmpty()||(filterCars.filterByStatus == "Нет пропусков") && filterCars.filterByTypePass.isNullOrEmpty() && filterCars.filterByPeriod.isNullOrEmpty()
                 } else {
                     var status: Boolean = when (filterCars.filterByStatus) {
-                        "Действует" -> {
-                            passes.first().daysLeft ?: 0 >= 0
+                        "Не активный (истек или аннулирован)" -> {
+                            passes.first().status?.contains("Аннулирован") == true || passes.first().status?.contains(
+                                "Закончился"
+                            ) == true
                         }
-                        "Не действует" -> {
-                            passes.isEmpty()||passes.first().status?.contains("Аннулирован")==true||passes.first().status?.contains("Закончился")==true
+                        "Активный" -> {
+                            passes.first().daysLeft ?: 0 >= 0 && passes.first().status?.contains("Аннулирован") == false && passes.first().status?.contains(
+                                "Закончился"
+                            ) == false
                         }
-                        "Аннулирован" -> {
-                            passes.first().status?.contains("Аннулирован")==true
-                        }
-                        "Закончился" -> {
-                            passes.first().status?.contains("Закончился")==true
-                        }
+                       "Нет пропусков"->{
+                           passes.isNullOrEmpty()
+                       }
                         "Все" -> {
                             true
                         }
@@ -193,10 +194,10 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                             "" -> true
                             else -> passes.first().number?.contains(filterCars.filterByTypePass) == true
                         }
-                    var period=
-                        when(filterCars.filterByPeriod){
-                            ""->true
-                            else->passes.first().validityPeriod?.contains(filterCars.filterByPeriod)==true
+                    var period =
+                        when (filterCars.filterByPeriod) {
+                            "" -> true
+                            else -> passes.first().validityPeriod?.contains(filterCars.filterByPeriod) == true
                         }
                     status && typePass && period
                 }
@@ -215,9 +216,9 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                         data.passData.id.toString()
                     )
                     viewBinderHelper.closeLayout(data.passData.id.toString())
-                    if (data.passData.mark.isNullOrEmpty()){
-                        imgTruck.visibility=View.GONE
-                    }else  imgTruck.visibility=View.VISIBLE
+                    if (data.passData.mark.isNullOrEmpty()) {
+                        imgTruck.visibility = View.GONE
+                    } else imgTruck.visibility = View.VISIBLE
                     contEdit.setOnClickListener {
                         var regNumber = ""
                         var driverName = ""
@@ -318,9 +319,9 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                         data.passData.id.toString()
                     )
                     viewBinderHelper.closeLayout(data.passData.id.toString())
-                    if (data.passData.mark.isNullOrEmpty()){
-                        imgTruck.visibility=View.GONE
-                    }else  imgTruck.visibility=View.VISIBLE
+                    if (data.passData.mark.isNullOrEmpty()) {
+                        imgTruck.visibility = View.GONE
+                    } else imgTruck.visibility = View.VISIBLE
                     contEdit.setOnClickListener {
                         var regNumber = ""
                         var driverName = ""
@@ -421,9 +422,9 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                         data.passData.id.toString()
                     )
                     viewBinderHelper.closeLayout(data.passData.id.toString())
-                    if (data.passData.mark.isNullOrEmpty()){
-                        imgTruck.visibility=View.GONE
-                    }else  imgTruck.visibility=View.VISIBLE
+                    if (data.passData.mark.isNullOrEmpty()) {
+                        imgTruck.visibility = View.GONE
+                    } else imgTruck.visibility = View.VISIBLE
                     contEdit.setOnClickListener {
                         var regNumber = ""
                         var driverName = ""
@@ -464,19 +465,38 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                         } else txtCardCarPeriod.setText(itemView.context.getString(R.string.annual))
                         txtCardCarId.setText(data.passData.passes[0].number)
                         txtCardCarDriverName.setText(data.passData.driverName)
-                        val status = data.passData.passes[0].status?.let {
-                            data.passData.passes[0].status?.subSequence(
-                                8,
-                                it.length
-                            )
+                        var remained: String = ""
+                        var status: String = ""
+                        if (data.passData.passes[0].status?.contains("Закончился") == true) {
+                            status = data.passData.passes[0].status?.let {
+                                data.passData.passes[0].status?.subSequence(
+                                    10,
+                                    it.length
+                                )
+                            }.toString()
+                            remained = data.passData.passes[0].status?.let {
+                                data.passData.passes[0].status?.subSequence(
+                                    0,
+                                    10
+                                )
+                            }.toString()
+
+                        }else{
+                            status = data.passData.passes[0].status?.let {
+                                data.passData.passes[0].status?.subSequence(
+                                    11,
+                                    it.length
+                                )
+                            }.toString()
+                            remained = data.passData.passes[0].status?.let {
+                                data.passData.passes[0].status?.subSequence(
+                                    0,
+                                    11
+                                )
+                            }.toString()
                         }
-                        val remained = data.passData.passes[0].status?.let {
-                            data.passData.passes[0].status?.subSequence(
-                                0,
-                                8
-                            )
-                        }
-                        txtCarCardRemained.setText(remained.toString())
+
+                        txtCarCardRemained.setText(remained)
                         txtCardCardRemainedDay.setText(status.toString())
                         var year = data.passData.passes[0].validFrom?.subSequence(0, 4)
                         var month = data.passData.passes[0].validFrom?.subSequence(5, 7)
@@ -524,9 +544,9 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                         data.passData.id.toString()
                     )
                     viewBinderHelper.closeLayout(data.passData.id.toString())
-                    if (data.passData.mark.isNullOrEmpty()){
-                        imgTruck.visibility=View.GONE
-                    }else  imgTruck.visibility=View.VISIBLE
+                    if (data.passData.mark.isNullOrEmpty()) {
+                        imgTruck.visibility = View.GONE
+                    } else imgTruck.visibility = View.VISIBLE
                     contEdit.setOnClickListener {
                         var regNumber = ""
                         var driverName = ""
@@ -539,8 +559,8 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                         }
                         if (!data.passData.mark.isNullOrEmpty()) {
                             mark = data.passData.mark
-                        }else
-                        onClick.onClickEdit(regNumber, driverName, mark)
+                        } else
+                            onClick.onClickEdit(regNumber, driverName, mark)
                     }
                     mainContCardCar.setOnClickListener {
                         data.passData.regNumber?.let { it1 -> onClick.onClickCard(it1) }
@@ -624,9 +644,9 @@ class MyCarsSwipeAdapter(val onClick: OnClickListner) :
                         data.passData.id.toString()
                     )
                     viewBinderHelper.closeLayout(data.passData.id.toString())
-                    if (data.passData.mark.isNullOrEmpty()){
-                        imgTruck.visibility=View.GONE
-                    }else  imgTruck.visibility=View.VISIBLE
+                    if (data.passData.mark.isNullOrEmpty()) {
+                        imgTruck.visibility = View.GONE
+                    } else imgTruck.visibility = View.VISIBLE
                     contEdit.setOnClickListener {
                         var regNumber = ""
                         var driverName = ""
