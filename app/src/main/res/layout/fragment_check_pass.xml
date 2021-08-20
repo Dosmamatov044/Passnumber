@@ -187,7 +187,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/sf_ui_display_bold"
                         android:gravity="center"
-                        android:text="Введите гос номер ТС"
+                        android:text="Введите госномер ТС"
                         android:textColor="#fff"
                         android:textSize="17sp"
                         app:layout_constraintTop_toTopOf="@+id/ivBottomCard" />
