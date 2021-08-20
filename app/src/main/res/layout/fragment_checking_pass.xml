@@ -119,7 +119,7 @@
         android:layout_height="wrap_content"
         android:background="#000000"
         android:elevation="1dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/contAdd"

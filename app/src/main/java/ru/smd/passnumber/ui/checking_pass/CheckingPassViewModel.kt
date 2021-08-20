@@ -27,8 +27,6 @@ class CheckingPassViewModel @ViewModelInject constructor(private val repo: PassN
 
     val addCarData = MutableLiveData<Boolean>()
 
-    var correct: Boolean = false
-
     fun addCar(regNumber: String, labelModel: String, nameDriver: String) {
         MainActivity.handleLoad.postValue(true)
         repo.addCar(
@@ -52,34 +50,15 @@ class CheckingPassViewModel @ViewModelInject constructor(private val repo: PassN
             }.also(mainCompositeDisposable::add)
     }
 
-    fun checkCar(regNumber: String) {
-        MainActivity.handleLoad.postValue(true)
-        repo.getCarList(1).compose(applySchedulers())
-            .subscribe { response, error ->
-                MainActivity.handleLoad.value = false
-                when {
-                    error == null -> {
-                        response.data.forEach {
-                            if (it.regNumber?.contains(regNumber) == true) {
-                                correct = true
-                            }
-                        }
-                        check.value=correct
-                    }
-                    else -> {
-                        MainActivity.handleError.value = error.toString()
-                    }
-                }
-            }.also(mainCompositeDisposable::add)
-    }
-
     fun checkPassData(number: String) {
         MainActivity.handleLoad.postValue(true)
-        repo.checkPassNumber(number).compose(ru.smd.passnumber.data.service.applySchedulers()).subscribe { response, error ->
+        repo.checkPassNumber(number).compose(applySchedulers()).subscribe { response, error ->
             MainActivity.handleLoad.value = false
             when {
                 error == null -> {
+
                     data.value = response.data
+                 check.value=response.is_saved
                 }
                 else -> {
                     MainActivity.handleError.value = error.message

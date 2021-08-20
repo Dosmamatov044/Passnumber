@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -52,7 +53,9 @@ class CheckingPassFragment : Fragment(R.layout.fragment_checking_pass) {
             cont_pass.visibility = View.GONE
             llSubscribe.visibility = View.GONE
         } else {
-            cont_pass.visibility = View.VISIBLE
+            if (!prefs.restoreToken().isNullOrEmpty()) {
+            cont_pass.visibility=View.GONE
+        }else cont_pass.visibility=View.VISIBLE
         }
         fromFragment = null
         etNameUser.addTextChangedListener {
@@ -147,9 +150,7 @@ class CheckingPassFragment : Fragment(R.layout.fragment_checking_pass) {
                 viewModel.data.value?.driverName ?: ""
             )
         }
-        if (!prefs.restoreToken().isNullOrEmpty()) {
-            regNumberData?.let { viewModel.checkCar(it) }
-        }
+
         adapter.regNumber = it.regNumber ?: ""
         if (it.passes.isNullOrEmpty())
             adapter.submitList(

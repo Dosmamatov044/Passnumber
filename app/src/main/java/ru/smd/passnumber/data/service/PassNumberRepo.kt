@@ -128,7 +128,7 @@ interface PassNumberRepo {
 //            })
             client(okHttpBuilder.build())
             baseUrl(Constants.BASE_URL)
-            addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
+            addConverterFactory(GsonConverterFactory.create())
             addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             build().create(PassNumberRepo::class.java)
         }
