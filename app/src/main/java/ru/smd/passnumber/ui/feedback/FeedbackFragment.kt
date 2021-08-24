@@ -4,14 +4,18 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
+import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_feedback.*
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import ru.smd.passnumber.R
 import ru.smd.passnumber.data.core.Constants
 import ru.smd.passnumber.ui.activities.main.MainActivity
+import ru.smd.passnumber.utils.hideKeyboard
 import ru.smd.passnumber.utils.showToast
 import ru.tinkoff.decoro.MaskImpl
 import ru.tinkoff.decoro.watchers.FormatWatcher
@@ -35,6 +39,10 @@ class FeedbackFragment : Fragment(R.layout.fragment_feedback) {
         btnSendFeedback.setOnClickListener {
             viewModel.sendFeedback(edtPhone.text.toString(),edtFeedback.text.toString())
         }
+        btnSendFeedback1.setOnClickListener {
+            edtFeedback.hideKeyboard(edtFeedback)
+            viewModel.sendFeedback(edtPhone.text.toString(),edtFeedback.text.toString())
+        }
         btnBackFeedback.setOnClickListener {
             moveBack()
         }
@@ -44,7 +52,16 @@ class FeedbackFragment : Fragment(R.layout.fragment_feedback) {
                 moveBack()
             }
         })
+
+        KeyboardVisibilityEvent.setEventListener(requireActivity()) {
+            isKeyboardOpened.value=it
+        }
+        isKeyboardOpened.observe(this, Observer {
+            btnSendFeedback1.isGone = !it
+            btnSendFeedback.isGone = it
+        })
     }
+    val isKeyboardOpened=MutableLiveData<Boolean>()
 
     @SuppressLint("FragmentBackPressedCallback")
     private fun handleBack() {
