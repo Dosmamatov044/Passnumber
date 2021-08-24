@@ -23,6 +23,7 @@ import ru.smd.passnumber.data.service.PassNumberRepo
 import ru.smd.passnumber.data.tools.PreferencesHelper
 import ru.smd.passnumber.ui.account.AccountFragment
 import ru.smd.passnumber.ui.account.registration.RegistrationFragment
+import ru.smd.passnumber.ui.feedback.FeedbackFragment
 import ru.smd.passnumber.ui.help_registration.HelpRegistrationFragment
 import javax.inject.Inject
 
@@ -96,6 +97,17 @@ class MainActivity : AppCompatActivity() {
                 userNameFromCheckPass = userName
             }).commit()
         btnBottom2.bottomSelelected()
+    }
+
+    fun openFeedback(userNumber: String=""){
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.mainContainer, FeedbackFragment().apply {
+                setUserNumber = if (userNumber.isNullOrEmpty())
+                    preferencesHelper.restorePhone()?:userNumber
+                else
+                    userNumber
+            }).addToBackStack(null).commit()
+        hideBottomMenu(true)
     }
 
     fun hideBottomMenu(hide: Boolean = false) {

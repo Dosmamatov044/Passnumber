@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_help_registration.*
 import ru.smd.passnumber.R
+import ru.smd.passnumber.ui.activities.main.MainActivity
 import ru.smd.passnumber.utils.callToNumber
 import ru.smd.passnumber.utils.openLink
 import ru.smd.passnumber.utils.openMail
@@ -23,7 +24,10 @@ class HelpRegistrationFragment : Fragment(R.layout.fragment_help_registration) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         tvCall.callToNumber()
-        tvMail.openMail()
+//        tvMail.openMail()
+        tvMail.setOnClickListener {
+            (requireActivity() as MainActivity).openFeedback()
+        }
         tvUrl.setOnClickListener {
             openLink("http://www.pass.su")
         }
@@ -31,7 +35,8 @@ class HelpRegistrationFragment : Fragment(R.layout.fragment_help_registration) {
             callToNumber(tvCall.text.toString())
         }
         btnMail.setOnClickListener {
-            openMail(tvMail.text.toString())
+            (requireActivity() as MainActivity).openFeedback()
+//            openMail(tvMail.text.toString())
         }
 
     }

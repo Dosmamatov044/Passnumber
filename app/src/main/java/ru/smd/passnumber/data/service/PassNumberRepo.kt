@@ -55,6 +55,9 @@ interface PassNumberRepo {
     @POST("vehicle")
     fun addCar(@QueryMap params: MutableMap<String, String>): Single<PassData>
 
+    @POST("feedback")
+    fun sendFeedback(@QueryMap params: MutableMap<String, String>): Single<Any?>
+
 
     @POST("vehicle/check")
     fun checkPassNumber(@Query("reg_number") reg_number: String): Single<ResponseData<PassData>>

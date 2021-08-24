@@ -75,6 +75,7 @@
     <string name="email_supprt">info@pass.su</string>
     <string name="text_title_mail">Мобильное приложение</string>
     <string name="title_activity_splash">SplashActivity</string>
+    <string name="phone_required">Телефон*</string>
 
 
 </resources>

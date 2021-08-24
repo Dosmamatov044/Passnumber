@@ -17,6 +17,7 @@ import ru.smd.passnumber.data.core.Constants
 import ru.smd.passnumber.data.core.showKeyBoard
 import ru.smd.passnumber.databinding.FragmentRegistrationBinding
 import ru.smd.passnumber.ui.account.AccountFragment
+import ru.smd.passnumber.ui.activities.main.MainActivity
 import ru.smd.passnumber.utils.openLink
 import ru.smd.passnumber.utils.openMail
 import ru.tinkoff.decoro.MaskImpl
@@ -162,7 +163,8 @@ class RegistrationFragment : Fragment(), RegistrationContract.View {
         showKeyBoard(edtRegistrationCode)
         btnDidntGetSms.visibility = View.VISIBLE
         btnDidntGetSms.setOnClickListener {
-            openMail(getString(R.string.info_pass_su),"не пришло смс "+edtRegistrationPhone.text.toString())
+            (requireActivity() as MainActivity).openFeedback(edtRegistrationPhone.text.toString())
+//            openMail(getString(R.string.info_pass_su),"не пришло смс "+edtRegistrationPhone.text.toString())
 
         }
         btnRegistrationEnter.isEnabled = false

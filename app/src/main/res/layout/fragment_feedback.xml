@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#000"
+    android:id="@+id/slashView"
+    android:animateLayoutChanges="true"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bknd_pass" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingHorizontal="22dp"
+        android:id="@+id/tvTitleCont"
+        >
+        <FrameLayout
+            android:id="@+id/btnBackFeedback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:padding="8dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_back"
+                />
+        </FrameLayout>
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_ui_display_bold"
+            android:gravity="center"
+            android:paddingVertical="15dp"
+            android:text="Связаься с нами"
+            android:textColor="#fff"
+            android:textSize="18sp"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:id="@+id/holderUserData"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleCont"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="10dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="28dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/bg_my_data"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/phone_required"
+            android:textColor="@color/blue"
+            android:textSize="17sp"
+            android:fontFamily="@font/sf_ui_display_regular"
+            />
+
+        <EditText
+            android:id="@+id/edtPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#2C2C2E"
+            android:inputType="phone"
+            android:layout_marginTop="10dp"
+            android:padding="0dp"
+            android:textSize="17sp"
+            android:textColorHint="#60EBEBF5"
+            android:textColor="@color/white"
+
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#C8C7CC"
+            android:layout_marginTop="4dp"
+            />
+    </LinearLayout>
+    <TextView
+        app:layout_constraintTop_toBottomOf="@+id/holderUserData"
+        android:id="@+id/tvSubtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sf_ui_display_bold"
+        android:gravity="center"
+        android:paddingVertical="15dp"
+        android:text="Ваше сообщение:"
+        android:textColor="#fff"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/edtFeedback"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginBottom="70dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_my_data"
+        android:gravity="top"
+        android:hint="Введите сообщение..."
+        android:padding="25dp"
+        android:textColor="@color/white"
+        android:textColorHint="#60EBEBF5"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnSendFeedback"
+        app:layout_constraintTop_toBottomOf="@+id/tvSubtitle"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="10dp" />
+
+    <TextView
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/btnSendFeedback"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="50dp"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/ic_rectangle_round_4_blue"
+        android:paddingVertical="12dp"
+        android:text="Отправить"
+        android:textColor="@color/blue" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

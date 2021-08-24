@@ -63,13 +63,14 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
         }
 
         btnFeedback.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW);
-            val data = Uri.parse("mailto:");
-            intent.setData(data);
-            val address = Array<String>(1) { getString(R.string.email_supprt) }
-            intent.putExtra(Intent.EXTRA_EMAIL, address)
-            intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.text_title_mail))
-            startActivityForResult(intent, 12)
+            (requireActivity() as MainActivity).openFeedback()
+//            val intent = Intent(Intent.ACTION_VIEW);
+//            val data = Uri.parse("mailto:");
+//            intent.setData(data);
+//            val address = Array<String>(1) { getString(R.string.email_supprt) }
+//            intent.putExtra(Intent.EXTRA_EMAIL, address)
+//            intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.text_title_mail))
+//            startActivityForResult(intent, 12)
         }
 
         btnShare.setOnClickListener {
