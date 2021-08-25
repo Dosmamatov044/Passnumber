@@ -11,6 +11,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
 import ru.smd.passnumber.R
 import ru.smd.passnumber.data.core.Constants
@@ -55,6 +57,7 @@ class RegistrationFragment : Fragment(), RegistrationContract.View {
     }
 
 
+    @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.run {
@@ -96,19 +99,28 @@ class RegistrationFragment : Fragment(), RegistrationContract.View {
             binding.edtRegistrationPhone.setText(userNumberFromCheckPass)
             binding.handleClickBtnRegistration()
         }
+        isTimerFinished.observe(this, Observer {
+            if (it){
+                activateButtons()
+            }
+        })
     }
+    var isFeedbackOpened=false
 
     override fun onDestroy() {
         super.onDestroy()
-        userNumberFromCheckPass=""
-        userNameFromCheckPass=""
-        var regNumber=""
+        if (!isFeedbackOpened){
+            userNumberFromCheckPass=""
+            userNameFromCheckPass=""
+            var regNumber=""
+        }
     }
 
     @SuppressLint("HardwareIds")
     private fun FragmentRegistrationBinding.handleClickBtnRegistration() {
         if (block2RegistrationCont.visibility == View.GONE) {
-            presenter.startTimer()
+            if (!isFeedbackOpened)
+                presenter.startTimer()
             presenter.sendSms(edtRegistrationPhone.text.toString())
 
 
@@ -136,7 +148,7 @@ class RegistrationFragment : Fragment(), RegistrationContract.View {
     }
 
     override fun showTimer(time: Long) {
-       binding.txtTimer.setText(getString(R.string.retry_send_code,time.toString()))
+        binding.txtTimer.setText(getString(R.string.retry_send_code,time.toString()))
     }
 
     override fun activateButtons() {
@@ -157,19 +169,24 @@ class RegistrationFragment : Fragment(), RegistrationContract.View {
     override fun showBlock2() {
         binding.run {
 
-        block1RegistrationCont.visibility = View.GONE
-        block2RegistrationCont.visibility = View.VISIBLE
-        edtRegistrationCode.isFocusable=true
-        showKeyBoard(edtRegistrationCode)
-        btnDidntGetSms.visibility = View.VISIBLE
-        btnDidntGetSms.setOnClickListener {
-            (requireActivity() as MainActivity).openFeedback(edtRegistrationPhone.text.toString())
+            block1RegistrationCont.visibility = View.GONE
+            block2RegistrationCont.visibility = View.VISIBLE
+            edtRegistrationCode.isFocusable=true
+            showKeyBoard(edtRegistrationCode)
+            btnDidntGetSms.visibility = View.VISIBLE
+            btnDidntGetSms.setOnClickListener {
+                isFeedbackOpened=true
+                userNumberFromCheckPass=edtRegistrationPhone.text.toString()
+                (requireActivity() as MainActivity).openFeedback(edtRegistrationPhone.text.toString())
 //            openMail(getString(R.string.info_pass_su),"не пришло смс "+edtRegistrationPhone.text.toString())
 
-        }
-        btnRegistrationEnter.isEnabled = false
+            }
+            btnRegistrationEnter.isEnabled = false
 
         }
+    }
+    companion object{
+        val isTimerFinished= MutableLiveData<Boolean>()
     }
 
     override fun exit() {

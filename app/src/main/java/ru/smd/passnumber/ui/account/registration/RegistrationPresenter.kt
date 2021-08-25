@@ -10,6 +10,7 @@ import org.json.JSONObject
 import ru.smd.passnumber.R
 import ru.smd.passnumber.data.service.PassNumberRepo
 import ru.smd.passnumber.data.tools.PreferencesHelper
+import ru.smd.passnumber.ui.account.registration.RegistrationFragment.Companion.isTimerFinished
 import ru.smd.passnumber.ui.activities.main.MainActivity
 import ru.smd.passnumber.ui.activities.main.MainActivity.Companion.mainCompositeDisposable
 import java.lang.Exception
@@ -154,12 +155,14 @@ class RegistrationPresenter @Inject constructor(
 
     private val timer = object : CountDownTimer(120000, 1000) {
         override fun onTick(millisUntilFinished: Long) {
+            isTimerFinished.value=false
             view?.showTimer(
                 millisUntilFinished / 1000
             )
         }
 
         override fun onFinish() {
+            isTimerFinished.value=true
             view?.activateButtons()
         }
     }
