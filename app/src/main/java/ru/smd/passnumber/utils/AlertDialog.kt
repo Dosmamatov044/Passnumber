@@ -19,4 +19,7 @@ fun alertDialog(context: Context) {
         val browserIntent = Intent(Intent.CATEGORY_BROWSABLE, Uri.parse(Uri.decode(query)))
         browserIntent.action = Intent.ACTION_VIEW
         context.startActivity( browserIntent)
-    }}
+    }
+    builder.show()
+
+}
