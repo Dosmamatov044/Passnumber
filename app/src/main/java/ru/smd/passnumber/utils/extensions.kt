@@ -2,7 +2,9 @@ package ru.smd.passnumber.utils
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -15,9 +17,12 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import ru.smd.passnumber.R
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -160,4 +165,21 @@ fun Date.toString(format: String, locale: Locale = Locale.getDefault()): String 
 fun Date.getHour(format: String, locale: Locale = Locale.getDefault()): String {
    val formatter = SimpleDateFormat(format, locale)
    return formatter.format(this)
+
+}
+
+fun alertDialog(context: Context) {
+   val url = "https://reestr.ovga.mos.ru/"
+   val builder:  AlertDialog.Builder= AlertDialog.Builder(context)
+   builder.setTitle(context. getString(R.string.title_text))
+   builder.setMessage(context.getString(R.string.message_text))
+
+   builder.setPositiveButton(context. getString(R.string.positive_text)) { dialog, which -> }
+   builder.setNegativeButton(context.getString(R.string.negative_text)) { dialog, which ->
+
+      val query = Uri.encode(url, "UTF-8")
+      val browserIntent = Intent(Intent.CATEGORY_BROWSABLE, Uri.parse(Uri.decode(query)))
+      browserIntent.action = Intent.ACTION_VIEW
+     context.startActivity( browserIntent)
+   }
 }
