@@ -79,9 +79,7 @@
     <string name="title_text">Технические работы</string>
     <string name="positive_text">Хорошо</string>
     <string name="negative_text">Перейти на сайт</string>
-    <string name="message_text">Приносим свои извинения, на нашем сайте идут технические работы
-
-Воспользуйтесь пока официальной формой https://reestr.ovga.mos.ru для проверки наличия действующего пропуска перед выходом машины в рейс, а также обратите внимание, чтобы увидеть постоянные пропуска нужно выбирать серию БА.</string>
+    <string name="message_text"></string>
 
 
 </resources>
